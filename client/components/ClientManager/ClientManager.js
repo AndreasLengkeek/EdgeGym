@@ -1,7 +1,14 @@
+/**
+ * The main page for the clients manager component
+ * This component is used for the coaches to manage their clients
+ */
+
+// DEPENDENCIES //
 import React, { Component } from 'react';
 import ClientList from './ClientList';
 import ClientForm from './ClientForm';
 
+// TODO move stubbed data to mongodb api
 var clients = [
   { name: "Bobby Buyer", trainer: "Trainer Tom" },
   { name: "Suzy Buyer", trainer: "Trainer Jim" },
@@ -17,6 +24,7 @@ class ClientManager extends Component {
     this.newClient = this.newClient.bind(this);
   }
 
+  // TODO connect to client api
   newClient(client) {
     console.log("Adding new client");
     let clientList = this.state.clients;

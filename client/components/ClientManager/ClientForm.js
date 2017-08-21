@@ -1,8 +1,12 @@
+/**
+ * Component to setup the components
+ */
 import React, { Component } from 'react';
 
 class ClientForm extends Component {
   constructor(props) {
     super(props);
+    // init form as empty
     this.state = {
       name: "",
       trainer: ""
@@ -14,18 +18,23 @@ class ClientForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
+    // extract data from from
     var client = {
       name: this.state.name,
       trainer: this.state.trainer
     }
 
+    // link to parent method
     this.props.onNew(client);
+
     this.setState({
       name: '',
       trainer: ''
     });
   }
 
+  // handle user input
   handleChange(event) {
     var target = event.target;
     var value = target.value;

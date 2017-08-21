@@ -1,3 +1,6 @@
+/**
+ * The server definition containing routes and middleware
+ */
 // PACKAGES //
 var path = require('path');
 var fs = require('fs');
