@@ -12,16 +12,14 @@ import App from './components/App';
 import NotFound from './components/NotFound';
 
 import Home from './components/Home';
-import HelloWorld from './components/HelloWorld';
 import LoginForm from './components/LoginForm';
-import ClientManager from './components/ClientManager';
+import ClientManager from './components/ClientManager/ClientManager';
 
 ReactDOM.render((
   <Router>
     <App>
       <Switch>l
         <Route exact path="/" component={Home} />
-        <Route path="/helloworld" component={HelloWorld} />
         <Route path="/clientmanager" component={ClientManager} />
         <Route path="/login" component={LoginForm} />
         <Route component={NotFound} />
