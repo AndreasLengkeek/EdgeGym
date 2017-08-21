@@ -18,7 +18,7 @@ class ClientForm extends Component {
       name: this.state.name,
       trainer: this.state.trainer
     }
-    
+
     this.props.onNew(client);
     this.setState({
       name: '',
@@ -38,17 +38,20 @@ class ClientForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-        </label>
-        <br />
-        <label>
-          Trainer:
-          <input type="text" name="trainer" value={this.state.trainer} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Create New" />
+      <form onSubmit={this.handleSubmit} className="form-inline">
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
+          <input type="text" className="form-control" name="name"
+            value={this.state.name}
+            onChange={this.handleChange} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="trainer">Trainer:</label>
+          <input type="text" className="form-control" name="trainer"
+            value={this.state.trainer}
+            onChange={this.handleChange} />
+        </div>
+        <button type="submit" className="btn btn-default">Create New</button>
       </form>
     );
   }

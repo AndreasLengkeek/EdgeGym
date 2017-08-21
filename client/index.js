@@ -22,7 +22,7 @@ ReactDOM.render((
         <Route exact path="/" component={Home} />
         <Route path="/clientmanager" component={ClientManager} />
         <Route path="/login" component={LoginForm} />
-        <Route component={NotFound} />
+        <Route path="*" component={NotFound} />
       </Switch>
     </App>
   </Router>

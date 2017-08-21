@@ -7,14 +7,14 @@ class ClientList extends Component {
   }
 
   render() {
-    var rows = [];
-    this.props.clients.forEach(function(client){
-      rows.push(<ClientRow key={client.name} client={client} />);
+    var rows = this.props.clients.map(function(client, index){
+      return (<ClientRow key={index} rowNum={index} client={client} />);
     });
     return (
-      <table>
+      <table className="table table-hover">
           <thead>
             <tr>
+              <th>#</th>
               <th>Name</th>
               <th>Trainer</th>
             </tr>
