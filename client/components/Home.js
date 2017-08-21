@@ -8,7 +8,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-          <p>This is the home page. Data will go here</p>
+        <h1>Welcome to Edge Gym </h1>
+        <h2>Login</h2>
       </div>
     );
   }
