@@ -1,12 +1,10 @@
 import React from 'react';
+import LoginForm from './LoginForm';
 
 export default class App extends React.Component {
   render () {
     return (
-    	<div>
-    		<h1>Welcome to Edge Gym </h1>
-    		<h2>Login</h2>
-    	</div>
+ 		<LoginForm />
     );
   }
 }
