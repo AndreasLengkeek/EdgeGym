@@ -16,7 +16,9 @@ app.engine('html', function (path, options, callbacks) {
 });
 
 // MIDDLEWARE //
-app.use(express.static(path.join(__dirname, '../client')));
+app.use(express.static(path.join(__dirname, '../client')), function() {
+  console.log("requesting file");
+});
 
 // ROUTES //
 app.use('/', indexRoutes);

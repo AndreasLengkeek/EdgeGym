@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-export default class App extends React.Component {
-  render () {
-    return <h1>hello</h1>;
-  }
-}
+import Header from './Header';
+
+const App = ({ children }) => (
+  <div>
+    <Header />
+
+    <main>
+      {children}
+    </main>
+  </div>
+);
+
+export default App;
