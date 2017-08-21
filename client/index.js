@@ -13,6 +13,7 @@ import NotFound from './components/NotFound';
 
 import Home from './components/Home';
 import HelloWorld from './components/HelloWorld';
+import LoginForm from './components/loginForm';
 
 ReactDOM.render((
   <Router>
@@ -20,6 +21,7 @@ ReactDOM.render((
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/helloworld" component={HelloWorld} />
+        <Route path="/login" component={LoginForm} />
         <Route component={NotFound} />
       </Switch>
     </App>
