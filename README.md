@@ -8,7 +8,7 @@
 4. Run `npm webpack` to generate javascript and css bundles
 5. Run the app  `npm start`. This will start the app on `http://localhost:4000`
 
-## Naming Conventions
+## Coding Conventions
 1. Internal variables in lower camelCase
 2. External variables, Classes, Interfaces and Files in upper CamelCase
 3. Don't abbreviate local variables
