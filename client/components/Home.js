@@ -1,3 +1,6 @@
+/**
+ * Landing page for the app
+ */
 import React, { Component } from 'react';
 
 class Home extends Component {
@@ -9,7 +12,6 @@ class Home extends Component {
     return (
       <div>
         <h1>Welcome to Edge Gym </h1>
-        
       </div>
     );
   }

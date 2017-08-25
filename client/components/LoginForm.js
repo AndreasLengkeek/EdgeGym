@@ -1,57 +1,49 @@
 /**
- * LoginForm.js is the React.Component to display the login form for
- * Users to login into their accounts in the web app.
+ * A component for the front-end authentication
  */
-
 import React from 'react';
 
-/**
- * The class which can be exported for LoginForm
- */
 export default class LoginForm extends React.Component {
 
   constructor(props) {
     super(props);
 
-    // Create state so onChange listeners do not have null exceptions.
+    // Setup initial blank state
     this.state = {  email: "", password: "" };
 
-    // Bind functions to class within constructor so we can use the
-    // value and onChange listeners
+    // Make sure to bind the class (this) context for use in event listeners
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
   }
 
-/**
- * Sets the state for this.state.email
- * Should be set as the email input onChange function.
- *  @param  e
- */
-  handleEmailChange(e) {
-    this.setState({email: e.target.value.toString()});
+  /**
+   * Handler to update state when user updates form inputs
+   * @param  e Event wrapper object
+   */
+  handleInputChange(e) {
+    var target = e.target;
+    var value = target.value;
+    var name = target.name;
+    this.setState({
+     [name]: value
+    });
   }
 
   /**
-   * Sets the state for this.state.password.
-   * Should be set as the password input onChange function.
+   * Authenticates user input agaist server then redirects user to enter site
    * @param  e
    */
-  handlePasswordChange(e) {
-    this.setState({password: e.target.value.toString()});
-  }
-
-/**
- * Handles the login by checking the state.email and state.password
- * This should be tied to the Submit buttons onClick lisenter
- * @param  e
- */
   handleSubmit(e) {
     e.preventDefault();
     alert("Email: " + this.state.email + " Password: " + this.state.password);
+
+    // TODO Add client side validation
+    // TODO Add redirect upon correct authentication
   }
 
-// TODO Tidy up the React Component to minimalise the display vs the logic
+  // TODO Refactor display and component logic
+  // TODO Add error classes for incorrect input
   render() {
     return (
       <div className="row">
@@ -64,12 +56,12 @@ export default class LoginForm extends React.Component {
             <div className="form-group">
               <label for="email">Email</label>
               <input type="text" className="form-control" id="email"
-              name="password" value={this.state.email} onChange={this.handleEmailChange}/>
+              name="password" value={this.state.email} onChange={this.handleInputChange}/>
             </div>
             <div className="form-group">
               <label for="Password">Password</label>
               <input type="password" className="form-control" id="password"
-              name="password" value={this.state.password} onChange={this.handlePasswordChange}/>
+              name="password" value={this.state.password} onChange={this.handleInputChange}/>
             </div>
             <input type="submit" value="Login" className="btn btn-primary"/>
           </form>

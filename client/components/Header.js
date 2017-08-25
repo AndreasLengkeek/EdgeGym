@@ -1,5 +1,7 @@
+/**
+ * Defines the app navigation bar and routes
+ */
 import React from 'react';
-
 import { Link } from 'react-router-dom';
 
 const Header = () => (

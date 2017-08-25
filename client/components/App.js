@@ -1,3 +1,6 @@
+/**
+ * Basic wrapper class for app content components
+ */
 import React, { Component } from 'react';
 
 import Header from './Header';
