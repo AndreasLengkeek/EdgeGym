@@ -1,7 +1,11 @@
 var path = require('path');
 var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+//var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+/**
+ * webpack config that bundles all js components into bundle.js files
+ * using the babel loader for browser compatibility
+ */
 module.exports = {
   entry: './client/index.js',
   output: {
@@ -12,17 +16,7 @@ module.exports = {
     loaders: [{
       test: /.jsx?$/,
       loader: 'babel-loader',
-      exclude: /node_modules/,
-      query: {
-        presets: ['es2015', 'react']
-      }
+      exclude: /node_modules/
     }]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './client/index.html',
-      filename: 'index.html',
-      inject: true
-    })
-  ]
+  }
 }
