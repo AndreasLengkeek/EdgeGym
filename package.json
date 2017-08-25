@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack",
-    "start": "node bin/www"
+    "start": "webpack && node bin/www"
   },
   "author": "",
   "license": "MIT",

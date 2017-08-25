@@ -1,5 +1,5 @@
 /**
- * Entry point of the client, where the routes are defined
+ * Entry point of the client, routes and app structure start here
  */
 // DEPENDENCIES //
 import React from 'react';
@@ -18,7 +18,9 @@ import Home from './components/Home';
 import LoginForm from './components/LoginForm';
 import ClientManager from './components/ClientManager/ClientManager';
 
-// Setup the client side routes
+/*
+  This sets up the app router and app structure
+ */
 ReactDOM.render((
   <Router>
     <App>
