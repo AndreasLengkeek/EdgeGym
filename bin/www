@@ -1,9 +1,0 @@
-/**
- * The server startup scripts
- */
-var app = require('../server/server');
-
-var port = 4000;
-app.listen(port, function () {
-  console.log('running at http://localhost:' + port);
-});
