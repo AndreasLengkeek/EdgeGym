@@ -17,10 +17,10 @@
 3. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block.
     - Example:
     ```html
-    \<\!\-\-
+    <\!--
       Display the unordered list of options within
       the such and such Div. Notice the 2 spacing indent style.
-    \-\-\>
+    -->
     <div>
       <ul>
         <li></li>
