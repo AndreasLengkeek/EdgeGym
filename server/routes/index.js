@@ -1,14 +1,15 @@
 /**
  * Abstraced file for server routing
  */
-var path = require('path');
-var router = require('express').Router();
+const fs = require('fs');
+const path = require('path');
 
-/*
-  Base route to connect to app spa front-end
+/**
+ * Exports all apis in the api folder
  */
-router.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../client/index.html'));
-});
-
-module.exports = router;
+module.exports = (app) => {
+    // API routes
+    fs.readdirSync(__dirname + '/api/').forEach((file) => {
+        require(`./api/${file.substr(0, file.indexOf('.'))}`)(app);
+    });
+};

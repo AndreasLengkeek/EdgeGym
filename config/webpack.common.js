@@ -7,8 +7,13 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const helpers = require('./helpers');
 
 const NODE_ENV = process.env.NODE_ENV;
-const isProd = NODE_ENV === 'production';
+const isDev = NODE_ENV !== 'production';
 
+
+/**
+ * Webpack configuration for js, scss and html files
+ * All files get output to the dist folder
+ */
 module.exports = {
   entry: {
     'app': [
@@ -74,17 +79,17 @@ module.exports = {
         NODE_ENV: JSON.stringify(NODE_ENV)
       }
     }),
-
+    // injects js bundle file to index page
     new HtmlWebpackPlugin({
       template: helpers.root('client/public/index.html'),
       inject: 'body'
     }),
-
+    // loads required css files into a bundled css file
     new ExtractTextPlugin({
       filename: 'css/[name].[hash].css',
-      disable: !isProd
+      disable: isDev
     }),
-
+    // copies assets to dist folder
     new CopyWebpackPlugin([{
       from: helpers.root('client/public')
     }])

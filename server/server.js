@@ -1,25 +1,54 @@
-var bodyparser = require('body-parser');
-var path = require('path');
-var fs = require('fs');
-var express = require('express');
+// imports
+const bodyParser = require('body-parser');
+const express = require('express');
+const fs = require('fs');
+const historyApiFallback = require('connect-history-api-fallback');
+const path = require('path');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
-// Imports
-var indexRoutes = require('./routes/index');
+// config files
+const config = require('../config/config');
+const webpackConfig = require('../webpack.config');
 
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 4000;
 
 // Create app
 var app = express();
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(bodyparser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // API routes
 require('./routes')(app);
 
 if (isDev) {
+  // define webpack dev server and hot loading
+  const compiler = webpack(webpackConfig);
+
+  // middleware to help spa with reloads and bookmarks
+  app.use(historyApiFallback({
+   verbose: false
+  }));
+
+  app.use(webpackDevMiddleware(compiler, {
+     publicPath: webpackConfig.output.publicPath,
+     contentBase: path.resolve(__dirname, '../client/public'),
+     stats: {
+       colors: true,
+       hash: false,
+       timings: true,
+       chunks: false,
+       chunkModules: false,
+       modules: false
+     }
+  }));
+
+  app.use(webpackHotMiddleware(compiler));
   app.use(express.static(path.join(__dirname, '../dist')));
 } else {
+  // redirect all non api routs to index page
   app.use(express.static(path.join(__dirname, '../dist')));
    app.get('*', (req, res) => {
      res.sendFile(path.resolve(__dirname, '../dist/index.html'));
@@ -27,7 +56,7 @@ if (isDev) {
    });
 }
 
-// start server on localhost server
+// start server on localhost
 app.listen(port, (err) => {
   if (err) {
     console.log(err);

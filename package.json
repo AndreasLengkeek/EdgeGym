@@ -1,14 +1,13 @@
 {
   "name": "mern-tutorial",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "webpack -p && node server",
-    "start:dev": "node server"
-  },
-  "author": "",
+  "description": "MERN app for gym trainers to manager their clients",
+  "author": "Andreas Lengkeek, Salvatore Gelaty",
   "license": "MIT",
+  "scripts": {
+    "start": "webpack -p --progress --profile --colors && node server",
+    "start:dev": "nodemon server"
+  },
   "dependencies": {
     "autoprefixer": "^7.1.2",
     "axios": "^0.16.2",
