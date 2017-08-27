@@ -10,9 +10,9 @@ import ClientForm from './ClientForm';
 
 // TODO move stubbed data to mongodb api
 var clients = [
-  { name: "Bobby Buyer", trainer: "Trainer Tom" },
-  { name: "Suzy Buyer", trainer: "Trainer Jim" },
-  { name: "Joe Buyer", trainer: "Trainer Tom" }
+  { firstname: "Bobby", lastname: "Buyer", phone: "0499888777", email: "bobby.buyer@email.com", coach: "Trainer Tom", expiry: Date.now() },
+  { firstname: "Suzy", lastname: "Buyer", phone: "0477888999", email: "suzy.buyer@email.com", coach: "Trainer Jim", expiry: Date.now() },
+  { firstname: "Joe", lastname:"Buyer", phone: "0466555666", email: "joe.buyer@email.com", coach: "Trainer Tom", expiry: Date.now() }
 ];
 
 
@@ -24,9 +24,8 @@ class ClientManager extends Component {
     this.newClient = this.newClient.bind(this);
   }
 
-  // TODO connect to client api
+  // TODO connect to clients api
   newClient(client) {
-    console.log("Adding new client");
     let clientList = this.state.clients;
     clientList.push(client);
     this.setState({ clients: clientList });
@@ -35,7 +34,7 @@ class ClientManager extends Component {
   render() {
     return (
       <div>
-        <h1>Manage your clients </h1>
+        <h1>My Clients</h1>
         <ClientList clients={this.state.clients} />
         <ClientForm onNew={this.newClient} />
       </div>

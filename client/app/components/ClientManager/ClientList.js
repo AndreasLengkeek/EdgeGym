@@ -7,7 +7,7 @@ class ClientList extends Component {
   }
 
   render() {
-    // 
+    //
     var rows = this.props.clients.map(function(client, index){
       return (<ClientRow key={index} rowNum={index} client={client} />);
     });
@@ -16,8 +16,12 @@ class ClientList extends Component {
           <thead>
             <tr>
               <th>#</th>
-              <th>Name</th>
-              <th>Trainer</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Coach</th>
+              <th>Gym Expiry</th>
             </tr>
           </thead>
           <tbody>

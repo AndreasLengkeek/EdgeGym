@@ -16,7 +16,7 @@ import App from './components/App';
 import NotFound from './components/NotFound';
 import Home from './components/Home';
 import LoginForm from './components/LoginForm';
-import ClientManager from './components/ClientManager/ClientManager';
+import MyClients from './components/ClientManager/ClientManager';
 
 /*
   This sets up the app router and app structure
@@ -26,8 +26,8 @@ ReactDOM.render((
     <App>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/clientmanager" component={ClientManager} />
         <Route path="/login" component={LoginForm} />
+        <Route path="/clients" component={MyClients} />
         <Route path="*" component={NotFound} />
       </Switch>
     </App>

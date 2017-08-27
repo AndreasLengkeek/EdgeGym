@@ -8,7 +8,6 @@ import Header from './Header';
 const App = ({ children }) => (
   <div>
     <Header />
-
     <main>
       {children}
     </main>

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');
 const historyApiFallback = require('connect-history-api-fallback');
+const mongoose = require('mongoose');
 const path = require('path');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -14,6 +15,21 @@ const webpackConfig = require('../webpack.config');
 
 const isDev = process.env.NODE_ENV !== 'production';
 const port  = process.env.PORT || 4000;
+
+// Set native promises as mongoose promise
+mongoose.Promise = global.Promise;
+
+// MongoDB Connection
+mongoose.connect(config.db, (error) => {
+  if (error) {
+    console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
+    throw error;
+  }
+  console.log('\nSuccessfully connected to mongo at:' + config.db + '\n');
+  // TODO: feed some dummy data in DB.
+  // dummyData();
+});
+
 
 // Create app
 var app = express();

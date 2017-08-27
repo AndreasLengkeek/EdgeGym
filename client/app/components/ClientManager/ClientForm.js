@@ -8,8 +8,11 @@ class ClientForm extends Component {
     super(props);
     // init form as empty
     this.state = {
-      name: "",
-      trainer: ""
+      firstname: "",
+      lastname: "",
+      phone: "",
+      email: "",
+      coach: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -21,16 +24,23 @@ class ClientForm extends Component {
 
     // extract data from from
     var client = {
-      name: this.state.name,
-      trainer: this.state.trainer
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      phone: this.state.phone,
+      email: this.state.email,
+      coach: this.state.coach,
+      expiry: Date.now()
     }
 
     // link to parent method
     this.props.onNew(client);
 
     this.setState({
-      name: '',
-      trainer: ''
+      firstname: "",
+      lastname: "",
+      phone: "",
+      email: "",
+      coach: ""
     });
   }
 
@@ -49,15 +59,33 @@ class ClientForm extends Component {
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input type="text" className="form-control" name="name"
-            value={this.state.name}
+          <label htmlFor="firstname">First Name:</label>
+          <input type="text" className="form-control" name="firstname"
+            value={this.state.firstname}
             onChange={this.handleChange} />
         </div>
         <div className="form-group">
-          <label htmlFor="trainer">Trainer:</label>
-          <input type="text" className="form-control" name="trainer"
-            value={this.state.trainer}
+          <label htmlFor="lastname">Last Name:</label>
+          <input type="text" className="form-control" name="lastname"
+            value={this.state.lastname}
+            onChange={this.handleChange} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">Phone:</label>
+          <input type="text" className="form-control" name="phone"
+            value={this.state.phone}
+            onChange={this.handleChange} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input type="text" className="form-control" name="email"
+            value={this.state.email}
+            onChange={this.handleChange} />
+        </div>
+        <div className="form-group">
+          <label htmlFor="coach">Coach:</label>
+          <input type="text" className="form-control" name="coach"
+            value={this.state.coach}
             onChange={this.handleChange} />
         </div>
         <button type="submit" className="btn btn-default">Create New</button>
