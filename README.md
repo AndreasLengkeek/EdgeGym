@@ -12,6 +12,17 @@
 ## Coding Conventions
 ### Comments
 ### Indent Style
+1. We use spaces not tabs for indentation as spaces can be transferred across environments where tabs may not.
+2. Each time a new block or block-like construct is opened, the indent increases by 2 spaces.
+3. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block.
+    - Example:
+    `<div>
+      <ul>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    `
 ### Line Length
 1. Do not exceed a line length of 80 characters
 2. A line length can exceed 80 characters if the end is of a URL.
