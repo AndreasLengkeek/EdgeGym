@@ -57,7 +57,7 @@ class ClientForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className="form-inline">
+      <form onSubmit={this.handleSubmit} className="form">
         <div className="form-group">
           <label htmlFor="firstname">First Name:</label>
           <input type="text" className="form-control" name="firstname"

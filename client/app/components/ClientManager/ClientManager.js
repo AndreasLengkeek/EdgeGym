@@ -7,28 +7,53 @@
 import React, { Component } from 'react';
 import ClientList from './ClientList';
 import ClientForm from './ClientForm';
+import 'whatwg-fetch';
 
-// TODO move stubbed data to mongodb api
-var clients = [
-  { firstname: "Bobby", lastname: "Buyer", phone: "0499888777", email: "bobby.buyer@email.com", coach: "Trainer Tom", expiry: Date.now() },
-  { firstname: "Suzy", lastname: "Buyer", phone: "0477888999", email: "suzy.buyer@email.com", coach: "Trainer Jim", expiry: Date.now() },
-  { firstname: "Joe", lastname:"Buyer", phone: "0466555666", email: "joe.buyer@email.com", coach: "Trainer Tom", expiry: Date.now() }
-];
+// var clients = [
+//   { firstname: "Bobby", lastname: "Buyer", phone: "0499888777", email: "bobby.buyer@email.com", coach: "Trainer Tom", expiry: Date.now() },
+//   { firstname: "Suzy", lastname: "Buyer", phone: "0477888999", email: "suzy.buyer@email.com", coach: "Trainer Jim", expiry: Date.now() },
+//   { firstname: "Joe", lastname:"Buyer", phone: "0466555666", email: "joe.buyer@email.com", coach: "Trainer Tom", expiry: Date.now() }
+// ];
 
 
 class ClientManager extends Component {
   constructor(props) {
     super(props);
-    this.state = { clients: clients };
+    this.state = {
+      clients: []
+    };
 
     this.newClient = this.newClient.bind(this);
   }
 
-  // TODO connect to clients api
+  componentDidMount() {
+    fetch('/api/clients')
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          clients: json
+        });
+      });
+  }
+
   newClient(client) {
-    let clientList = this.state.clients;
-    clientList.push(client);
-    this.setState({ clients: clientList });
+    console.log(client);
+    fetch('/api/clients', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 'client': client })
+    })
+    .then(res => res.json())
+    .then(json => {
+      let data = this.state.clients;
+      data.push(json.client);
+
+      this.setState({
+        clients: data
+      });
+    });
   }
 
   render() {
