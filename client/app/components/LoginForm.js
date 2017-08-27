@@ -13,8 +13,7 @@ export default class LoginForm extends React.Component {
 
     // Make sure to bind the class (this) context for use in event listeners
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   /**
@@ -54,12 +53,12 @@ export default class LoginForm extends React.Component {
             </h1>
             <h2>Login</h2>
             <div className="form-group">
-              <label for="email">Email</label>
+              <label htmlFor="email">Email</label>
               <input type="text" className="form-control" id="email"
               name="password" value={this.state.email} onChange={this.handleInputChange}/>
             </div>
             <div className="form-group">
-              <label for="Password">Password</label>
+              <label htmlFor="Password">Password</label>
               <input type="password" className="form-control" id="password"
               name="password" value={this.state.password} onChange={this.handleInputChange}/>
             </div>

@@ -23,6 +23,11 @@ app.use(bodyParser.json());
 // API routes
 require('./routes')(app);
 
+app.use((req, res, next) => {
+  console.log(req.method + " for '" + req.originalUrl + "'");
+  next();
+});
+
 if (isDev) {
   // define webpack dev server and hot loading
   const compiler = webpack(webpackConfig);
