@@ -10,6 +10,12 @@
 6. Run the app `npm run start:dev`. This will start the app with hot loading and nodemon on `http://localhost:4000`
 
 ## Coding Conventions
+### Comments
+### Indent Style
+### Line Length
+1. Do not exceed a line length of 80 characters
+2. A line length can exceed 80 characters if the end is of a URL.
+### Naming
 1. Internal variables in lower camelCase
 2. External variables, Classes, Interfaces and Files in upper CamelCase
 3. Don't abbreviate local variables
