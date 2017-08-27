@@ -16,7 +16,7 @@
 2. Each time a new block or block-like construct is opened, the indent increases by 2 spaces.
 3. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block.
     - Example:
-    ```
+    ```html
     <div>
       <ul>
         <li></li>
