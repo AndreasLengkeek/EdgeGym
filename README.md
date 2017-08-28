@@ -34,19 +34,18 @@ Function
 1. We use spaces not tabs for indentation as spaces can be transferred across environments where tabs may not.
 2. Each time a new block or block-like construct is opened, the indent increases by 2 spaces.
 3. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block.
-    - Example:
-    ```html
-    <!--
-      This comment is 2 space indented.
-      The below div displays an unordered list for topics.
-    -->
-    <div>
-      <ul>
-        <li></li>
-        <li></li>
-      </ul>
-    </div>
-    ```
+```html
+<!--
+  This comment is 2 space indented.
+  The below div displays an unordered list for topics.
+-->
+<div>
+  <ul>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+```
 4. Indent continuation lines at 4 spaces
 ```javascript
 var newTime = calculationOfTime / oldTime +
