@@ -12,10 +12,15 @@
 ## Coding Conventions
 ### Comments
 1. Comment Classes, Components, Fields and Functions with a block comment.
-> /**
-\* Returns a component from the such and such class.  
-\*/
-
+```
+/**
+* Returns a component from the such and such class.  
+*/
+```
+2. Inline commenting in complex code that is not self explanatory.
+```
+<!-- This is a html comment --> OR // Javascript comments that are inline.
+```
 
 ### Indent Style
 1. We use spaces not tabs for indentation as spaces can be transferred across environments where tabs may not.
@@ -24,7 +29,7 @@
     - Example:
     ```html
     <!--
-      This comment is 2 spaced indented.
+      This comment is 2 space indented.
       The below div display an unordered list for topics.
     -->
     <div>
