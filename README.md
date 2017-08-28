@@ -21,7 +21,7 @@ export default class LoginForm extends React.Component {
 
 /**
 * Returns a component from the such and such class.  
-* @param jsxComponent
+* @param e
 * @return newJsxComponent
 */
 handleInputChange(e) {
