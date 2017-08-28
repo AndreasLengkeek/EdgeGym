@@ -39,6 +39,14 @@
       </ul>
     </div>
     ```
+4. Indent continuation lines at 4 spaces
+```javascript
+var calculationOfTime = 0;
+var newTime = calculationOfTime / oldTime +
+    (countOfSeconds * minutesPassed) +
+        calculationOfTime / oldTime +
+            (countOfSeconds * minutesPassed);
+```
 ### Line Length
 1. Do not exceed a line length of 80 characters
 2. A line length can be ignored for the following: (a long URL in JSDoc or a shell command intended to be copied-and-pasted)
