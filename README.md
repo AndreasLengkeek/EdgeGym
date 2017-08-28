@@ -12,7 +12,7 @@
 ## Coding Conventions
 ### Comments
 1. Comment Classes, Components, Fields and Functions with a block comment.
-> /** \n
+> /**
 \* Returns a component from the such and such class.  
 \*/
 
