@@ -30,7 +30,7 @@
     ```html
     <!--
       This comment is 2 space indented.
-      The below div display an unordered list for topics.
+      The below div displays an unordered list for topics.
     -->
     <div>
       <ul>
@@ -41,7 +41,20 @@
     ```
 ### Line Length
 1. Do not exceed a line length of 80 characters
-2. A line length can exceed 80 characters if the end is a literal string.
+2. A line length can be ignored for the following: (a long URL in JSDoc or a shell command intended to be copied-and-pasted)
+3. Line Wrapping can be used (Definition: breaking a single expression into multiple lines)
+4. Breaking the expression onto multiple lines is preferred at a high syntactic level.
+*Preferred*
+```
+currentEstimate =
+    calc(currentEstimate + x * currentEstimate) /
+        2.0f;
+```
+*Discouraged*
+```
+currentEstimate = calc(currentEstimate + x *
+    currentEstimate) / 2.0f;
+```
 ### Naming
 1. Internal variables in lower camelCase
 2. External variables, Classes, Interfaces and Files in upper CamelCase
