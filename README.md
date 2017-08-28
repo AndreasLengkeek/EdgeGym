@@ -12,7 +12,7 @@
 ## Coding Conventions
 ### Comments
 1. Comment Classes, Components, Fields and Functions with a block comment.
-> /**
+> /** \n
 \* Returns a component from the such and such class.  
 \*/
 
@@ -23,6 +23,10 @@
 3. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block.
     - Example:
     ```html
+    <!--
+      This comment is 2 spaced indented.
+      The below div display an unordered list for topics.
+    -->
     <div>
       <ul>
         <li></li>
