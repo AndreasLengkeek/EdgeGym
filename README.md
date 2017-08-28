@@ -12,18 +12,19 @@
 ## Coding Conventions
 ### Comments
 1. Comment Classes, Components, Fields and Functions with a block comment.
-```
+```javascript
 /**
  * Class creates a new inline form and returns it as a
  * JSX element from the previous element passed.
  */
+export default class LoginForm extends React.Component {
 
-Function
 /**
 * Returns a component from the such and such class.  
 * @param jsxComponent
 * @return newJsxComponent
 */
+handleInputChange(e) {
 ```
 2. Inline commenting in complex code that is not self explanatory.
 ```
