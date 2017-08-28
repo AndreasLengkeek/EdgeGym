@@ -10,6 +10,21 @@
 6. Run the app `npm run start:dev`. This will start the app with hot loading and nodemon on `http://localhost:4000`
 
 ## Coding Conventions
+### Braces
+1. No line break before the opening brace.
+2. Line break after the opening brace.
+3. Line break before the closing brace.
+4. Line break after the closing brace
+```javascript
+if(x * y = z){
+  // Do something
+  // Then do somthing else.
+  return z;
+}
+
+// The following is an exception if the situation is suitable.
+if(x * y = z) return z;
+```
 ### Comments
 1. Comment Classes, Components, Fields and Functions with a block comment.
 ```javascript
@@ -25,7 +40,8 @@ export default class LoginForm extends React.Component {
 * @return newJsxComponent
 */
 handleInputChange(e) {
-```
+```  
+
 2. Inline commenting in complex code that is not self explanatory.
 ```
 <!-- This is a html comment --> OR // Javascript comments that are inline.
