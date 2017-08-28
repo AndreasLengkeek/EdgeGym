@@ -11,16 +11,18 @@
 
 ## Coding Conventions
 ### Comments
+1. Comment Classes, Components, Fields and Functions with a block comment.
+> /**
+\* Returns a component from the such and such class.  
+\*/
+
+
 ### Indent Style
 1. We use spaces not tabs for indentation as spaces can be transferred across environments where tabs may not.
 2. Each time a new block or block-like construct is opened, the indent increases by 2 spaces.
 3. When the block ends, the indent returns to the previous indent level. The indent level applies to both code and comments throughout the block.
     - Example:
     ```html
-    <!--
-      Display the unordered list of options within
-      the such and such Div. Notice the 2 spacing indent style.
-    -->
     <div>
       <ul>
         <li></li>
@@ -30,7 +32,7 @@
     ```
 ### Line Length
 1. Do not exceed a line length of 80 characters
-2. A line length can exceed 80 characters if the end is of a URL.
+2. A line length can exceed 80 characters if the end is a literal string.
 ### Naming
 1. Internal variables in lower camelCase
 2. External variables, Classes, Interfaces and Files in upper CamelCase
