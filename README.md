@@ -14,7 +14,15 @@
 1. Comment Classes, Components, Fields and Functions with a block comment.
 ```
 /**
+ * Class creates a new inline form and returns it as a
+ * JSX element from the previous element passed.
+ */
+
+Function
+/**
 * Returns a component from the such and such class.  
+* @param jsxComponent
+* @return newJsxComponent
 */
 ```
 2. Inline commenting in complex code that is not self explanatory.
@@ -41,7 +49,6 @@
     ```
 4. Indent continuation lines at 4 spaces
 ```javascript
-var calculationOfTime = 0;
 var newTime = calculationOfTime / oldTime +
     (countOfSeconds * minutesPassed) +
         calculationOfTime / oldTime +
@@ -49,9 +56,10 @@ var newTime = calculationOfTime / oldTime +
 ```
 ### Line Length
 1. Do not exceed a line length of 80 characters
-2. A line length can be ignored for the following: (a long URL in JSDoc or a shell command intended to be copied-and-pasted)
+2. A line length can be ignored for the following: (a long URL or a shell command intended to be copied-and-pasted)
 3. Line Wrapping can be used (Definition: breaking a single expression into multiple lines)
 4. Breaking the expression onto multiple lines is preferred at a high syntactic level.
+
 *Preferred*
 ```
 currentEstimate =
@@ -66,5 +74,6 @@ currentEstimate = calc(currentEstimate + x *
 ### Naming
 1. Internal variables in lower camelCase
 2. External variables, Classes, Interfaces and Files in upper CamelCase
-3. Don't abbreviate local variables
-4. Use double quotes for strings
+3. Constants are in UPPERCASE_WITH_UNDERSCORES
+4. Don't abbreviate local variables
+5. Use double quotes for strings
