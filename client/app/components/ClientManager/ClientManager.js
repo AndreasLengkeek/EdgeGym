@@ -31,7 +31,7 @@ class ClientManager extends Component {
       .then(res => res.json())
       .then(json => {
         this.setState({
-          clients: json
+          clients: json.clients
         });
       });
   }

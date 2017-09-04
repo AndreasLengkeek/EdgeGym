@@ -22,10 +22,10 @@ mongoose.Promise = global.Promise;
 // MongoDB Connection
 mongoose.connect(config.db, (error) => {
   if (error) {
-    console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
+    console.error('Please make sure Mongodb is installed and running!');
     throw error;
   }
-  console.log('\nSuccessfully connected to mongo at:' + config.db + '\n');
+  console.log('>>> Successfully connected to mongo at: %s', config.db);
   // TODO: feed some dummy data in DB.
   // dummyData();
 });
@@ -37,7 +37,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // API routes
-require('./routes')(app);
+const clients = require('./routes/client.routes');
+app.use('/api', clients);
 
 app.use((req, res, next) => {
   console.log(req.method + " for '" + req.originalUrl + "'");
