@@ -16,7 +16,7 @@ import 'whatwg-fetch';
 // ];
 
 
-class ClientManager extends Component {
+export default class ClientManager extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,5 +66,3 @@ class ClientManager extends Component {
     );
   }
 }
-
-export default ClientManager;

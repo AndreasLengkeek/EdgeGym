@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 
-class ClientForm extends Component {
+export default class ClientForm extends Component {
   constructor(props) {
     super(props);
     // init form as empty
@@ -93,5 +93,3 @@ class ClientForm extends Component {
     );
   }
 }
-
-export default ClientForm;

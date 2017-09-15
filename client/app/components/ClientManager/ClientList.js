@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ClientRow from './ClientRow';
 
-class ClientList extends Component {
+export default class ClientList extends Component {
   constructor(props) {
     super(props);
   }
@@ -31,5 +31,3 @@ class ClientList extends Component {
     );
   }
 }
-
-export default ClientList;

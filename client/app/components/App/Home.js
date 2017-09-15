@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 
-class Home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
   }
@@ -11,10 +11,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome to Edge Gym </h1>
+        <h1>Welcome to Edge Gym</h1>
       </div>
     );
   }
 }
-
-export default Home;
