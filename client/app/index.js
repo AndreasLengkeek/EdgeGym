@@ -12,10 +12,10 @@ import {
 } from 'react-router-dom'
 
 // COMPONENTS //
-import App from './components/App';
-import NotFound from './components/NotFound';
-import Home from './components/Home';
-import LoginForm from './components/LoginForm';
+import App from './components/App/App';
+import NotFound from './components/App/NotFound';
+import Home from './components/App/Home';
+import LoginForm from './components/Login/LoginForm';
 import MyClients from './components/ClientManager/ClientManager';
 
 /*
