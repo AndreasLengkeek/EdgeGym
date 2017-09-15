@@ -2,8 +2,7 @@ const Client = require('../models/Client');
 
 module.exports = {
     getClients: function(req, res) {
-        console.log('test get clients');
-        Client.find().sort('-dateAdded').exec((err, clients) => {
+        Client.find().exec((err, clients) => {
             if (err) {
                 res.status(500).send(err);
             }

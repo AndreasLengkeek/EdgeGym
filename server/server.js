@@ -38,7 +38,9 @@ app.use(bodyParser.json());
 
 // API routes
 const clients = require('./routes/client.routes');
+const users = require('./routes/user.routes');
 app.use('/api', clients);
+app.use('/api', users);
 
 app.use((req, res, next) => {
   console.log(req.method + " for '" + req.originalUrl + "'");
