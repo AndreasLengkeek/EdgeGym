@@ -20,10 +20,10 @@ const port  = process.env.PORT || 4000;
 mongoose.Promise = global.Promise;
 
 // MongoDB Connection
-mongoose.connect(config.db, (error) => {
+mongoose.connect(config.db, { useMongoClient: true }, (error) => {
   if (error) {
     console.error('Please make sure Mongodb is installed and running!');
-    throw error;
+    process.exit(1);
   }
   console.log('>>> Successfully connected to mongo at: %s', config.db);
   // TODO: feed some dummy data in DB.
