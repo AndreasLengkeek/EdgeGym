@@ -7,7 +7,7 @@
     - eg: `mongodb://localhost:27017/edgegym`
 4. Start an instance of the mongo daemon `mongod`
     - Run instance `localhost` on the default port (`27017`)
-6. Run the app `npm run start:dev`. This will start the app with hot loading and nodemon on `http://localhost:4000`
+6. Run the app `npm run dev`. This will start the app with hot loading and nodemon on `http://localhost:4000`
 
 ## Coding Conventions
 ### Braces

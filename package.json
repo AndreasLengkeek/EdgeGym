@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack -p --progress --profile --colors && node server",
-    "start:dev": "nodemon server"
+    "dev": "nodemon server",
+    "bundle": "webpack"
   },
   "dependencies": {
     "autoprefixer": "^7.1.2",
