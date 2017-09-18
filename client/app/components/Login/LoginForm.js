@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import axios from 'axios';
+import auth from '../../modules/Auth';
 
 export default class LoginForm extends React.Component {
 
@@ -45,6 +46,7 @@ export default class LoginForm extends React.Component {
         password: this.state.password
       })
       .then(function(response) {
+        auth.authenticateUser(response.data.token);
         page.props.history.push('/clients');
       })
       .catch(function(error) {

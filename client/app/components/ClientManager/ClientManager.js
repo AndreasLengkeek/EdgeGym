@@ -8,12 +8,15 @@ import React, { Component } from 'react';
 import ClientList from './ClientList';
 import ClientForm from './ClientForm';
 import axios from 'axios';
+import auth from '../../modules/Auth'
+import { Redirect } from 'react-router-dom';
 import 'whatwg-fetch';
 
 
 export default class ClientManager extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       clients: []
     };
@@ -53,11 +56,15 @@ export default class ClientManager extends Component {
 
   render() {
     return (
-      <div>
-        <h1>My Clients</h1>
-        <ClientList clients={this.state.clients} />
-        <ClientForm onNew={this.newClient} />
-      </div>
+      auth.isUserAuthenticated() ? (
+        <div>
+          <h1>My Clients</h1>
+          <ClientList clients={this.state.clients} />
+          <ClientForm onNew={this.newClient} />
+        </div>
+      ) : (
+        <Redirect to="/login" />
+      )
     );
   }
 }
