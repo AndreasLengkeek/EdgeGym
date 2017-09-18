@@ -1,24 +1,44 @@
-const nodemon = require('nodemon');
+const bodyParser = require('body-parser');
+const express = require('express');
+const historyApiFallback = require('connect-history-api-fallback');
+const mongoose = require('mongoose');
 const path = require('path');
+const passport = require('passport');
+const morgan = require('morgan');
 
-/**
- *  Nodemon Configuration
- *  Watch server files if dev otherwise start production
- *  Continue running server/server file
- */
-nodemon({
-  execMap: {
-    js: 'node'
-  },
-  script: path.join(__dirname, 'server/server'),
-  ignore: [],
-  watch: process.env.NODE_ENV !== 'production' ? ['server/*'] : false,
-  ext: 'js'
-})
-.on('restart', function() {
-  console.log('Server restarted!');
-})
-.once('exit', function () {
-  console.log('Shutting down server');
-  process.exit();
+// config files
+const config = require('./config');
+const port  = process.env.PORT || 4000;
+//woah
+// connect to the database and load models
+require('./server/models').connect(config.db);
+
+var app = express();
+// tell the app to parse HTTP body messages
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+// tell the app to log basic info to stdout
+app.use(morgan('dev'))
+
+// API routes
+const clients = require('./server/routes/client.routes');
+const users = require('./server/routes/user.routes');
+app.use('/api', clients);
+app.use('/api', users);
+
+// middleware to help spa with reloads and bookmarks
+app.use(historyApiFallback({
+ verbose: false
+}));
+app.use(express.static('./dist'));
+
+// start server on localhost
+app.listen(port, (err) => {
+  if (err) {
+    console.log(err);
+  }
+  console.info('>>> Open http://localhost:%s in your browser', port);
 });
+
+
+module.exports = app;

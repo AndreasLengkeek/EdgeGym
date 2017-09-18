@@ -7,22 +7,8 @@ const commonConfig = require('./webpack.common');
  * merge dev specific config with common
  */
 module.exports = merge(commonConfig, {
-  devtool: 'eval-source-map',
-  // setup component hot loading
-  entry: {
-    'app': [
-      'webpack-hot-middleware/client?reload=true'
-    ]
-  },
-
   output: {
     filename: 'js/[name].js',
     chunkFilename: '[id].chunk.js'
-  },
-
-  devServer: {
-    contentBase: './client/public',
-    historyApiFallback: true,
-    stats: 'minimal' // none (or false), errors-only, minimal, normal (or true) and verbose
   }
 });

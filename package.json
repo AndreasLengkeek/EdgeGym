@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack -p --progress --profile --colors && node server",
     "dev": "nodemon server",
-    "bundle": "webpack"
+    "bundle": "webpack --progress --color --watch"
   },
   "dependencies": {
     "autoprefixer": "^7.1.2",

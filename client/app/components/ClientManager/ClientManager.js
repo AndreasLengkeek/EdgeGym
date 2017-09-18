@@ -7,13 +7,8 @@
 import React, { Component } from 'react';
 import ClientList from './ClientList';
 import ClientForm from './ClientForm';
+import axios from 'axios';
 import 'whatwg-fetch';
-
-// var clients = [
-//   { firstname: "Bobby", lastname: "Buyer", phone: "0499888777", email: "bobby.buyer@email.com", coach: "Trainer Tom", expiry: Date.now() },
-//   { firstname: "Suzy", lastname: "Buyer", phone: "0477888999", email: "suzy.buyer@email.com", coach: "Trainer Jim", expiry: Date.now() },
-//   { firstname: "Joe", lastname:"Buyer", phone: "0466555666", email: "joe.buyer@email.com", coach: "Trainer Tom", expiry: Date.now() }
-// ];
 
 
 export default class ClientManager extends Component {
