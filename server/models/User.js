@@ -25,6 +25,8 @@ UserSchema.methods.comparePassword = function comparePassword(password, callback
 UserSchema.pre('save', function saveHook(next) {
   const user = this;
 
+  console.log('This is pre save of user');
+
   // proceed further only if the password is modified or the user is new
   if (!user.isModified('password')) return next();
 

@@ -20,11 +20,20 @@ app.use(bodyParser.json());
 // tell the app to log basic info to stdout
 app.use(morgan('dev'))
 
+// pass the passport middleware
+app.use(passport.initialize());
+
+// load passport strategies
+const localSignupStrategy = require('./server/passport/local-signup');
+const localLoginStrategy = require('./server/passport/local-login');
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+
 // API routes
 const clients = require('./server/routes/client.routes');
-const users = require('./server/routes/user.routes');
+const auth = require('./server/routes/auth.routes');
 app.use('/api', clients);
-app.use('/api', users);
+app.use('/auth', auth);
 
 // middleware to help spa with reloads and bookmarks
 app.use(historyApiFallback({
