@@ -15,6 +15,7 @@ module.exports = {
 
         return passport.authenticate('local-login', (err, token, userData) => {
             console.log('passport to local login callback');
+            console.log(token, userData);
           if (err) {
               console.log(err);
             if (err.name === 'IncorrectCredentialsError') {

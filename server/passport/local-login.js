@@ -16,7 +16,8 @@ module.exports = new PassportLocalStrategy({
     email: email.trim(),
     password: password.trim()
   };
-  console.log('running local signup');
+  console.log('running local signup: ', userData);
+  console.log('req: ', req.body);
 
   // find a user by email address
   return User.findOne({ email: userData.email }, (err, user) => {

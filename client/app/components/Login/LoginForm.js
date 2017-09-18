@@ -2,6 +2,7 @@
  * A component for the front-end authentication
  */
 import React from 'react';
+import axios from 'axios';
 
 export default class LoginForm extends React.Component {
 
@@ -9,7 +10,7 @@ export default class LoginForm extends React.Component {
     super(props);
 
     // Setup initial blank state
-    this.state = {  email: "", password: "" };
+    this.state = { email: '', password: '' };
 
     // Make sure to bind the class (this) context for use in event listeners
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,11 +36,22 @@ export default class LoginForm extends React.Component {
    */
   handleSubmit(e) {
     e.preventDefault();
-    alert("Email: " + this.state.email + " Password: " + this.state.password);
-
     // TODO Add client side validation
-    // TODO Add redirect upon correct authentication
+
+    const page = this;
+
+    axios.post('/auth/login', {
+        email: this.state.email,
+        password: this.state.password
+      })
+      .then(function(response) {
+        page.props.history.push('/clients');
+      })
+      .catch(function(error) {
+        alert(error.response.data.message);
+      });
   }
+
 
   // TODO Refactor display and component logic
   // TODO Add error classes for incorrect input
@@ -55,7 +67,7 @@ export default class LoginForm extends React.Component {
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <input type="text" className="form-control" id="email"
-              name="password" value={this.state.email} onChange={this.handleInputChange}/>
+              name="email" value={this.state.email} onChange={this.handleInputChange}/>
             </div>
             <div className="form-group">
               <label htmlFor="Password">Password</label>
