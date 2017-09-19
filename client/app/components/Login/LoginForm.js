@@ -47,7 +47,7 @@ export default class LoginForm extends React.Component {
       })
       .then(function(response) {
         auth.authenticateUser(response.data.token);
-        page.props.history.push('/clients');
+        page.props.history.push('/');
       })
       .catch(function(error) {
         alert(error.response.data.message);
@@ -63,8 +63,7 @@ export default class LoginForm extends React.Component {
         <div className="col-lg-3"></div>
         <div className="col-lg-6">
           <form id="LoginForm" onSubmit={this.handleSubmit}>
-            <h1>Welcome to Edge Gym
-            </h1>
+            <h1>Welcome to Edge Gym</h1>
             <h2>Login</h2>
             <div className="form-group">
               <label htmlFor="email">Email</label>

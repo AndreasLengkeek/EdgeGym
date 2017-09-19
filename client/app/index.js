@@ -3,13 +3,13 @@
  */
 // DEPENDENCIES //
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import {
   BrowserRouter as Router,
   Route,
   Link,
   Switch
-} from 'react-router-dom'
+} from 'react-router-dom';
 import auth from './modules/Auth';
 
 // COMPONENTS //
@@ -17,6 +17,7 @@ import App from './components/App/App';
 import NotFound from './components/App/NotFound';
 import Home from './components/App/Home';
 import LoginForm from './components/Login/LoginForm';
+import SignUpPage from './components/SignUp/SignUpPage';
 import MyClients from './components/ClientManager/ClientManager';
 
 function requireAuth(nextState, replace) {
@@ -31,12 +32,13 @@ function requireAuth(nextState, replace) {
 /*
   This sets up the app router and app structure
  */
-ReactDOM.render((
+render((
   <Router>
     <App>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={LoginForm} />
+        <Route path="/signup" component={SignUpPage} />
         <Route path="/clients" component={MyClients} onEnter={requireAuth} />
         <Route path="*" component={NotFound} />
       </Switch>
