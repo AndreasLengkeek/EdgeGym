@@ -28,9 +28,11 @@ passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
 // API routes
-const api = require('./server/routes/client.routes');
+const client = require('./server/routes/client.routes');
+const program = require('./server/routes/program.routes');
 const auth = require('./server/routes/auth.routes');
-app.use('/api', api);
+app.use('/api', client);
+app.use('/api', program);
 app.use('/auth', auth);
 
 // middleware to help spa with reloads and bookmarks
