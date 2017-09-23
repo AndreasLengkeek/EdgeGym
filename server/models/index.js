@@ -15,4 +15,6 @@ module.exports.connect = (uri) => {
   require('./user');
   require('./client');
   require('./program');
+
+  require('./dummyData')();
 };
