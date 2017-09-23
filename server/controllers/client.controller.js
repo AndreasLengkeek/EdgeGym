@@ -4,9 +4,9 @@ module.exports = {
     getClients: function(req, res) {
         Client.find().exec((err, clients) => {
             if (err) {
-                res.status(500).send(err);
+                return res.status(500).json(err);
             }
-            res.json({
+            return res.json({
                 clients
             });
         });
@@ -14,9 +14,9 @@ module.exports = {
     findClientById: function(req, res) {
         Client.find({ _id: req.params.id }).exec((err, client) => {
             if (err) {
-                res.status.send(err);
+                return res.status(500).json(err);
             }
-            res.json({
+            return res.json({
                 client
             });
         });
@@ -38,9 +38,9 @@ module.exports = {
             // newClient.firstname = sanitizeHtml(newClient.firstname);
             newClient.save((err, saved) => {
                 if (err) {
-                    res.status(500).send(err);
+                    return res.status(500).json(err);
                 }
-                res.json({
+                return res.json({
                     client: saved
                 });
             });

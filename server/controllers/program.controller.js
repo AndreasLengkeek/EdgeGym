@@ -4,7 +4,7 @@ module.exports = {
     getPrograms: function(req, res) {
         Program.find().exec((err, programs) => {
             if (err) {
-                res.status(500).send(err);
+                return res.status(500).json(err);
             }
             res.send({
                 programs
@@ -12,7 +12,15 @@ module.exports = {
         })
     },
     findProgramById: function(req, res) {
-
+        console.log('looking for program', req.params.id);
+        Program.find({ _id: req.params.id }).exec((err, program) => {
+            if (err) {
+                return res.status(500).json(err);
+            }
+            res.json({
+                program
+            });
+        });
     },
     newProgram: function(req, res) {
 
