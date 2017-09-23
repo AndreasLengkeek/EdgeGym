@@ -11,6 +11,16 @@ module.exports = {
             });
         });
     },
+    findClientById: function(req, res) {
+        Client.find({ _id: req.params.id }).exec((err, client) => {
+            if (err) {
+                res.status.send(err);
+            }
+            res.json({
+                client
+            });
+        });
+    },
     newClient: function(req, res) {
         if (!req.body.client) {
             console.log("Missing body");

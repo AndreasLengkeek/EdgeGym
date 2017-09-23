@@ -7,4 +7,7 @@ router.route('/clients')
     .get(ClientController.getClients)
     .post(ClientController.newClient);
 
+router.route('/clients/:id')
+    .get(ClientController.findClientById);
+
 module.exports = router;
