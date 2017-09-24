@@ -17,4 +17,6 @@ module.exports.connect = (uri) => {
   require('./program');
 
   require('./dummyData')();
+
+  return mongoose;
 };
