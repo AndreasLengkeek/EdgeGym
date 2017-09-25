@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 module.exports.connect = (uri) => {
-  mongoose.connect(uri, { useMongoClient: true });
+  mongoose.connect(uri);
   // plug in the promise library:
-  mongoose.Promise = global.Promise;
+  mongoose.Promise = require('bluebird');
 
 
   mongoose.connection.on('error', (err) => {
@@ -16,7 +16,6 @@ module.exports.connect = (uri) => {
   require('./client');
   require('./program');
 
+  // load some test data
   require('./dummyData')();
-
-  return mongoose;
 };

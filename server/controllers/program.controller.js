@@ -6,7 +6,7 @@ module.exports = {
             if (err) {
                 return res.status(500).json(err);
             }
-            res.send({
+            return res.json({
                 programs
             });
         })
@@ -17,7 +17,7 @@ module.exports = {
             if (err) {
                 return res.status(500).json(err);
             }
-            res.json({
+            return res.json({
                 program
             });
         });
