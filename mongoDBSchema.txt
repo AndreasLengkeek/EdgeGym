@@ -1,0 +1,120 @@
+db.counters.insert(
+   {
+      _id: "noteid",
+      seq: 0
+   }
+)
+
+function getNextSequence(name) {
+   var ret = db.counters.findAndModify(
+          {
+            query: { _id: name },
+            update: { $inc: { seq: 1 } },
+            new: true
+          }
+   );
+
+   return ret.seq;
+}
+
+db.progcounters.insert(
+   {
+      _id: "progid",
+      seq: 0
+   }
+)
+
+function getNextSequenceProg(name) {
+   var ret = db.progcounters.findAndModify(
+          {
+            query: { _id: name },
+            update: { $inc: { seq: 1 } },
+            new: true
+          }
+   );
+
+   return ret.seq;
+}
+
+db.client.insert([
+{
+email: 'samsmith@gmail.com',
+first_name: 'sam',
+last_name: 'smith',
+phone: '0403221234',
+address: '1 made up road, Sydney NSW 2000',
+gender: 'male',
+Dob: '14-4-1990',
+Password: 'hello123',
+Program: [
+{
+_id: getNextSequenceProg("progid"),
+Program_dir: '../files/programs/prog11.xslx',
+Date_created: '12-03-2017',
+Created_by: 'admin1',
+}
+],
+Note: [
+{
+_id: getNextSequence("noteid"),
+Note: 'Sam has had injuries to his left hand and requires more stable treatment with hand exercises',
+Date_updated: '22-10-2017',
+Created_by: 'admin1'
+},
+{
+_id: getNextSequence("noteid"),
+Note: 'Sam hand injury is getting better',
+Date_updated: '22-11-2017',
+Created_by: 'admin1'
+}
+]
+}])
+
+
+db.classcounters.insert(
+   {
+      _id: "classid",
+      seq: 0
+   }
+)
+
+function getNextClassSequence(name) {
+   var ret = db.classcounters.findAndModify(
+          {
+            query: { _id: name },
+            update: { $inc: { seq: 1 } },
+            new: true
+          }
+   );
+
+   return ret.seq;
+}
+
+db.user.insert([
+{
+	Username: 'admin1',
+	First_name: 'Dan',
+	Last_name: 'theMan',
+	Email: 'dan@theedge.com',
+	Password: 'dan123',
+	Class: [
+		{
+			_id: getNextClassSequence("classid"),
+			Name: 'Pump Up Class',
+			Description: 'This class is designed to increase blood flow in all parts of your muscles',
+			Capacity: 15,
+			Date: '26-11-2017',
+			Start_time: '14:00',
+			End_time: '15:00',
+			Client: [
+				{
+					Email: 'samsmith@gmail.com'
+				},
+				{
+					Email: 'anotherclient@gmail.com'
+				}
+			]
+		}
+	]
+
+}])
