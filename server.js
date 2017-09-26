@@ -28,8 +28,6 @@ passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 
 
-
-
 // API routes
 const client = require('./server/routes/client.routes');
 const program = require('./server/routes/program.routes');

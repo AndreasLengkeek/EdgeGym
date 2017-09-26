@@ -23,7 +23,13 @@ module.exports = {
         });
     },
     newProgram: function(req, res) {
-
+        return res.json({ body: req.body });
+    },
+    connectProgramFile: function(req, res) {
+        return res.json({
+            connecting: req.file.originalname,
+            to: req.params.id
+        });
     },
     deleteProgramById: function(req, res) {
 

@@ -5,10 +5,11 @@ const { singleUpload } = require('../middleware/file-storage');
 
 router.route('/programs')
     .get(ProgramController.getPrograms)
-    .post(singleUpload, ProgramController.newProgram);
+    .post(ProgramController.newProgram);
 
 router.route('/programs/:id')
     .get(ProgramController.findProgramById)
+    .put(singleUpload, ProgramController.connectProgramFile)
     .delete(ProgramController.deleteProgramById);
 
 module.exports = router;

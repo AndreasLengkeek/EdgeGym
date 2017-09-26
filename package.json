@@ -7,7 +7,8 @@
   "scripts": {
     "start": "webpack -p --progress --profile --colors && node server",
     "dev": "nodemon server",
-    "bundle": "webpack --progress --color --watch"
+    "bundle": "webpack --progress --color --watch",
+    "db": "mongo edgegym"
   },
   "dependencies": {
     "autoprefixer": "^7.1.2",
