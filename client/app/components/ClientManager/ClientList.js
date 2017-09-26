@@ -9,7 +9,7 @@ export default class ClientList extends Component {
   render() {
     //
     var rows = this.props.clients.map(function(client, index){
-      return (<ClientRow key={index} rowNum={index} client={client} />);
+      return (<ClientRow key={index} rowNum={index+1} client={client} />);
     });
     return (
       <table className="table table-hover">

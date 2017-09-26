@@ -20,6 +20,9 @@ import LoginForm from './components/Login/LoginForm';
 import SignUpPage from './components/SignUp/SignUpPage';
 import MyClients from './components/ClientManager/ClientManager';
 
+import ProgramPage from './components/Program/ProgramPage';
+// import MyClients from './components/ClientManager/ClientManager';
+
 import PrivateRoute from './components/PrivateRoute';
 
 function requireAuth(nextState, replace) {
@@ -42,6 +45,7 @@ render((
         <Route path="/login" component={LoginForm} />
         <Route path="/signup" component={SignUpPage} />
         <PrivateRoute path="/clients" component={MyClients} />
+        <PrivateRoute path="/programs" component={ProgramPage} />
         <Route path="*" component={NotFound} />
       </Switch>
     </App>

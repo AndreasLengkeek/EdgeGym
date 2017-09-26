@@ -47,7 +47,7 @@ export default class LoginForm extends React.Component {
       })
       .then(function(response) {
         auth.authenticateUser(response.data.token);
-        page.props.history.push('/');
+        page.props.history.push('/clients');
       })
       .catch(function(error) {
         alert(error.response.data.message);

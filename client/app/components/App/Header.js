@@ -28,7 +28,9 @@ export default class Header extends Component {
             {auth.isUserAuthenticated() ? (
                <ul className="nav navbar-nav">
                 <li><Link to="/signup">Sign Up</Link></li>
-                <li><Link to="/clients">My Clients</Link></li>
+                <li><Link to="/clients">Clients</Link></li>
+                <li><Link to="/programs">Programs</Link></li>
+                <li><Link to="/classes">Classes</Link></li>
                 <li><Link to="/" onClick={this.logout}>Logout</Link></li>
               </ul>
 		        ) : (

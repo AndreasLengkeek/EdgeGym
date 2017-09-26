@@ -10,7 +10,6 @@ import ClientForm from './ClientForm';
 import axios from 'axios';
 import auth from '../../modules/Auth'
 import { Redirect } from 'react-router-dom';
-import 'whatwg-fetch';
 
 
 export default class ClientManager extends Component {
@@ -25,28 +24,21 @@ export default class ClientManager extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/clients')
-      .then(res => res.json())
-      .then(json => {
+    axios.get('/api/clients')
+      .then((response) => {
         this.setState({
-          clients: json.clients
+          clients: response.data.clients
         });
       });
   }
 
   newClient(client) {
     console.log(client);
-    fetch('/api/clients', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ 'client': client })
-    })
-    .then(res => res.json())
-    .then(json => {
+    axios.post('/api/clients', {
+     client: client
+    }).then((response) => {
       let data = this.state.clients;
-      data.push(json.client);
+      data.push(response.data.client);
 
       this.setState({
         clients: data
@@ -56,15 +48,11 @@ export default class ClientManager extends Component {
 
   render() {
     return (
-      auth.isUserAuthenticated() ? (
-        <div>
-          <h1>My Clients</h1>
-          <ClientList clients={this.state.clients} />
-          <ClientForm onNew={this.newClient} />
-        </div>
-      ) : (
-        <Redirect to="/login" />
-      )
+      <div>
+        <h1>My Clients</h1>
+        <ClientList clients={this.state.clients} />
+        <ClientForm onNew={this.newClient} />
+      </div>
     );
   }
 }
