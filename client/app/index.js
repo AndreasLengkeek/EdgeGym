@@ -20,6 +20,8 @@ import LoginForm from './components/Login/LoginForm';
 import SignUpPage from './components/SignUp/SignUpPage';
 import MyClients from './components/ClientManager/ClientManager';
 
+import PrivateRoute from './components/PrivateRoute';
+
 function requireAuth(nextState, replace) {
   console.log('check auth');
   if (!auth.isUserAuthenticated()) {
@@ -39,7 +41,7 @@ render((
         <Route exact path="/" component={Home} />
         <Route path="/login" component={LoginForm} />
         <Route path="/signup" component={SignUpPage} />
-        <Route path="/clients" component={MyClients} onEnter={requireAuth} />
+        <PrivateRoute path="/clients" component={MyClients} />
         <Route path="*" component={NotFound} />
       </Switch>
     </App>

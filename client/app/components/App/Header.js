@@ -24,13 +24,19 @@ export default class Header extends Component {
             <div className="navbar-header">
               <Link  className="navbar-brand" to="/">Edge Gym</Link>
             </div>
-            <ul className="nav navbar-nav">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/login">Login</Link></li>
-              <li><Link to="/signup">Sign Up</Link></li>
-              <li><Link to="/clients">My Clients</Link></li>
-              <li><Link to="/" onClick={this.logout}>Logout</Link></li>
-            </ul>
+
+            {auth.isUserAuthenticated() ? (
+               <ul className="nav navbar-nav">
+                <li><Link to="/signup">Sign Up</Link></li>
+                <li><Link to="/clients">My Clients</Link></li>
+                <li><Link to="/" onClick={this.logout}>Logout</Link></li>
+              </ul>
+		        ) : (
+              <ul className="nav navbar-nav">
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/login">Login</Link></li>
+              </ul>
+            )}
           </div>
         </nav>
       </header>
