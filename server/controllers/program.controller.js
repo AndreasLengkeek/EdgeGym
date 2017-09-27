@@ -2,7 +2,11 @@ const Program = require('../models/program');
 
 module.exports = {
     getPrograms: function(req, res) {
-        Program.find().exec((err, programs) => {
+        Program
+            .find()
+            .populate({ path: 'client', select: 'firstname lastname' })
+            .populate({ path: 'createdby', select: 'username firstname lastname' })
+            .exec((err, programs) => {
             if (err) {
                 return res.status(500).json(err);
             }
