@@ -11,7 +11,7 @@ const SignUpForm = ({
   return (
     <div className="row">
       <div className="col-lg-6 col-lg-offset-3">
-        <form action="/" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
           <h2>Create a new user</h2>
           {errors.summary && <p>errors.summary</p>}
 

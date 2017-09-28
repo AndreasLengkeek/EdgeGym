@@ -1,16 +1,35 @@
 const User = require('../models/user');
 const passport = require('passport');
 
+function validateLoginForm(payload) {
+    const errors = {};
+    let isValid = true;
+    console.log(payload);
+    if (!payload || typeof payload.email !== 'string' || payload.email.trim().length == 0) {
+        console.log('email error');
+        isValid = false;
+        errors.email = 'Please provide your email address';
+    }
+
+    if (!payload || typeof payload.email !== 'string' || payload.email.trim().length == 0) {
+        console.log('password error');
+        isValid = false;
+        errors.password = 'Please provide your password';
+    }
+
+    return {
+        success: isValid,
+        errors
+    };
+}
+
 module.exports = {
     login: function(req, res, next) {
-        console.log('Logging in');
-        const validationResult = { success: true };//validateSignupForm(req.body);
+        console.log('Logging in', req);
+        const validationResult = validateLoginForm(req.body);
+        console.log(validationResult);
         if (!validationResult.success) {
-          return res.status(400).json({
-            success: false,
-            message: validationResult.message,
-            errors: validationResult.errors
-          });
+          return res.status(400).json(validationResult);
         }
 
         return passport.authenticate('local-login', (err, token, userData) => {
