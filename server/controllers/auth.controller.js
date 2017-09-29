@@ -25,23 +25,20 @@ function validateLoginForm(payload) {
 
 module.exports = {
     login: function(req, res, next) {
-        console.log('Logging in', req);
         const validationResult = validateLoginForm(req.body);
-        console.log(validationResult);
         if (!validationResult.success) {
           return res.status(400).json(validationResult);
         }
 
         return passport.authenticate('local-login', (err, token, userData) => {
-            console.log('passport to local login callback');
-            console.log(token, userData);
           if (err) {
-              console.log(err);
+            console.log('Local-login', err);
             if (err.name === 'IncorrectCredentialsError') {
               return res.status(400).json({
                 success: false,
                 message: err.message
               });
+              return res.status(500).json(err);
             }
 
             return res.status(400).json({
