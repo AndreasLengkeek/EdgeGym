@@ -21,22 +21,9 @@ import SignUpPage from './components/SignUp/SignUpPage';
 import MyClients from './components/ClientManager/ClientManager';
 
 import ProgramPage from './components/Program/ProgramPage';
-// import MyClients from './components/ClientManager/ClientManager';
 
 import PrivateRoute from './components/PrivateRoute';
 
-function requireAuth(nextState, replace) {
-  console.log('check auth');
-  if (!auth.isUserAuthenticated()) {
-    replace({
-      pathName: '/login'
-    })
-  }
-}
-
-/*
-  This sets up the app router and app structure
- */
 render((
   <Router>
     <App>
