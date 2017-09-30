@@ -7,6 +7,7 @@ class Auth {
    */
   static authenticateUser(token, username) {
     localStorage.setItem('token', token);
+    localStorage.setItem('username', username);
   }
 
   /**
@@ -15,7 +16,8 @@ class Auth {
    * @returns {boolean}
    */
   static isUserAuthenticated() {
-    return localStorage.getItem('token') !== null;
+    return localStorage.getItem('token') !== null
+      && localStorage.getItem('username') !== null;
   }
 
   /**
@@ -23,17 +25,27 @@ class Auth {
    *
    */
   static deauthenticateUser() {
-    localStorage.removeItem('token');
+    localStorage.clear();
   }
 
   /**
-   * Get a token value.
+   * Get token value.
    *
    * @returns {string}
    */
 
   static getToken() {
     return localStorage.getItem('token');
+  }
+
+  /**
+   * Get username value.
+   *
+   * @returns {string}
+   */
+
+  static getUser() {
+    return localStorage.getItem('username');
   }
 
 }

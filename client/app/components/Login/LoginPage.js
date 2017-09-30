@@ -38,8 +38,9 @@ class LoginPage extends Component {
         email: this.state.user.email,
         password: this.state.user.password
       }).then((response) => {
-        console.log(response);
-        auth.authenticateUser(response.data.token);
+        let { token, user } = response.data;
+        auth.authenticateUser(token, user.username);
+
         page.props.history.push('/clients');
       }).catch((error) => {
         console.log(error.response.data);

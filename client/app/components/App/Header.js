@@ -31,6 +31,7 @@ export default class Header extends Component {
                 <li><Link to="/clients">Clients</Link></li>
                 <li><Link to="/programs">Programs</Link></li>
                 <li><Link to="/classes">Classes</Link></li>
+	              <li><a onClick={(e) => {e.preventDefault()}}>Welcome {auth.getUser()}!</a></li>
                 <li><Link to="/" onClick={this.logout}>Logout</Link></li>
               </ul>
 		        ) : (
