@@ -9,10 +9,7 @@ const SignUpForm = ({
   user
 }) => {
   return (
-    <div className="row">
-      <div className="col-lg-6 col-lg-offset-3">
         <form onSubmit={onSubmit}>
-          <h2>Create a new user</h2>
           {errors.summary && <p>errors.summary</p>}
 
           <div className="form-group">
@@ -39,8 +36,6 @@ const SignUpForm = ({
 
           <h6>Already have an account? <Link to={'/login'}>Login</Link></h6>
         </form>
-      </div>
-    </div>
   );
 }
 

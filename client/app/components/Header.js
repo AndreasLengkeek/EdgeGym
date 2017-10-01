@@ -3,7 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import auth from '../../modules/Auth';
+import auth from '../modules/Auth';
 
 export default class Header extends Component {
 	constructor(props) {

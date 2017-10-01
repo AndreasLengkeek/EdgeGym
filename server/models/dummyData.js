@@ -10,8 +10,8 @@ module.exports = function() {
             username: 'AndreasLengkeek',
             firstname: 'Andreas',
             lastname: 'Lengkeek',
-            email: 'andreas.lengkeek@gmail.com',
-            password: 'password'
+            email: 'test',
+            password: 'test'
         });
 
         newUser.save((err) => {

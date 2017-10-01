@@ -3,14 +3,14 @@
  */
 import React, { Component } from 'react';
 
-import Header from './Header';
+import Header from '../components/Header';
 
 const App = ({ children }) => (
   <div>
     <Header />
-    <main>
+    <div>
       {children}
-    </main>
+    </div>
   </div>
 );
 

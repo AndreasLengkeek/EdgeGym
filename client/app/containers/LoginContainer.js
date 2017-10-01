@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import LoginForm from './LoginForm';
+import LoginForm from '../components/LoginForm';
+import auth from '../modules/Auth';
 import axios from 'axios';
-import auth from '../../modules/Auth';
 
-class LoginPage extends Component {
+class LoginContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -40,10 +40,9 @@ class LoginPage extends Component {
       }).then((response) => {
         let { token, user } = response.data;
         auth.authenticateUser(token, user.username);
-
         page.props.history.push('/clients');
       }).catch((error) => {
-        console.log(error.response.data);
+        console.log(error);
       });
   }
 
@@ -58,4 +57,4 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage;
+export default LoginContainer;

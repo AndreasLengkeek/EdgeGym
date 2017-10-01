@@ -1,40 +1,16 @@
-/**
- * Entry point of the client, routes and app structure start here
- */
-// DEPENDENCIES //
 import React from 'react';
 import { render } from 'react-dom';
 import {
   BrowserRouter as Router,
-  Route,
-  Link,
-  Switch
 } from 'react-router-dom';
-import auth from './modules/Auth';
 
-// COMPONENTS //
-import App from './components/App/App';
-import NotFound from './components/App/NotFound';
-import Home from './components/App/Home';
-import LoginPage from './components/Login/LoginPage';
-import SignUpPage from './components/SignUp/SignUpPage';
-import MyClients from './components/ClientManager/ClientManager';
-
-import ProgramPage from './components/Program/ProgramPage';
-
-import PrivateRoute from './components/PrivateRoute';
+import App from './pages/App';
+import Routes from './routes';
 
 render((
   <Router>
     <App>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={SignUpPage} />
-        <PrivateRoute path="/clients" component={MyClients} />
-        <PrivateRoute path="/programs" component={ProgramPage} />
-        <Route path="*" component={NotFound} />
-      </Switch>
+      <Routes />
     </App>
   </Router>
 ), document.getElementById('app'));

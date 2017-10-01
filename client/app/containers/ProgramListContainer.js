@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProgramList from './ProgramList';
+import ProgramList from '../components/ProgramList';
 import axios from 'axios';
 
 class ProgramPage extends Component {
@@ -23,12 +23,8 @@ class ProgramPage extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Programs</h1>
-        <ProgramList
-          programs={this.state.programs}
-          />
-      </div>
+      <ProgramList
+        programs={this.state.programs} />
     );
   }
 }

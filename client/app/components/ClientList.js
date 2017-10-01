@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ClientRow from './ClientRow';
 
 export default class ClientList extends Component {
   constructor(props) {
@@ -31,3 +30,15 @@ export default class ClientList extends Component {
     );
   }
 }
+
+const ClientRow = ({rowNum, client}) => (
+  <tr>
+    <td>{rowNum}</td>
+    <td>{client.firstname}</td>
+    <td>{client.lastname}</td>
+    <td>{client.phone}</td>
+    <td>{client.email}</td>
+    <td>{client.coach}</td>
+    <td>{new Date(client.expiry).toDateString()}</td>
+  </tr>
+)

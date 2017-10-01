@@ -1,7 +1,3 @@
-/**
- * 404 component for incorrect url requests
- * @type {[type]}
- */
 import React from 'react';
 import { Link } from 'react-router-dom';
 

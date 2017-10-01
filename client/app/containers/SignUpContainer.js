@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import SignUpForm from './SignUpForm';
+import SignUpForm from '../components/SignUpForm';
 
-class SignUpPage extends Component {
+class SignUpContainer extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -62,4 +62,4 @@ class SignUpPage extends Component {
 //   router: PropTypes.object.isRequired
 // };
 
-export default SignUpPage;
+export default SignUpContainer;
