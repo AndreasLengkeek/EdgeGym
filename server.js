@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const historyApiFallback = require('connect-history-api-fallback');
+const favicon = require('serve-favicon');
 const passport = require('passport');
 const morgan = require('morgan');
 const config = require('./config');
@@ -11,6 +12,7 @@ const config = require('./config');
 require('./server/models').connect(config.db);
 
 const app = express();
+app.use(favicon('./dist/favicon.ico'));
 // tell the app to parse HTTP body messages
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
