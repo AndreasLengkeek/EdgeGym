@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LoginForm from '../components/LoginForm';
-import auth from '../modules/Auth';
+import auth from '../utils/Auth';
 import axios from 'axios';
 
 class LoginContainer extends Component {
