@@ -14,13 +14,16 @@ class ClientFormContainer extends Component {
     axios.post('/api/clients', {
      client: client
     }).then((response) => {
-      let data = this.state.clients;
-      data.push(response.data.client);
+        let data = this.state.clients;
+        data.push(response.data.client);
 
-      this.setState({
-        clients: data
+        this.setState({
+          clients: data
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
       });
-    });
   }
 
   render() {

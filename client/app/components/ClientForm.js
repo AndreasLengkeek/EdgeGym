@@ -27,9 +27,7 @@ export default class ClientForm extends Component {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       phone: this.state.phone,
-      email: this.state.email,
-      coach: this.state.coach,
-      expiry: Date.now()
+      email: this.state.email
     }
 
     // link to parent method

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Button from 'react-bootstrap/lib/Button';
+import Table from 'react-bootstrap/lib/Table';
 
 export default class ProgramList extends Component {
   constructor(props) {
@@ -11,7 +13,7 @@ export default class ProgramList extends Component {
       return (<ProgramRow key={index} rowNum={index+1} program={program} />);
     });
     return (
-      <table className="table table-hover">
+      <Table hover condensed>
           <thead>
             <tr>
               <th>#</th>
@@ -26,7 +28,7 @@ export default class ProgramList extends Component {
           <tbody>
             {rows}
           </tbody>
-      </table>
+      </Table>
     );
   }
 }
@@ -35,10 +37,10 @@ const ProgramRow = ({rowNum, program}) => (
     <tr>
       <td>{rowNum}</td>
       <td>{`${program.client.firstname} ${program.client.lastname}`}</td>
-      <td>start</td>
-      <td>end</td>
+      <td>today</td>
+      <td>tomorrow</td>
       <td>{program.createdby.username}</td>
       <td>{new Date(program.createddate).toDateString()}</td>
-      <td><a href={`/file/${program.fileid}`} target="_blank" className="btn btn-success">Download</a></td>
+      <td><Button href={`/file/${program.fileid}`} target="_blank" bsStyle="success">Download</Button></td>
     </tr>
 )

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Table from 'react-bootstrap/lib/Table';
 
 export default class ClientList extends Component {
   constructor(props) {
@@ -6,12 +7,11 @@ export default class ClientList extends Component {
   }
 
   render() {
-    //
-    var rows = this.props.clients.map(function(client, index){
+    let rows = this.props.clients.map(function(client, index){
       return (<ClientRow key={index} rowNum={index+1} client={client} />);
     });
     return (
-      <table className="table table-hover">
+      <Table hover condensed>
           <thead>
             <tr>
               <th>#</th>
@@ -20,13 +20,12 @@ export default class ClientList extends Component {
               <th>Phone</th>
               <th>Email</th>
               <th>Coach</th>
-              <th>Gym Expiry</th>
             </tr>
           </thead>
           <tbody>
             {rows}
           </tbody>
-      </table>
+      </Table>
     );
   }
 }
@@ -38,7 +37,6 @@ const ClientRow = ({rowNum, client}) => (
     <td>{client.lastname}</td>
     <td>{client.phone}</td>
     <td>{client.email}</td>
-    <td>{client.coach}</td>
-    <td>{new Date(client.expiry).toDateString()}</td>
+    <td>{client.coach.username}</td>
   </tr>
 )
