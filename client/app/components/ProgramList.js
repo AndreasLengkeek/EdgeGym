@@ -41,6 +41,12 @@ const ProgramRow = ({rowNum, program}) => (
       <td>tomorrow</td>
       <td>{program.createdby.username}</td>
       <td>{new Date(program.createddate).toDateString()}</td>
-      <td><Button href={`/file/${program.fileid}`} target="_blank" bsStyle="success">Download</Button></td>
+      <td>
+        <Button
+          href={`/file/${program.fileid}`}
+          target="_blank"
+          bsStyle="success"
+          bsSize="small">Download</Button>
+      </td>
     </tr>
 )

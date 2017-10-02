@@ -3,16 +3,17 @@
  */
 import React, { Component } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
-
 import Header from '../components/Header';
 
 const App = ({ children }) => (
-  <Grid fluid>
+  <div id="wrapper">
     <Header />
-    <div>
-      {children}
+    <div className="page-content-wrapper">
+      <Grid fluid >
+        {children}
+      </Grid>
     </div>
-  </Grid>
+  </div>
 );
 
 export default App;

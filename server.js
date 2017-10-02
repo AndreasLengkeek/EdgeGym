@@ -21,6 +21,10 @@ app.use(morgan('dev'))
 // pass the passport middleware
 app.use(passport.initialize());
 
+app.use((req, res, next) => {
+    // add delay to simulate latency
+    setTimeout(next, 500);
+})
 
 
 // load passport strategies

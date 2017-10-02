@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Image from 'react-bootstrap/lib/Image';
 import auth from '../utils/Auth';
 
 export default class Header extends Component {
@@ -18,31 +19,44 @@ export default class Header extends Component {
 
 	render() {
     return (
-      <header>
-        <nav className="navbar navbar-default">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <Link  className="navbar-brand" to="/">Edge Gym</Link>
-            </div>
-
-            {auth.isUserAuthenticated() ? (
-               <ul className="nav navbar-nav">
-                <li><Link to="/signup">Sign Up</Link></li>
-                <li><Link to="/clients">Clients</Link></li>
-                <li><Link to="/programs">Programs</Link></li>
-                <li><Link to="/classes">Classes</Link></li>
-	              <li><a onClick={(e) => {e.preventDefault()}}>Welcome {auth.getUser()}!</a></li>
-                <li><Link to="/" onClick={this.logout}>Logout</Link></li>
-              </ul>
-		        ) : (
-              <ul className="nav navbar-nav">
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/login">Login</Link></li>
-              </ul>
-            )}
-          </div>
-        </nav>
-      </header>
+      <div id="sidebar-wrapper">
+        {auth.isUserAuthenticated() ? (
+          <ul className="sidebar-nav">
+            <li className="sidebar-brand">
+              <Link to="/">
+		            <Image src="/banner.jpg" responsive/>
+              </Link>
+            </li>
+            <li>
+              <Link to="/">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/signup">Sign Up</Link>
+            </li>
+            <li>
+              <Link to="/clients">Clients</Link>
+            </li>
+            <li>
+              <Link to="/programs">Programs</Link>
+            </li>
+            <li>
+              <Link to="/classes">Classes</Link>
+            </li>
+            <li>
+              <Link to="/login" onClick={this.logout}>Logout</Link>
+            </li>
+          </ul>
+        ) : (
+            <ul className="sidebar-nav">
+              <li className="sidebar-brand">
+                <Link to="/">Edge Gym</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            </ul>
+        )}
+      </div>
 	  )
   }
 }
