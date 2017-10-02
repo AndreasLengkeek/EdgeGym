@@ -1,4 +1,6 @@
 const User = require('./user');
+const Client = require('./client');
+const Program = require('./program');
 
 module.exports = function() {
     User.count().exec((err, count) => {
@@ -6,10 +8,10 @@ module.exports = function() {
             return;
         }
 
-        var newUser = new User({
-            username: 'AndreasLengkeek',
-            firstname: 'Andreas',
-            lastname: 'Lengkeek',
+        let newUser = new User({
+            username: 'TrainerTOm',
+            firstname: 'Tom',
+            lastname: 'Trainer',
             email: 'test',
             password: 'test'
         });
@@ -17,6 +19,32 @@ module.exports = function() {
         newUser.save((err) => {
             if (err) { return; }
             console.log('Adding dummy data');
+
+            let newClient = new Client({
+                username: 'Jimmy2000',
+                email: 'jimmy@email.com',
+                password: 'password',
+                firstname: 'Jimmy',
+                lastname: 'Neutron',
+                phone: '0455 767 987',
+                address: '6 Testing Rd, Sydney 2000',
+                gender: 'Male',
+                coach: newUser._id
+            });
+
+            newClient.save((err) => {
+                if (err) { return; }
+
+                let newProgram = new Program({
+                    fileid: 'testfile',
+                    createdby: newUser._id,
+                    client: newClient._id
+                });
+
+                newProgram.save((err) => {
+                    if (err) { return; }
+                });
+            });
         });
     });
 }
