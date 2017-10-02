@@ -2,9 +2,14 @@ const Client = require('../models/client');
 
 module.exports = {
     getClients: function(req, res) {
-        Client.find().exec((err, clients) => {
+        Client.find()
+            .populate({ path: 'coach', select: 'username' })
+            .exec((err, clients) => {
+
             if (err) {
-                return res.status(500).json(err);
+                return res.status(500).json({
+                  message: 'Could not retrieve clients'
+                });
             }
             return res.json({
                 clients
@@ -12,16 +17,19 @@ module.exports = {
         });
     },
     findClientById: function(req, res) {
-        Client.find({ _id: req.params.id }).exec((err, client) => {
+        Client.findByid(req.params.id)
+            .populate({ path: 'coach', select: 'username' })
+            .exec((err, client) => {
+
             if (err) {
-                return res.status(500).json(err);
+                res.status(500).json(err);
             }
             return res.json({
                 client
             });
         });
     },
-    newClient: function(req, res) {
+    newClient: function(req, res, next) {
         if (!req.body.client) {
             console.log("Missing body");
             res.status(403).end();
@@ -38,7 +46,8 @@ module.exports = {
             // newClient.firstname = sanitizeHtml(newClient.firstname);
             newClient.save((err, saved) => {
                 if (err) {
-                    return res.status(500).json(err);
+                    err.message = 'Could not save new client';
+                    next(err);
                 }
                 return res.json({
                     client: saved

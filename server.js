@@ -49,6 +49,26 @@ app.use(express.static('./dist'));
 
 
 
+// error handlers
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  console.log('Got here');
+  console.dir(err);
+  res.status(err.status || 500);
+  if (err.status === 500) {
+    console.error(err.stack);
+    res.json({
+      error: 'Internal Server Error'
+    });
+  } else if (err.status === 404) {
+    res.render('error'); //render error page
+  } else {
+    res.json({
+      error: err.message
+    })
+  }
+});
+
 
 const port  = process.env.PORT || 4000;
 // start server on localhost

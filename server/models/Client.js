@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ClientSchema = new Schema({
   username: { type: String, required: true },
   email: { type: String, required: false },
-  password: { type: String, required: true },
+  password: { type: String, required: false },
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   phone: { type: String, required: false },
