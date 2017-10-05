@@ -10,7 +10,8 @@ import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-import Clients from './pages/ClientPage';
+import ClientList from './pages/ClientListPage';
+import ClientDetail from './pages/ClientDetailPage';
 import ProgramPage from './pages/ProgramPage';
 
 const Routes = () => (
@@ -18,7 +19,8 @@ const Routes = () => (
     <PrivateRoute exact path="/" component={Dashboard} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
-    <PrivateRoute path="/clients" component={Clients} />
+    <PrivateRoute path="/clients/:id" component={ClientDetail} />
+    <PrivateRoute path="/clients" component={ClientList} />
     <PrivateRoute path="/programs" component={ProgramPage} />
     <Route path="*" component={NotFound} />
   </Switch>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/lib/Table';
 
 export default class ClientList extends Component {
@@ -15,8 +16,7 @@ export default class ClientList extends Component {
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
+              <th>Name</th>
               <th>Phone</th>
               <th>Email</th>
               <th>Coach</th>
@@ -33,8 +33,9 @@ export default class ClientList extends Component {
 const ClientRow = ({rowNum, client}) => (
   <tr>
     <td>{rowNum}</td>
-    <td>{client.firstname}</td>
-    <td>{client.lastname}</td>
+    <td>
+      <Link to={`/clients/${client._id}`}>{`${client.firstname} ${client.lastname}`}</Link>
+    </td>
     <td>{client.phone}</td>
     <td>{client.email}</td>
     <td>{client.coach.username}</td>

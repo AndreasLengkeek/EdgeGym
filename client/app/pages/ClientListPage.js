@@ -3,7 +3,7 @@ import ClientListContainer from '../containers/ClientListContainer';
 import ClientFormContainer from '../containers/ClientFormContainer';
 import Col from 'react-bootstrap/lib/Col';
 
-class ClientPage extends Component {
+class ClientListPage extends Component {
   render() {
     return (
       <div>
@@ -14,4 +14,4 @@ class ClientPage extends Component {
   }
 }
 
-export default ClientPage;
+export default ClientListPage;
