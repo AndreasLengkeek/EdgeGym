@@ -1,5 +1,14 @@
 const Client = require('../models/client');
 
+function buildValidationMessage(dbError) {
+    const errors = {};
+    for (field in dbError) {
+        if (field)
+            errors[field] = dbError[field].message;
+    }
+    return errors;
+}
+
 module.exports = {
     getClients: function(req, res) {
         Client.find()
@@ -30,30 +39,20 @@ module.exports = {
         });
     },
     newClient: function(req, res, next) {
-        if (!req.body.client) {
-            console.log("Missing body");
-            res.status(403).end();
-        } else {
-            if (!req.body.client.firstname || !req.body.client.lastname || !req.body.client.phone ||
-                !req.body.client.email || !req.body.client.email) {
-                console.log("missing field");
-                res.status(403).end();
-            }
+        const newClient = new Client(req.body.client);
 
-            const newClient = new Client(req.body.client);
-
-            // TODO Santize inputs
-            // newClient.firstname = sanitizeHtml(newClient.firstname);
-            newClient.save((err, saved) => {
-                if (err) {
-                    err.message = 'Could not save new client';
-                    next(err);
+        newClient.save((err, saved) => {
+            if (err) {
+                console.log('Error is:',err.name);
+                if (err.name == 'ValidationError') {
+                    err.errors = buildValidationMessage(err.errors);
                 }
+                next(err);
+            } else {
                 return res.json({
                     client: saved
                 });
-            });
-        }
-
+            }
+        });
     }
 }
