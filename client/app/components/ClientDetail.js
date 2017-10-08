@@ -1,39 +1,29 @@
 import React from 'react';
 import FieldGroup from './FieldGroup';
+import FieldGroupStatic from './FieldGroupStatic';
 import Button from 'react-bootstrap/lib/Button';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
+import Form from 'react-bootstrap/lib/Form';
 
 const ClientDetail = ({ client, errors, editing, onSubmit, onChange }) => {
   return (
-    <form onSubmit={onSubmit}>
-      <FieldGroup
-        type="text"
-        value={client.firstname}
-        name="firstname"
+    <Form onSubmit={onSubmit}>
+      <FieldGroupStatic
         label="First Name"
-        onChange={onChange} />
-      <FieldGroup
-        type="text"
-        value={client.email}
-        name="email"
+        value={client.firstname} />
+      <FieldGroupStatic
+        label="Last Name"
+        value={client.lastname} />
+      <FieldGroupStatic
         label="Email"
-        onChange={onChange} />
-      <FieldGroup
-        type="text"
-        value={client.phone}
-        name="phone"
+        value={client.email} />
+      <FieldGroupStatic
         label="Phone"
-        onChange={onChange} />
-      <FormGroup>
-        <ControlLabel>Coach</ControlLabel>
-        <FormControl.Static>
-          {client.coach && client.coach.username}
-        </FormControl.Static>
-      </FormGroup>
-      <Button>Click Me!</Button>
-    </form>
+        value={client.phone} />
+      <FieldGroupStatic
+        label="Coach"
+        value={client.coach && client.coach.username} />
+      <Button bsStyle="warning">Edit</Button>
+    </Form>
   );
 }
 

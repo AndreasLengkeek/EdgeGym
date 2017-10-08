@@ -3,8 +3,8 @@ import ProgramList from '../components/ProgramList';
 import axios from 'axios';
 
 class ProgramPage extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.state = {
       programs: []
