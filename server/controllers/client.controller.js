@@ -17,7 +17,7 @@ module.exports = {
         });
     },
     findClientById: function(req, res) {
-        Client.findByid(req.params.id)
+        Client.findById(req.params.id)
             .populate({ path: 'coach', select: 'username' })
             .exec((err, client) => {
 

@@ -8,29 +8,41 @@ export default class ClientDetailContainer extends Component {
 
     this.state = {
       client: {
-
+        firstname: '',
+        lastname: '',
+        phone: '',
+        email: ''
       },
       editing: false,
       errors: {}
     }
 
+    this.changeClient = this.changeClient.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
     this.save = this.save.bind(this);
   }
 
   componentDidMount() {
     // get client from api
-    console.log(this);
     let id = this.props.match.params.id;
-    console.log(`Getting client with id: ${id}`);
-    axios.get('/api/client/'+id)
+    axios.get('/api/clients/'+id)
       .then((response) => {
-        console.log(response);
         this.setState({
           client: response.data.client
         })
       })
-      .catch(error => console.log(error.response));
+      .catch(error => console.log('error', error.response));
+  }
+
+  changeClient(event) {
+    const field = event.target.name;
+    const client = this.state.client;
+    client[field] = event.target.value;
+    console.log(`${field} = ${event.target.value}`);
+
+    this.setState({
+     client
+    });
   }
 
   // toggle readonly state to false
@@ -44,7 +56,7 @@ export default class ClientDetailContainer extends Component {
     // TODO implement return function
     // update client with api
     let { client } = this.state;
-    axios.put('', {
+    axios.put('/api/clients', {
       client
     }).then(response => console.log(response));
 
@@ -57,7 +69,9 @@ export default class ClientDetailContainer extends Component {
       <ClientDetail
         client={this.state.client}
         errors={this.state.errors}
-        editing={this.state.editing} />
+        editing={this.state.editing}
+        onSubmit={this.save}
+        onChange={this.changeClient} />
     )
   }
 }
