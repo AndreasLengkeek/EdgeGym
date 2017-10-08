@@ -15,6 +15,20 @@ module.exports = {
             });
         })
     },
+    getProgramsByClient: function(req, res) {
+        console.log('getting programs for:', req.params.id);
+        Program.find({ client: req.params.id })
+            .populate({ path: 'client', select: 'firstname lastname' })
+            .populate({ path: 'createdby', select: 'username firstname lastname' })
+            .exec((err, programs) => {
+                if (err) {
+                    return res.status(500).json(err);
+                }
+                return res.json({
+                    programs
+                });
+            })
+    },
     findProgramById: function(req, res) {
         console.log('looking for program', req.params.id);
         Program.find({ _id: req.params.id }).exec((err, program) => {

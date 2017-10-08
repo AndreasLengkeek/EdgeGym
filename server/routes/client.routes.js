@@ -1,5 +1,6 @@
 const express = require('express');
 const ClientController = require('../controllers/client.controller');
+const ProgramController = require('../controllers/program.controller');
 const router = express.Router();
 
 
@@ -9,5 +10,8 @@ router.route('/clients')
 
 router.route('/clients/:id')
     .get(ClientController.findClientById);
+
+router.route('/clients/:id/programs')
+    .get(ProgramController.getProgramsByClient);
 
 module.exports = router;
