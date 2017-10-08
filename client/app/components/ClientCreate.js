@@ -3,7 +3,7 @@ import FieldGroup from './FieldGroup';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 
-const ClientCreate = ({client, onChange, onSubmit}) => {
+const ClientCreate = ({client, errors, onChange, onSubmit}) => {
   return (
     <Form onSubmit={onSubmit}>
       <FieldGroup
@@ -11,6 +11,21 @@ const ClientCreate = ({client, onChange, onSubmit}) => {
         type="text"
         name="firstname"
         value={client.firstname}
+        help={errors.firstname}
+        onChange={onChange} />
+      <FieldGroup
+        label="Last Name"
+        type="text"
+        name="lastname"
+        value={client.lastname}
+        help={errors.lastname}
+        onChange={onChange} />
+      <FieldGroup
+        label="Email"
+        type="text"
+        name="email"
+        value={client.email}
+        help={errors.email}
         onChange={onChange} />
       <Button type="submit">Submit</Button>
     </Form>

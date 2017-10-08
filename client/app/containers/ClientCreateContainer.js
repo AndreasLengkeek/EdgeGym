@@ -6,6 +6,7 @@ export default class ClientCreateContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      errors: {},
       client: {
         firstname: '',
         lastname: '',
@@ -34,13 +35,18 @@ export default class ClientCreateContainer extends Component {
     axios.post('/api/clients', {
       client: this.state.client
     }).then(response => console.log(response))
-      .catch(error => console.log(error.response));
+      .catch(({response}) => {
+          this.setState({
+            errors: response.data.error.errors
+          });
+      });
   }
 
   render() {
     return (
       <ClientCreate
         client={this.state.client}
+        errors={this.state.errors}
         onSubmit={this.createClient}
         onChange={this.changeClient} />
     );
