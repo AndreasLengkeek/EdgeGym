@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import auth from '../utils/Auth';
 import ClientCreate from '../components/ClientCreate';
 
 export default class ClientCreateContainer extends Component {
@@ -11,7 +12,8 @@ export default class ClientCreateContainer extends Component {
         firstname: '',
         lastname: '',
         phone: '',
-        email: ''
+        email: '',
+        coach: auth.getUser().id
       }
     }
 
@@ -31,15 +33,23 @@ export default class ClientCreateContainer extends Component {
 
   createClient(event) {
     event.preventDefault();
+
     console.log('submitting client:', this.state.client)
+    let page = this;
     axios.post('/api/clients', {
       client: this.state.client
-    }).then(response => console.log(response))
-      .catch(({response}) => {
-          this.setState({
-            errors: response.data.error.errors
-          });
-      });
+    }).then((response) => {
+        if (response.data.success) {
+          page.props.history.push('/clients');
+        } else {
+          page.setState({
+            errors: response.data.errors
+          })
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
   }
 
   render() {

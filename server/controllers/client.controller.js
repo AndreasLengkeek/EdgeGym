@@ -43,14 +43,19 @@ module.exports = {
 
         newClient.save((err, saved) => {
             if (err) {
-                console.log('Error is:',err.name);
                 if (err.name == 'ValidationError') {
-                    err.errors = buildValidationMessage(err.errors);
+                    var validation = buildValidationMessage(err.errors);
+                    return res.json({
+                        success: false,
+                        errors: validation
+                    });
+                } else {
+                    next(err);
                 }
-                next(err);
             } else {
                 return res.json({
-                    client: saved
+                    client: saved,
+                    success: true
                 });
             }
         });
