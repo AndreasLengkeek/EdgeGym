@@ -9,7 +9,8 @@ router.route('/clients')
     .post(ClientController.newClient);
 
 router.route('/clients/:id')
-    .get(ClientController.findClientById);
+    .get(ClientController.findClientById)
+    .put(ClientController.updateClient);
 
 router.route('/clients/:id/programs')
     .get(ProgramController.getProgramsByClient);

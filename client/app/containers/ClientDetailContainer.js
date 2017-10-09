@@ -13,7 +13,7 @@ export default class ClientDetailContainer extends Component {
         phone: '',
         email: ''
       },
-      editing: false,
+      editing: true,
       errors: {}
     }
 
@@ -37,8 +37,8 @@ export default class ClientDetailContainer extends Component {
   changeClient(event) {
     const field = event.target.name;
     const client = this.state.client;
+    console.log(`${field}: ${event.target.value}`)
     client[field] = event.target.value;
-    console.log(`${field} = ${event.target.value}`);
 
     this.setState({
      client
@@ -52,16 +52,17 @@ export default class ClientDetailContainer extends Component {
     })
   }
 
-  save() {
-    // TODO implement return function
-    // update client with api
+  save(event) {
+    event.preventDefault();
     let { client } = this.state;
-    axios.put('/api/clients', {
+    console.log('submitting', client)
+    axios.put('/api/clients/'+client._id, {
       client
-    }).then(response => console.log(response));
-
-    // reset fields to readonly
-    this.toggleEdit();
+    }).then(response => {
+        console.log(response)
+    }).catch(error => {
+        console.log(error);
+    });
   }
 
   render() {

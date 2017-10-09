@@ -7,22 +7,34 @@ import Form from 'react-bootstrap/lib/Form';
 const ClientDetail = ({ client, errors, editing, onSubmit, onChange }) => {
   return (
     <Form onSubmit={onSubmit}>
-      <FieldGroupStatic
+      <FieldGroup
         label="First Name"
-        value={client.firstname} />
-      <FieldGroupStatic
+        type="text"
+        name="firstname"
+        value={client.firstname}
+        onChange={onChange} />
+      <FieldGroup
         label="Last Name"
-        value={client.lastname} />
-      <FieldGroupStatic
+        type="text"
+        name="lastname"
+        value={client.lastname}
+        onChange={onChange} />
+      <FieldGroup
         label="Email"
-        value={client.email} />
-      <FieldGroupStatic
+        type="text"
+        name="email"
+        value={client.email}
+        onChange={onChange} />
+      <FieldGroup
         label="Phone"
-        value={client.phone} />
+        type="text"
+        name="phone"
+        value={client.phone}
+        onChange={onChange} />
       <FieldGroupStatic
         label="Coach"
         value={client.coach && client.coach.username} />
-      <Button bsStyle="warning">Edit</Button>
+      <Button type="submit" bsStyle="warning">Save</Button>
     </Form>
   );
 }

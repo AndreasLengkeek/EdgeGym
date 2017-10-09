@@ -18,7 +18,7 @@ class ProgramPage extends Component {
           programs: response.data.programs
         });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.response));
   }
 
   render() {

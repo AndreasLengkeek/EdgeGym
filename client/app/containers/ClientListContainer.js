@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import ClientList from '../components/ClientList';
 import axios from 'axios';
+import auth from '../utils/Auth';
 
 class ClientListContainer extends Component {
   constructor(props) {
@@ -13,11 +14,18 @@ class ClientListContainer extends Component {
   }
 
   componentDidMount() {
+    let page = this;
     axios.get('/api/clients')
       .then((response) => {
         this.setState({
           clients: response.data.clients
         });
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          auth.deauthenticateUser();
+          page.props.history.push('/login');
+        }
       });
   }
 

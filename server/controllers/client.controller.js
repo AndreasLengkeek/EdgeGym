@@ -38,6 +38,38 @@ module.exports = {
             });
         });
     },
+    updateClient: function(req, res, next) {
+        let reqClient = req.body.client;
+        let updateClient = {
+            firstname: reqClient.firstname,
+            lastname: reqClient.lastname,
+            email: reqClient.email,
+            phone: reqClient.phone
+        }
+        console.log('Update client:',req.params.id);
+        Client.findById(req.params.id)
+            .exec((err, client) => {
+                console.log(err);
+                if (err) return res.status(500).end();
+
+                if (client.__v !== reqClient.__v) {
+                    return res.json({
+                        success: false,
+                        message: "Unable to update. Please refresh and try again"
+                    })
+                } else {
+                    Client.update({ _id: req.params.id }, { $set: updateClient, $inc: {__v: 1}})
+                        .exec((err, clients) => {
+                            console.log(err);
+                            if (err) return res.status(500).end();
+
+                            return res.json({
+                                success: true
+                            })
+                        });
+                }
+            })
+    },
     newClient: function(req, res, next) {
         const newClient = new Client(req.body.client);
 
