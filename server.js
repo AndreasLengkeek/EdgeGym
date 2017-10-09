@@ -3,7 +3,7 @@ const express = require('express');
 const historyApiFallback = require('connect-history-api-fallback');
 const favicon = require('serve-favicon');
 const passport = require('passport');
-const morgan = require('morgan');
+const logger = require('morgan');
 const config = require('./config');
 
 
@@ -17,12 +17,12 @@ app.use(favicon('./dist/favicon.ico'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // tell the app to log basic info to stdout
-app.use(morgan('dev'))
+app.use(logger('dev'))
 // pass the passport middleware
 app.use(passport.initialize());
 
 app.use((req, res, next) => {
-    // add delay to simulate latency
+    // add delay to simulate latency in dev environment
     setTimeout(next, 500);
 })
 

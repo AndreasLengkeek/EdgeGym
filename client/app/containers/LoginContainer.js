@@ -39,7 +39,7 @@ class LoginContainer extends Component {
         password: this.state.user.password
       }).then((response) => {
         let { token, user } = response.data;
-        auth.authenticateUser(token, user.username);
+        auth.authenticateUser(token, user);
         page.props.history.push('/clients');
       }).catch((error) => {
         console.log(error);

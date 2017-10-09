@@ -5,9 +5,9 @@ class Auth {
    *
    * @param {string} token
    */
-  static authenticateUser(token, username) {
+  static authenticateUser(token, user) {
     localStorage.setItem('token', token);
-    localStorage.setItem('username', username);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   /**
@@ -17,7 +17,7 @@ class Auth {
    */
   static isUserAuthenticated() {
     return localStorage.getItem('token') !== null
-      && localStorage.getItem('username') !== null;
+      && localStorage.getItem('user') !== null;
   }
 
   /**
@@ -45,7 +45,7 @@ class Auth {
    */
 
   static getUser() {
-    return localStorage.getItem('username');
+    return JSON.parse(localStorage.getItem('user'));
   }
 
 }
