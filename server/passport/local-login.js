@@ -44,8 +44,8 @@ module.exports = new PassportLocalStrategy({
         sub: user._id
       };
 
-      // create a token string
-      const token = jwt.sign(payload, config.jwtSecret);
+      // create a token string that expires in 15 mins
+      const token = jwt.sign(payload, config.jwtSecret, { expiresIn: 900 });
       const data = {
         id: user._id,
         username: user.username,

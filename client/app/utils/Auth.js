@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 class Auth {
 
   /**
@@ -8,6 +10,7 @@ class Auth {
   static authenticateUser(token, user) {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
+    axios.defaults.headers.common["Authorization"] = "Bearer " + token;
   }
 
   /**
@@ -26,6 +29,7 @@ class Auth {
    */
   static deauthenticateUser() {
     localStorage.clear();
+    axios.defaults.headers.common["Authorization"] = null;
   }
 
   /**
