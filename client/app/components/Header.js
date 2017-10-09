@@ -18,6 +18,9 @@ export default class Header extends Component {
 	}
 
 	render() {
+    /*
+     * Render a navigation with the following.
+     */
     return (
       <div id="sidebar-wrapper">
         {auth.isUserAuthenticated() ? (
