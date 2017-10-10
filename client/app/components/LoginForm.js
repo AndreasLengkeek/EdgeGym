@@ -2,27 +2,27 @@
  * A component for the front-end authentication
  */
 import React from 'react';
+import FieldGroup from './FieldGroup';
+import Button from 'react-bootstrap/lib/Button';
+import Form from 'react-bootstrap/lib/Form';
 
 // TODO errors
-const LoginForm = ({
-  onSubmit,
-  onChange,
-  errors,
-  user
-}) => (
-  <form onSubmit={onSubmit}>
-    <div className="form-group">
-      <label htmlFor="email">Email</label>
-      <input type="text" className="form-control"
-          name="email" value={user.email} onChange={onChange}/>
-    </div>
-    <div className="form-group">
-      <label htmlFor="Password">Password</label>
-      <input type="password" className="form-control"
-          name="password" value={user.password} onChange={onChange}/>
-    </div>
-    <input type="submit" value="Login" className="btn btn-primary"/>
-  </form>
+const LoginForm = ({onSubmit, onChange, errors, user}) => (
+  <Form onSubmit={onSubmit}>
+    <FieldGroup
+      label="Email"
+      type="text"
+      name="email"
+      value={user.email}
+      onChange={onChange} />
+    <FieldGroup
+      label="Password"
+      type="password"
+      name="password"
+      value={user.password}
+      onChange={onChange} />
+    <Button type="submit">Submit</Button>
+  </Form>
 );
 
 export default LoginForm;

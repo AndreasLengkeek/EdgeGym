@@ -1,16 +1,22 @@
 import React from 'react';
+import FieldGroup from './FieldGroup';
+import FieldGroupStatic from './FieldGroupStatic';
+import Button from 'react-bootstrap/lib/Button';
+import Form from 'react-bootstrap/lib/Form';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const SignUpForm = ({
-  onSubmit,
-  onChange,
-  errors,
-  user
-}) => {
+const SignUpForm = ({ onSubmit, onChange, errors, user}) => {
   return (
-        <form onSubmit={onSubmit}>
+        <Form onSubmit={onSubmit}>
           {errors.summary && <p>errors.summary</p>}
+
+          <FieldGroup
+            label="First Name"
+            type="text"
+            name="firstname"
+            value={user.firstname}
+            onChange={onChange} />
 
           <div className="form-group">
               <label htmlFor="firstname">First Name</label>
@@ -35,7 +41,7 @@ const SignUpForm = ({
           <input type="submit" value="Sign Up" className="btn btn-primary"/>
 
           <h6>Already have an account? <Link to={'/login'}>Login</Link></h6>
-        </form>
+        </Form>
   );
 }
 
