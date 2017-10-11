@@ -76,11 +76,6 @@ module.exports = {
         NODE_ENV: JSON.stringify(NODE_ENV)
       }
     }),
-    // injects js bundle file to index page
-    new HtmlWebpackPlugin({
-      template: helpers.root('client/public/index.html'),
-      inject: 'body'
-    }),
     // loads required css files into a bundled css file
     new ExtractTextPlugin({
       filename: 'css/[name].[hash].css',
