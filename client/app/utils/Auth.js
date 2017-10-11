@@ -10,7 +10,7 @@ class Auth {
   static authenticateUser(token, user) {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(user));
-    axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+    this.setAuthDefaults();
   }
 
   /**
@@ -29,7 +29,7 @@ class Auth {
    */
   static deauthenticateUser() {
     localStorage.clear();
-    axios.defaults.headers.common["Authorization"] = null;
+    this.setAuthDefaults();
   }
 
   /**
@@ -50,6 +50,15 @@ class Auth {
 
   static getUser() {
     return JSON.parse(localStorage.getItem('user'));
+  }
+
+  static setAuthDefaults() {
+    let token = localStorage.getItem('token');
+    if (token)
+      token = `Bearer ${token}`;
+
+    axios.defaults.headers.common['Authorization'] = token;
+    console.log('defaults set = ',axios.defaults.headers.common);
   }
 
 }
