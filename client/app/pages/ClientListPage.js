@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/lib/Button';
 
 
 const ClientListPage = (props) => {
-  console.log(props);
   return (
     <div>
       <h1>

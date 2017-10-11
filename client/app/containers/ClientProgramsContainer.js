@@ -13,7 +13,6 @@ export default class ClientProgramsContainer extends Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    console.log('Searching programs for:', id);
     axios.get('/api/clients/'+id+'/programs')
       .then(response => {
         console.log(response);
