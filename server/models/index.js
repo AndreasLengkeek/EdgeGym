@@ -12,9 +12,9 @@ module.exports.connect = (uri) => {
   });
 
   // load models
-  require('./user');
-  require('./client');
-  require('./program');
+  require('./User');
+  require('./Client');
+  require('./Program');
 
   // load some test data
   require('./dummyData')();
