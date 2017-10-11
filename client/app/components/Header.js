@@ -2,7 +2,7 @@
  * Defines the app navigation bar and routes
  */
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Image from 'react-bootstrap/lib/Image';
 import auth from '../utils/Auth';
 
@@ -31,19 +31,19 @@ export default class Header extends Component {
               </Link>
             </li>
             <li>
-              <Link to="/">Dashboard</Link>
+              <NavLink exact to="/" activeClassName="selected">Dashboard</NavLink>
             </li>
             <li>
-              <Link to="/signup">Sign Up</Link>
+              <NavLink to="/signup" activeClassName="selected">Sign Up</NavLink>
             </li>
             <li>
-              <Link to="/clients">Clients</Link>
+              <NavLink to="/clients" activeClassName="selected">Clients</NavLink>
             </li>
             <li>
-              <Link to="/programs">Programs</Link>
+              <NavLink to="/programs" activeClassName="selected">Programs</NavLink>
             </li>
             <li>
-              <Link to="/classes">Classes</Link>
+              <NavLink to="/classes" activeClassName="selected">Classes</NavLink>
             </li>
             <li>
               <Link to="/login" onClick={this.logout}>Logout</Link>
@@ -55,7 +55,7 @@ export default class Header extends Component {
                 <Link to="/">Edge Gym</Link>
               </li>
               <li>
-                <Link to="/login">Login</Link>
+                <NavLink to="/login">Login</NavLink>
               </li>
             </ul>
         )}
