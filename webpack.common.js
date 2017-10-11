@@ -1,10 +1,10 @@
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const helpers = require('./helpers');
+const helpers = require('./config/helpers');
 
 const NODE_ENV = process.env.NODE_ENV;
 const isDev = NODE_ENV !== 'production';
@@ -75,11 +75,6 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify(NODE_ENV)
       }
-    }),
-    // injects js bundle file to index page
-    new HtmlWebpackPlugin({
-      template: helpers.root('client/public/index.html'),
-      inject: 'body'
     }),
     // loads required css files into a bundled css file
     new ExtractTextPlugin({
