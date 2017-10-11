@@ -1,6 +1,6 @@
-const User = require('./user');
-const Client = require('./client');
-const Program = require('./program');
+const User = require('./User');
+const Client = require('./Client');
+const Program = require('./Program');
 
 module.exports = function() {
     User.count().exec((err, count) => {

@@ -1,4 +1,4 @@
-const Client = require('../models/client');
+const Client = require('../models/Client');
 
 function buildValidationMessage(dbError) {
     const errors = {};

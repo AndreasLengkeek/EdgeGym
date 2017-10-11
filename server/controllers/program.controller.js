@@ -1,4 +1,4 @@
-const Program = require('../models/program');
+const Program = require('../models/Program');
 
 module.exports = {
     getPrograms: function(req, res) {
