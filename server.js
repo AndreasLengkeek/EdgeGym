@@ -1,7 +1,5 @@
 const bodyParser = require('body-parser');
 const express = require('express');
-const historyApiFallback = require('connect-history-api-fallback');
-const favicon = require('serve-favicon');
 const passport = require('passport');
 const logger = require('morgan');
 const config = require('./config');
@@ -11,7 +9,7 @@ const config = require('./config');
 require('./server/models').connect(config.db);
 
 const app = express();
-app.use(favicon('./dist/favicon.ico'));
+app.use(require('serve-favicon')('./dist/favicon.ico'));
 // tell the app to parse HTTP body messages
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -27,7 +25,7 @@ require('./server/routes')(app);
 
 
 // middleware to help spa with reloads and bookmarks
-app.use(historyApiFallback());
+app.use(require('connect-history-api-fallback')());
 // tell the app to look for static files in these directories
 app.use(express.static('./dist'));
 
