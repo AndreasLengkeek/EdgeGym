@@ -31,7 +31,7 @@ module.exports = {
             .exec((err, client) => {
 
             if (err) {
-                res.status(500).json({
+                return res.status(500).json({
                     message: "Failed to find client"
                 });
             }

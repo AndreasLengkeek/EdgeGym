@@ -17,7 +17,7 @@ export default class ClientDetailPage extends Component {
         </Col>
         <Col sm={12}>
           <h2>
-            Client's Programs <Link to="/programs/new"><Button>New program</Button></Link>
+            Client's Programs <Link to={`/programs/new/${this.props.match.params.id}`}><Button>New program</Button></Link>
           </h2>
           <ClientProgramsContainer {...this.props} />
         </Col>

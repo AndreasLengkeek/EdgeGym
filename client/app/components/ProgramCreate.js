@@ -4,43 +4,37 @@ import FieldGroupStatic from './FieldGroupStatic';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 
-const ClientCreate = ({program, errors, onChange, onSubmit}) => {
+const ProgramCreate = ({program, errors, onChange, onSubmit, fileUpload}) => {
   return (
     <Form onSubmit={onSubmit}>
-      <FieldGroup
+      <FieldGroupStatic
         label="Client"
-        type="text"
-        name="client"
-        value={program.client.firstname + ' ' + program.client.lastname}
-        help={program.client}
-        onChange={onChange} />
+        value={`${program.client.firstname} ${program.client.lastname}`} />
       <FieldGroup
         label="Start"
         type="text"
         name="start"
         value={program.start}
-        help={program.start}
+        help={errors.start}
         onChange={onChange} />
       <FieldGroup
         label="End"
         type="text"
         name="end"
         value={program.end}
-        help={program.end}
+        help={errors.end}
         onChange={onChange} />
       <FieldGroup
         label="File"
         type="file"
         name="file"
-        value={program.file}
-        help={program.file}
-        onChange={onChange} />
+        onChange={fileUpload} />
       <FieldGroupStatic
         label="Created By"
-        value={program.createdby.name} />
+        value={program.createdby} />
       <Button type="submit">Submit</Button>
     </Form>
   );
 }
 
-export default ClientCreate;
+export default ProgramCreate;

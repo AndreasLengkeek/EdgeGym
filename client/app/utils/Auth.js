@@ -58,7 +58,6 @@ class Auth {
       token = `Bearer ${token}`;
 
     axios.defaults.headers.common['Authorization'] = token;
-    console.log('defaults set = ',axios.defaults.headers.common);
   }
 
 }

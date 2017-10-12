@@ -24,7 +24,7 @@ const Routes = () => (
     <PrivateRoute path="/clients/new" component={ClientCreate} />
     <PrivateRoute path="/clients/:id" component={ClientDetail} />
     <PrivateRoute path="/clients" component={ClientList} />
-    <PrivateRoute path="/programs/new" component={ProgramCreatePage} />
+    <PrivateRoute path="/programs/new/:clientid" component={ProgramCreatePage} />
     <PrivateRoute path="/programs" component={ProgramPage} />
     <Route path="*" component={NotFound} />
   </Switch>
