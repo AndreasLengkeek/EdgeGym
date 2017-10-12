@@ -38,37 +38,45 @@ module.exports = {
             });
         });
     },
+    checkVersion: function(req, res, next) {
+        let c = req.body.client;
+        Client.findById(req.params.id).exec((err, client) => {
+            if (err) {
+                return res.status(500).json({
+                    message: "Failed to load clients"
+                })
+            }
+
+            if (client.__v != c.__v) {
+                return res.json({
+                    success: false,
+                    message: "Unable to update. Please refresh and try again"
+                });
+            }
+            next();
+        });
+    },
     updateClient: function(req, res, next) {
-        let reqClient = req.body.client;
+        let c = req.body.client;
         let updateClient = {
-            firstname: reqClient.firstname,
-            lastname: reqClient.lastname,
-            email: reqClient.email,
-            phone: reqClient.phone
+            firstname: c.firstname,
+            lastname: c.lastname,
+            email: c.email,
+            phone: c.phone
         }
         console.log('Update client:',req.params.id);
-        Client.findById(req.params.id)
-            .exec((err, client) => {
-                console.log(err);
-                if (err) return res.status(500).end();
+        Client.update(
+            { _id: req.params.id },
+            { $set: updateClient, $inc: {__v: 1} }
+        ).exec((err, clients) => {
+            if (err) return res.status(500).json({
+                message: "Failed to update client"
+            });
 
-                if (client.__v !== reqClient.__v) {
-                    return res.json({
-                        success: false,
-                        message: "Unable to update. Please refresh and try again"
-                    })
-                } else {
-                    Client.update({ _id: req.params.id }, { $set: updateClient, $inc: {__v: 1}})
-                        .exec((err, clients) => {
-                            console.log(err);
-                            if (err) return res.status(500).end();
-
-                            return res.json({
-                                success: true
-                            })
-                        });
-                }
+            return res.json({
+                success: true
             })
+        });
     },
     newClient: function(req, res, next) {
         const newClient = new Client(req.body.client);

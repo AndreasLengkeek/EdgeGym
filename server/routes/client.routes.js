@@ -1,7 +1,6 @@
-const express = require('express');
 const ClientController = require('../controllers/client.controller');
 const ProgramController = require('../controllers/program.controller');
-const router = express.Router();
+const router = require('express').Router();
 
 
 router.route('/clients')
@@ -10,7 +9,7 @@ router.route('/clients')
 
 router.route('/clients/:id')
     .get(ClientController.findClientById)
-    .put(ClientController.updateClient);
+    .put(ClientController.checkVersion, ClientController.updateClient);
 
 router.route('/clients/:id/programs')
     .get(ProgramController.getProgramsByClient);

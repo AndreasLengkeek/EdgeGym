@@ -55,7 +55,6 @@ app.use(historyApiFallback());
 app.use(express.static('./dist'));
 
 
-
 // error handlers
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
@@ -69,7 +68,7 @@ app.use(function(err, req, res, next) {
     res.render('error'); //render error page
   } else {
     res.json({
-      error: err
+      error: err.message
     })
   }
 });
