@@ -7,7 +7,6 @@ const logger = require('morgan');
 const config = require('./config');
 
 
-
 // connect to the database and load models
 require('./server/models').connect(config.db);
 
@@ -21,34 +20,10 @@ app.use(logger('dev'))
 // pass the passport middleware
 app.use(passport.initialize());
 
-app.use((req, res, next) => {
-    // add delay to simulate latency in dev environment
-    setTimeout(next, 500);
-})
-
-
 // load passport strategies
-const localSignupStrategy = require('./server/passport/local-signup');
-const localLoginStrategy = require('./server/passport/local-login');
-passport.use('local-signup', localSignupStrategy);
-passport.use('local-login', localLoginStrategy);
-
-// pass the authorization checker middleware
-const authCheckMiddleware = require('./server/middleware/auth-check');
-app.use('/api', authCheckMiddleware);
-
+require('./server/passport')(app);
 // API routes
-const client = require('./server/routes/client.routes');
-const program = require('./server/routes/program.routes');
-const user = require('./server/routes/user.routes');
-const auth = require('./server/routes/auth.routes');
-const file = require('./server/routes/file.routes');
-app.use('/api', client);
-app.use('/api', program);
-app.use('/api', user);
-app.use('/file', file);
-app.use('/auth', auth);
-
+require('./server/routes')(app);
 
 
 // middleware to help spa with reloads and bookmarks
