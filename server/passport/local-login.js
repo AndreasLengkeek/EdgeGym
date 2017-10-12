@@ -16,7 +16,6 @@ module.exports = new PassportLocalStrategy({
     email: email.trim(),
     password: password.trim()
   };
-  console.log('running local login: ', userData);
 
   // find a user by email address
   return User.findOne({ email: userData.email }, (err, user) => {
@@ -41,7 +40,8 @@ module.exports = new PassportLocalStrategy({
       }
 
       const payload = {
-        sub: user._id
+        sub: user._id,
+        admin: user.admin
       };
 
       // create a token string that expires in 15 mins
@@ -50,7 +50,8 @@ module.exports = new PassportLocalStrategy({
         id: user._id,
         username: user.username,
         firstname: user.firstname,
-        lastname: user.lastname
+        lastname: user.lastname,
+        admin: user.admin
       };
 
       return done(null, token, data);

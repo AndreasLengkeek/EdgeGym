@@ -9,11 +9,12 @@ module.exports = function() {
         }
 
         let newUser = new User({
-            username: 'TrainerTOm',
+            username: 'TrainerTom',
             firstname: 'Tom',
             lastname: 'Trainer',
             email: 'test',
-            password: 'test'
+            password: 'test',
+            admin: true
         });
 
         newUser.save((err) => {

@@ -4,7 +4,6 @@ const passport = require('passport');
 function validateLoginForm(payload) {
     const errors = {};
     let isValid = true;
-    console.log(payload);
     if (!payload || typeof payload.email !== 'string' || payload.email.trim().length == 0) {
         console.log('email error');
         isValid = false;
@@ -32,7 +31,6 @@ module.exports = {
 
         return passport.authenticate('local-login', (err, token, userData) => {
           if (err) {
-            console.log('Local-login', err);
             if (err.name === 'IncorrectCredentialsError') {
               return res.status(400).json({
                 success: false,
@@ -48,7 +46,6 @@ module.exports = {
           }
 
 
-          console.log('there was success');
           return res.json({
             success: true,
             message: 'You have successfully logged in!',
