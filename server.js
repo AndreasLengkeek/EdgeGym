@@ -40,10 +40,12 @@ app.use('/api', authCheckMiddleware);
 // API routes
 const client = require('./server/routes/client.routes');
 const program = require('./server/routes/program.routes');
+const user = require('./server/routes/user.routes');
 const auth = require('./server/routes/auth.routes');
 const file = require('./server/routes/file.routes');
 app.use('/api', client);
 app.use('/api', program);
+app.use('/api', user);
 app.use('/file', file);
 app.use('/auth', auth);
 

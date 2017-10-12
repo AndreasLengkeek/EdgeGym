@@ -31,7 +31,9 @@ module.exports = {
             .exec((err, client) => {
 
             if (err) {
-                res.status(500).json(err);
+                res.status(500).json({
+                    message: "Failed to find client"
+                });
             }
             return res.json({
                 client
@@ -43,7 +45,7 @@ module.exports = {
         Client.findById(req.params.id).exec((err, client) => {
             if (err) {
                 return res.status(500).json({
-                    message: "Failed to load clients"
+                    message: "Failed to find client"
                 })
             }
 
@@ -58,20 +60,22 @@ module.exports = {
     },
     updateClient: function(req, res, next) {
         let c = req.body.client;
-        let updateClient = {
-            firstname: c.firstname,
-            lastname: c.lastname,
-            email: c.email,
-            phone: c.phone
-        }
+        let update = {};
+        if (c.firstname) update.firstname = c.firstname;
+        if (c.lastname) update.lastname = c.lastname;
+        if (c.email) update.email = c.email;
+        if (c.phone) update.phone = c.phone;
+
         console.log('Update client:',req.params.id);
-        Client.update(
-            { _id: req.params.id },
-            { $set: updateClient, $inc: {__v: 1} }
-        ).exec((err, clients) => {
-            if (err) return res.status(500).json({
-                message: "Failed to update client"
-            });
+        Client.findByIdAndUpdate(
+            req.params.id,
+            { $set: update, $inc: {__v: 1} }
+        ).exec((err) => {
+            if (err) {
+                return res.status(500).json({
+                    message: "Failed to update client"
+                });
+            }
 
             return res.json({
                 success: true
