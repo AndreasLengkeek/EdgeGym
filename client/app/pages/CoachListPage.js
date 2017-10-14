@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/lib/Col';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/lib/Button';
 
-const AdminListPage = (props) => {
+const CoachListPage = (props) => {
     return (
       <Row>
         <Col sm={12} smOffset={1}>
@@ -18,4 +18,4 @@ const AdminListPage = (props) => {
   );
 }
 
-export default AdminListPage;
+export default CoachListPage;
