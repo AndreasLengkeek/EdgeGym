@@ -52,6 +52,10 @@ module.exports = {
         if (u.firstname) update.firstname = u.firstname;
         if (u.lastname) update.lastname = u.lastname;
         if (u.email) update.email = u.email;
+        if (u.permissions) {
+            update.permissions = u.permissions
+            update.permissions.updatedAt = Date.now()
+        }
 
         User.findByIdAndUpdate(
             req.params.id,

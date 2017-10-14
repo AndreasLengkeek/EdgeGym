@@ -38,10 +38,6 @@ const jwtOptions = {
 // Create JWT strategy
 // payload is the token (sub) and timestamp (iat) and expire time (exp)
 const jwtLogin = new jwtStrategy(jwtOptions, (payload, done) => {
-    console.log('jwt payload', payload);
-    console.log('id', payload.sub);
-    console.log('iat', new Date(payload.iat));
-    console.log('exp', new Date(payload.exp));
     // check if the token has expired
     const NOW = new Date().getTime();
     if (payload.exp < NOW) {
