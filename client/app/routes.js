@@ -13,6 +13,8 @@ import SignUp from './pages/SignUp';
 import ClientList from './pages/ClientListPage';
 import ClientCreate from './pages/ClientCreatePage'
 import ClientDetail from './pages/ClientDetailPage';
+import CoachList from './pages/CoachListPage';
+import CoachCreate from './pages/CoachCreatePage';
 import ProgramPage from './pages/ProgramPage';
 import ProgramCreatePage from './pages/ProgramCreatePage';
 
@@ -24,6 +26,8 @@ const Routes = () => (
     <PrivateRoute path="/clients/new" component={ClientCreate} />
     <PrivateRoute path="/clients/:id" component={ClientDetail} />
     <PrivateRoute path="/clients" component={ClientList} />
+    <PrivateRoute path="/coaches/new" component={CoachCreate} />
+    <PrivateRoute path="/coaches" component={CoachList} />
     <PrivateRoute path="/programs/new/:clientid" component={ProgramCreatePage} />
     <PrivateRoute path="/programs" component={ProgramPage} />
     <Route path="*" component={NotFound} />
