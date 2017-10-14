@@ -10,10 +10,11 @@ import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-import CoachList from './pages/CoachListPage';
 import ClientList from './pages/ClientListPage';
 import ClientCreate from './pages/ClientCreatePage'
 import ClientDetail from './pages/ClientDetailPage';
+import CoachList from './pages/CoachListPage';
+import CoachCreate from './pages/CoachCreatePage';
 import ProgramPage from './pages/ProgramPage';
 import ProgramCreatePage from './pages/ProgramCreatePage';
 
@@ -22,10 +23,11 @@ const Routes = () => (
     <PrivateRoute exact path="/" component={Dashboard} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
-    <PrivateRoute path="/coaches" component={CoachList} />
     <PrivateRoute path="/clients/new" component={ClientCreate} />
     <PrivateRoute path="/clients/:id" component={ClientDetail} />
     <PrivateRoute path="/clients" component={ClientList} />
+    <PrivateRoute path="/coaches/new" component={CoachCreate} />
+    <PrivateRoute path="/coaches" component={CoachList} />
     <PrivateRoute path="/programs/new/:clientid" component={ProgramCreatePage} />
     <PrivateRoute path="/programs" component={ProgramPage} />
     <Route path="*" component={NotFound} />
