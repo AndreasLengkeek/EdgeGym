@@ -19,7 +19,7 @@ app.use(logger('dev'))
 app.use(passport.initialize());
 
 // load passport strategies
-require('./server/passport')(app);
+require('./server/passport');
 // API routes
 require('./server/routes')(app);
 

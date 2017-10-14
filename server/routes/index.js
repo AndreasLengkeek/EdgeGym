@@ -1,6 +1,6 @@
 const router = require('express').Router();
+const passport = require('passport');
 
-const authCheckMiddleware = require('../middleware/auth-check');
 const auth = require('./auth.routes');
 const client = require('./client.routes');
 const file = require('./file.routes');
@@ -8,14 +8,15 @@ const program = require('./program.routes');
 const user = require('./user.routes');
 
 module.exports = (app) => {
-    // pass the authorization checker middleware
-    app.use('/api', authCheckMiddleware);
+    // session false as we are not using cookies, using tokens
+    const requireAuth = passport.authenticate('jwt', { session: false });
 
     // api routes
-    app.use('/api', client);
-    app.use('/api', program);
-    app.use('/api', user);
+    app.use('/api', requireAuth, client);
+    app.use('/api', requireAuth, program);
+    app.use('/api', requireAuth, user);
 
-    app.use('/file', file);
+    // login and sign up have passport settings on the auth route file
     app.use('/auth', auth);
+    app.use('/file', file);
 }

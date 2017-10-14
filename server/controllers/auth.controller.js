@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
 function validateLoginForm(payload) {
     const errors = {};
@@ -22,37 +24,27 @@ function validateLoginForm(payload) {
     };
 }
 
+// create token
+function tokenForUser(user) {
+    const timestamp = new Date().getTime();
+    const expireTime = timestamp + (1000 * 60 * 60 * 24 * 7); // expires in 7 days
+    // the subject (sub) of this token is the user id, iat = issued at time, exp = expiry time
+    return jwt.sign({ sub: user._id, iat: timestamp, exp: expireTime }, config.jwtSecret);
+}
+
 module.exports = {
     login: function(req, res, next) {
-        const validationResult = validateLoginForm(req.body);
-        if (!validationResult.success) {
-          return res.status(400).json(validationResult);
-        }
+        // const validationResult = validateLoginForm(req.body);
+        // if (!validationResult.success) {
+        //   return res.status(400).json(validationResult);
+        // }
 
-        return passport.authenticate('local-login', (err, token, userData) => {
-          if (err) {
-            if (err.name === 'IncorrectCredentialsError') {
-              return res.status(400).json({
-                success: false,
-                message: err.message
-              });
-              return res.status(500).json(err);
-            }
-
-            return res.status(400).json({
-              success: false,
-              message: 'Could not process the form.'
-            });
-          }
-
-
-          return res.json({
+        return res.json({
             success: true,
-            message: 'You have successfully logged in!',
-            token,
-            user: userData
-          });
-        })(req, res, next);
+            message: 'You have successfully logged in',
+            token: tokenForUser(req.user),
+            user: req.user
+        });
     },
     signup: function(req, res, next) {
       console.log('Signing Up');
