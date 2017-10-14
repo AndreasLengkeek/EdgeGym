@@ -28,10 +28,10 @@ export default class CoachDetailContainer extends Component {
     axios.get('/api/users/'+id)
       .then((response) => {
         this.setState({
-          coach: response.data.users
+          coach: response.data.user
         })
       })
-      .catch(error => console.log('error', error.response));
+      .catch(error => console.log('error', error));
   }
 
   changeCoach(event) {
