@@ -9,12 +9,6 @@ import auth from '../utils/Auth';
 export default class Header extends Component {
 	constructor(props) {
 		super(props);
-
-		this.logout = this.logout.bind(this);
-	}
-
-	logout(e) {
-		auth.deauthenticateUser();
 	}
 
 	render() {

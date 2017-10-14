@@ -23,7 +23,6 @@ export default class Header extends Component {
      */
     return (
       <div id="sidebar-wrapper">
-        {auth.isUserAuthenticated() ? (
           <ul className="sidebar-nav">
             <li className="sidebar-brand">
               <Link to="/">
@@ -49,16 +48,6 @@ export default class Header extends Component {
               <Link to="/login" onClick={this.logout}>Logout</Link>
             </li>
           </ul>
-        ) : (
-            <ul className="sidebar-nav">
-              <li className="sidebar-brand">
-                <Link to="/">Edge Gym</Link>
-              </li>
-              <li>
-                <NavLink to="/login">Login</NavLink>
-              </li>
-            </ul>
-        )}
       </div>
 	  )
   }
