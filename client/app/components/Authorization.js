@@ -13,12 +13,16 @@ const Authorization = (allowedRoles) => (WrappedComponent) => {
     }
 
     render() {
-      const { role } = this.state.user.permissions;
-      if (allowedRoles.includes(role)) {
-        return <WrappedComponent {...this.props} />;
-      } else {
-        return <Redirect to="/404" />;
-      }
+        if (auth.isUserAuthenticated()) {
+          const { permissions } = this.state.user;
+          if (permissions && allowedRoles.includes(permissions.role)) {
+            return <WrappedComponent {...this.props} />
+          } else {
+            return <Redirect to="/404" />
+          }
+        } else {
+          return <Redirect to="/login" />
+        }
     }
   }
 }
