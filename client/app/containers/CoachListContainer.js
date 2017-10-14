@@ -15,10 +15,10 @@ class CoachListContainer extends Component {
 
   componentDidMount() {
     let page = this;
-    axios.get('/api/coaches')
+    axios.get('/api/users')
       .then((response) => {
         this.setState({
-          coaches: response.data.coaches
+          coaches: response.data.users
         });
       })
       .catch((error) => {

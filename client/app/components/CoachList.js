@@ -16,6 +16,7 @@ export default class CoachList extends Component {
           <thead>
             <tr>
               <th>#</th>
+              <th>Username</th>
               <th>Name</th>
               <th>Email</th>
             </tr>
@@ -31,6 +32,7 @@ export default class CoachList extends Component {
 const CoachRow = ({rowNum, coach}) => (
   <tr>
     <td>{rowNum}</td>
+    <td>{coach.username}</td>
     <td>
       <Link to={`/coaches/${coach._id}`}>{`${coach.firstname} ${coach.lastname}`}</Link>
     </td>
