@@ -33,9 +33,6 @@ export default class Header extends Component {
               <NavLink exact to="/" activeClassName="selected">Dashboard</NavLink>
             </li>
             <li>
-              <NavLink to="/signup" activeClassName="selected">Sign Up</NavLink>
-            </li>
-            <li>
               <NavLink to="/clients" activeClassName="selected">Clients</NavLink>
             </li>
             <li>
