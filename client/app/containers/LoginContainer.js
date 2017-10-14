@@ -33,16 +33,16 @@ class LoginContainer extends Component {
     event.preventDefault();
     console.log('Logging in');
 
-    const page = this;
+    const { history } = this.props;
     axios.post('/auth/login', {
         email: this.state.user.email,
         password: this.state.user.password
       }).then((response) => {
         let { token, user } = response.data;
         auth.authenticateUser(token, user);
-        page.props.history.push('/clients');
+        history.push('/');
       }).catch((error) => {
-        console.log(error);
+        console.log("error = ",error.response);
       });
   }
 

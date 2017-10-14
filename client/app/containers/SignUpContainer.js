@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import SignUpForm from '../components/SignUpForm';
+import auth from '../utils/Auth';
+import axios from 'axios';
 
 class SignUpContainer extends Component {
   constructor(props, context) {
@@ -26,10 +28,28 @@ class SignUpContainer extends Component {
     * @param {object} event - the JavaScript event object
     */
   signUp(event) {
-    // prevent default action. in this case, action is the form submission event
     event.preventDefault();
-    console.log('Processing form');
+    console.log(this.props);
+    let { history } = this.props;
 
+    const { user } = this.state;
+    axios.post('/auth/signup', user)
+      .then(response => {
+        console.log('success = ', response.data);
+        if (response.data.success) {
+          let { token, user } = response.data;
+          auth.authenticateUser(token, user);
+          history.push('/');
+        } else {
+          this.setState({
+            errors: response.data.errors
+          })
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        console.log("error = ", error.reponse);
+      })
   }
 
    /**
@@ -53,13 +73,10 @@ class SignUpContainer extends Component {
         onSubmit={this.signUp}
         onChange={this.changeUser}
         errors={this.state.errors}
+        message={this.state.message}
         user={this.state.user} />
     );
   }
 }
-
-// SignUpPage.contextTypes = {
-//   router: PropTypes.object.isRequired
-// };
 
 export default SignUpContainer;

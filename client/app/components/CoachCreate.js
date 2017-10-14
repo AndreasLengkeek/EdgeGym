@@ -7,12 +7,12 @@ const CoachCreate = ({coach, errors, onChange, onSubmit}) => {
   return (
     <Form onSubmit={onSubmit}>
       <FieldGroup
-      label="User Name"
-      type="text"
-      name="username"
-      value={coach.username}
-      help={errors.username}
-      onChange={onChange} />
+        label="User Name"
+        type="text"
+        name="username"
+        value={coach.username}
+        help={errors.username}
+        onChange={onChange} />
       <FieldGroup
         label="First Name"
         type="text"
@@ -34,13 +34,13 @@ const CoachCreate = ({coach, errors, onChange, onSubmit}) => {
         value={coach.email}
         help={errors.email}
         onChange={onChange} />
-        <FieldGroup
-          label="Password"
-          type="password"
-          name="password"
-          value={coach.password}
-          help={errors.password}
-          onChange={onChange} />
+      <FieldGroup
+        label="Password"
+        type="password"
+        name="password"
+        value={coach.password}
+        help={errors.password}
+        onChange={onChange} />
       <Button type="submit">Submit</Button>
     </Form>
   );

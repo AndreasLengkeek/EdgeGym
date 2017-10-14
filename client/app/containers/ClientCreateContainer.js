@@ -34,7 +34,6 @@ export default class ClientCreateContainer extends Component {
   createClient(event) {
     event.preventDefault();
 
-    console.log('submitting client:', this.state.client)
     let page = this;
     axios.post('/api/clients', {
       client: this.state.client

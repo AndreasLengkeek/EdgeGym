@@ -7,6 +7,7 @@ import {
 import Authorization from './components/Authorization';
 
 const User = Authorization(['user']);
+const All = Authorization(['user', 'coach', 'admin']);
 const Coach = Authorization(['coach', 'admin']);
 const Admin = Authorization(['admin']);
 
@@ -26,7 +27,7 @@ import ProgramCreatePage from './pages/ProgramCreatePage';
 
 const Routes = () => (
   <Switch>
-    <Route exact path="/" component={Coach(Dashboard)} />
+    <Route exact path="/" component={All(Dashboard)} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
     <Route path="/clients/new" component={Coach(ClientCreate)} />

@@ -7,7 +7,7 @@ class SignUpPage extends Component {
        <div className="row">
          <div className="col-lg-6 col-lg-offset-3">
            <h2>Create a new user</h2>
-           <SignUpContainer />
+           <SignUpContainer {...this.props} />
         </div>
       </div>
     );

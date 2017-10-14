@@ -38,13 +38,13 @@ function validateSignupForm(payload) {
     const PASSWORD = payload.password;
     // check if any data missing
     if (!EMAIL || !PASSWORD) {
-      return { message: 'You must provide email and password', success: false };
+      return { errors: { summary: 'You must provide email and password' }, success: false };
     }
     let errors = {};
     let isSuccess = true
     // check if email is a string and a valid email format
     if (typeof(EMAIL) !== 'string' || !validator.isEmail(EMAIL)) {
-        errors.email = 'Email is not valid';
+        errors.email = 'Not a valid email format';
         isSuccess = false;
     }
     // check if password is a string
@@ -70,6 +70,7 @@ function validateSignupForm(payload) {
 }
 
 function buildValidationMessage(dbError) {
+    console.log(dbError);
     const errors = {};
     for (field in dbError) {
         if (field)
@@ -91,7 +92,7 @@ module.exports = {
         // validate form inputs
         const result = validateSignupForm(req.body);
         if (!result.success) {
-            return res.status(400).json(result);
+            return res.json(result);
         }
 
         User.findOne({ email: req.body.email }).exec((err, user) => {
@@ -102,9 +103,10 @@ module.exports = {
             }
 
             if (user) {
+                console.log('found matching user = ', user.email)
                 return res.json({
                     success: false,
-                    error: { email: "Email is already taken" }
+                    errors: { email: "Email is already taken" }
                 })
             }
 
@@ -123,7 +125,7 @@ module.exports = {
             newUser.save((err, user) => {
                 if (err) {
                     if (err.name == 'ValidationError')
-                        return res.json({ success: false, validation: buildValidationMessage(err) });
+                        return res.json({ success: false, errors: buildValidationMessage(err.errors) });
                     return res.status(500).json({
                         message: "Failed to create user"
                     });
