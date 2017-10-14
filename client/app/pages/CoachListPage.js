@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/lib/Button';
 const CoachListPage = (props) => {
     return (
       <Row>
-        <Col sm={12} smOffset={1}>
+        <Col sm={12}>
         <h1>
           Coaches <Link to="/coaches/new"><Button>Create new Coach</Button></Link>
         </h1>
