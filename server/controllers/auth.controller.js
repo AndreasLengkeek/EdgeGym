@@ -2,6 +2,15 @@ const User = require('../models/User');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../../config');
+const validator = require('validator');
+
+// create token
+function tokenForUser(user) {
+    const timestamp = new Date().getTime();
+    const expireTime = timestamp + (1000 * 60 * 60 * 24 * 7); // expires in 7 days
+    // the subject (sub) of this token is the user id, iat = issued at time, exp = expiry time
+    return jwt.sign({ sub: user._id, iat: timestamp, exp: expireTime }, config.jwtSecret);
+}
 
 function validateLoginForm(payload) {
     const errors = {};
@@ -24,21 +33,53 @@ function validateLoginForm(payload) {
     };
 }
 
-// create token
-function tokenForUser(user) {
-    const timestamp = new Date().getTime();
-    const expireTime = timestamp + (1000 * 60 * 60 * 24 * 7); // expires in 7 days
-    // the subject (sub) of this token is the user id, iat = issued at time, exp = expiry time
-    return jwt.sign({ sub: user._id, iat: timestamp, exp: expireTime }, config.jwtSecret);
+function validateSignupForm(payload) {
+    const EMAIL = payload.email;
+    const PASSWORD = payload.password;
+    // check if any data missing
+    if (!EMAIL || !PASSWORD) {
+      return { message: 'You must provide email and password', success: false };
+    }
+    let errors = {};
+    let isSuccess = true
+    // check if email is a string and a valid email format
+    if (typeof(EMAIL) !== 'string' || !validator.isEmail(EMAIL)) {
+        errors.email = 'Email is not valid';
+        isSuccess = false;
+    }
+    // check if password is a string
+    if (typeof(PASSWORD) !== 'string') {
+        errors.password = 'Password is not valid';
+        isSuccess = false;
+    }
+    // check if password is long enough
+    if (!validator.isLength(PASSWORD, { min: 4, max: 100})) {
+        errors.password = 'Password is too short';
+        isSuccess = false;
+    }
+    // check if password and email match each other
+    if (EMAIL === PASSWORD) {
+      errors.password = 'Password must not match email address';
+      isSuccess = false;
+    }
+
+    return {
+        success: isSuccess,
+        errors
+    };
+}
+
+function buildValidationMessage(dbError) {
+    const errors = {};
+    for (field in dbError) {
+        if (field)
+            errors[field] = dbError[field].message;
+    }
+    return errors;
 }
 
 module.exports = {
     login: function(req, res, next) {
-        // const validationResult = validateLoginForm(req.body);
-        // if (!validationResult.success) {
-        //   return res.status(400).json(validationResult);
-        // }
-
         return res.json({
             success: true,
             message: 'You have successfully logged in',
@@ -47,43 +88,52 @@ module.exports = {
         });
     },
     signup: function(req, res, next) {
-      console.log('Signing Up');
-      const validationResult = { success: true};//validateSignupForm(req.body);
-      if (!validationResult.success) {
-        return res.status(400).json({
-          success: false,
-          message: validationResult.message,
-          errors: validationResult.errors
-        });
-      }
-
-
-      return passport.authenticate('local-signup', (err) => {
-          console.log('passport to local signup callback');
-        if (err) {
-            console.log(err);
-          if (err.name === 'MongoError' && err.code === 11000) {
-            // the 11000 Mongo code is for a duplication email error
-            // the 409 HTTP status code is for conflict error
-            return res.status(409).json({
-              success: false,
-              message: 'Check the form for errors.',
-              errors: {
-                email: 'This email is already taken.'
-              }
-            });
-          }
-
-          return res.status(400).json({
-            success: false,
-            message: 'Could not process the form.'
-          });
+        // validate form inputs
+        const result = validateSignupForm(req.body);
+        if (!result.success) {
+            return res.status(400).json(result);
         }
-        console.log('there was success');
-        return res.status(200).json({
-          success: true,
-          message: 'You have successfully signed up! Now you should be able to log in.'
-        });
-      })(req, res, next);
+
+        User.findOne({ email: req.body.email }).exec((err, user) => {
+            if (err) {
+                return res.status(500).json({
+                    message: "Failed to create user"
+                });
+            }
+
+            if (user) {
+                return res.json({
+                    success: false,
+                    error: { email: "Email is already taken" }
+                })
+            }
+
+            const u = req.body;
+            const newUser = new User({
+                email: u.email,
+                password: u.password,
+                permissions: {
+                    role: "user"
+                }
+            });
+            if (u.username) newUser.username = u.username;
+            if (u.firstname) newUser.firstname = u.firstname;
+            if (u.lastname) newUser.lastname = u.lastname;
+
+            newUser.save((err, user) => {
+                if (err) {
+                    if (err.name == 'ValidationError')
+                        return res.json({ success: false, validation: buildValidationMessage(err) });
+                    return res.status(500).json({
+                        message: "Failed to create user"
+                    });
+                }
+                return res.json({
+                    success: true,
+                    token: tokenForUser(user),
+                    user
+                });
+            })
+        })
     }
 }

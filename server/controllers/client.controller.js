@@ -94,7 +94,9 @@ module.exports = {
                         errors: validation
                     });
                 } else {
-                    next(err);
+                    return res.status(500).json({
+                        message: "Failed to create client"
+                    });
                 }
             } else {
                 return res.json({

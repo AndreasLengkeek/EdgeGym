@@ -3,15 +3,15 @@ const bcrypt = require('bcrypt');
 
 const PermissionSchema = new mongoose.Schema({
     role: String,
-    updatedAt: Date
+    updatedAt: { type: Date, default: Date.now }
 },{ _id: false });
 
 const UserSchema = new mongoose.Schema({
-    username: { type: String, required: true },
-    firstname: { type: String, required: true},
-    lastname: { type: String, required: true },
-    email: { type: String, required: true, index: { unique: true } },
-    password: { type: String, required: true },
+    username: { type: String, required: [true, "Username is required"] },
+    firstname: { type: String, required: [true, "Firstname is required"]},
+    lastname: { type: String, required: [true, "Lastname is required"] },
+    email: { type: String, required: [true, "Email is required"], index: { unique: true } },
+    password: { type: String, required: [true, "Password is required"] },
     permissions: PermissionSchema
 });
 
@@ -31,11 +31,8 @@ UserSchema.methods.comparePassword = function comparePassword(password, callback
 UserSchema.pre('save', function saveHook(next) {
   const user = this;
 
-  console.log('This is pre save of user');
-
   // proceed further only if the password is modified or the user is new
   if (!user.isModified('password')) return next();
-
 
   return bcrypt.genSalt((saltError, salt) => {
     if (saltError) { return next(saltError); }
