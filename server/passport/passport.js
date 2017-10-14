@@ -40,6 +40,8 @@ const jwtOptions = {
 const jwtLogin = new jwtStrategy(jwtOptions, (payload, done) => {
     // check if the token has expired
     const NOW = new Date().getTime();
+    console.log('token issued =', new Date(payload.iat));
+    console.log('token expire =', new Date(payload.exp));
     if (payload.exp < NOW) {
         console.log('expired');
         return done(null, false);

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const PermissionSchema = new mongoose.Schema({
-    roles: [String],
+    role: String,
     updatedAt: Date
 },{ _id: false });
 

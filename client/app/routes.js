@@ -4,7 +4,11 @@ import {
   Switch
 } from 'react-router';
 
-import PrivateRoute from './components/PrivateRoute';
+import Authorization from './components/Authorization';
+
+const User = Authorization(['user']);
+const Coach = Authorization(['coach', 'admin']);
+const Admin = Authorization(['admin']);
 
 import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
@@ -19,19 +23,20 @@ import CoachDetail from './pages/CoachDetailPage';
 import ProgramPage from './pages/ProgramPage';
 import ProgramCreatePage from './pages/ProgramCreatePage';
 
+
 const Routes = () => (
   <Switch>
-    <PrivateRoute exact path="/" component={Dashboard} />
+    <Route exact path="/" component={Coach(Dashboard)} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
-    <PrivateRoute path="/clients/new" component={ClientCreate} />
-    <PrivateRoute path="/clients/:id" component={ClientDetail} />
-    <PrivateRoute path="/clients" component={ClientList} />
-    <PrivateRoute path="/coaches/new" component={CoachCreate} />
-    <PrivateRoute path="/coaches/:id" component={CoachDetail} />
-    <PrivateRoute path="/coaches" component={CoachList} />
-    <PrivateRoute path="/programs/new/:clientid" component={ProgramCreatePage} />
-    <PrivateRoute path="/programs" component={ProgramPage} />
+    <Route path="/clients/new" component={Coach(ClientCreate)} />
+    <Route path="/clients/:id" component={Coach(ClientDetail)} />
+    <Route path="/clients" component={Coach(ClientList)} />
+    <Route path="/coaches/new" component={Admin(CoachCreate)} />
+    <Route path="/coaches/:id" component={Admin(CoachDetail)} />
+    <Route path="/coaches" component={Admin(CoachList)} />
+    <Route path="/programs/new/:clientid" component={Coach(ProgramCreatePage)} />
+    <Route path="/programs" component={Coach(ProgramPage)} />
     <Route path="*" component={NotFound} />
   </Switch>
 );
