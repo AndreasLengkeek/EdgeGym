@@ -4,13 +4,16 @@
 import React, { Component } from 'react';
 import Grid from 'react-bootstrap/lib/Grid';
 import Header from '../components/Header';
+import HeaderLoggedOut from '../components/HeaderLoggedOut';
 import auth from '../utils/Auth';
 
 const App = ({ children }) => (
   <div id="wrapper">
       {auth.isUserAuthenticated() ? (
         <Header />
-      ) : ("")}
+      ) : (
+        <HeaderLoggedOut />
+      )}
     <div className="page-content-wrapper">
       <Grid fluid >
         {children}

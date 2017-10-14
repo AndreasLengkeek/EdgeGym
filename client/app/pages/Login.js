@@ -6,7 +6,7 @@ class Login extends Component {
     return (
       <div className="row">
         <div className="col-lg-6 col-lg-offset-3">
-          <h1>Coach Login</h1>
+          <h1>Coach Logins</h1>
           <LoginContainer {...this.props}/>
         </div>
       </div>
