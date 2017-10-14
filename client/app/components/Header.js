@@ -41,12 +41,6 @@ export default class Header extends Component {
             <li>
               <NavLink to="/classes" activeClassName="selected">Classes</NavLink>
             </li>
-          	<li>
-          		<NavLink to="/coaches" activeClassName="selected">Admin Page</NavLink>
-          	</li>
-            <li>
-              <Link to="/login" onClick={this.logout}>Logout</Link>
-            </li>
           </ul>
       </div>
 	  )
