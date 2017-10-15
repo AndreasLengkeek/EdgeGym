@@ -172,9 +172,10 @@ module.exports = {
                     if (err) {
                         return res.status(500).json({ error: "A server error occured"});
                     }
-                    console.log('send fp to = ',updated.email);
 
-                    mail.forgotPasswordEmail(updated.email, resetToken, (err, response) => {
+                    const resetLink = 'http://' + req.headers.host + '/reset/' + resetToken;
+
+                    mail.forgotPasswordEmail(updated.email, resetLink, (err, response) => {
                         if (err) {
                             return res.status(500).json({ error: "A server error occured"});
                         }
