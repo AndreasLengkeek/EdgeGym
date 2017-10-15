@@ -38,6 +38,6 @@ const CoachRow = ({rowNum, coach}) => (
       <Link to={`/coaches/${coach._id}`}>{`${coach.firstname} ${coach.lastname}`}</Link>
     </td>
     <td>{coach.email}</td>
-      <td><Button bsStyle="danger" bsSize="xs" href="/test">Delete</Button> <Button bsStyle="primary" bsSize="xs" href={`/coaches/${coach._id}`}>View</Button></td>
+      <td><Button bsStyle="danger" bsSize="xs" href={`/coaches/delete/${coach._id}`}>Delete</Button> <Button bsStyle="primary" bsSize="xs" href={`/coaches/${coach._id}`}>View</Button></td>
   </tr>
 )
