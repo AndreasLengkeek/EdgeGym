@@ -4,12 +4,13 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
-const FieldGroup = ({ label, validation, help, ...props }) => {
+const FieldGroup = ({ label, validation, help, success, ...props }) => {
   return (
-    <FormGroup validationState={help && "error"}>
+    <FormGroup validationState={(help && "error") || (success && "success")}>
       <ControlLabel>{label}</ControlLabel>
       <FormControl {...props} />
       {help && <HelpBlock>{help}</HelpBlock>}
+      {success && <HelpBlock>{success}</HelpBlock>}
     </FormGroup>
   );
 }

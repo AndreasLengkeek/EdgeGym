@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import ResetPassContainer from '../containers/ResetPassContainer';
+import ResetPasswordContainer from '../containers/ResetPasswordContainer';
 
-class ResetPassPage extends Component {
+class ResetPasswordPage extends Component {
   render() {
     return (
       <div className="row">
         <div className="col-lg-6 col-lg-offset-3">
           <h1>Reset Password</h1>
-          <ResetPassContainer {...this.props}/>
+          <ResetPasswordContainer {...this.props}/>
         </div>
       </div>
     )
   }
 }
 
-export default ResetPassPage;
+export default ResetPasswordPage;

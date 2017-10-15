@@ -8,20 +8,22 @@ import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
-// TODO errors
-const ResetPassForm = ({onSubmit, onChange, errors, user}) => (
+const ForgotPassword = ({onSubmit, onChange, loading, error, message, email}) => (
   <Form onSubmit={onSubmit}>
     <FieldGroup
       label="Email"
       type="text"
-      name="email"
-      value={user.email}
+      help={error}
+      success={message}
+      value={email}
       onChange={onChange} />
     <HelpBlock>Enter the email used with your account</HelpBlock>
-    <Button type="submit">Submit</Button>
+    <Button type="submit" disabled={loading}>
+      {loading ? "Loading..." : "Submit"}
+    </Button>
 
     <h6>Remember password? <Link to="/login">Login</Link></h6>
   </Form>
 );
 
-export default ResetPassForm;
+export default ForgotPassword;

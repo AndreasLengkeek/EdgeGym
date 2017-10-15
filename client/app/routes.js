@@ -16,7 +16,8 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import FacebookLogin from './utils/FacebookLogin';
 import SignUp from './pages/SignUp';
-import ResetPassPage from './pages/ResetPassPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import ClientList from './pages/ClientListPage';
 import ClientCreate from './pages/ClientCreatePage'
 import ClientDetail from './pages/ClientDetailPage';
@@ -31,7 +32,8 @@ const Routes = () => (
     <Route exact path="/" component={All(Dashboard)} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
-    <Route path="/forgot" component={ResetPassPage} />
+    <Route path="/forgot" component={ForgotPasswordPage} />
+    <Route path="/reset/:code" component={ResetPasswordPage} />
     <Route path="/auth" component={FacebookLogin} />
     <Route path="/clients/new" component={Coach(ClientCreate)} />
     <Route path="/clients/:id" component={Coach(ClientDetail)} />
