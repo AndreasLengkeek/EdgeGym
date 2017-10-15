@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/lib/Table';
+import Button from 'react-bootstrap/lib/Button';
 
 export default class ClientList extends Component {
   constructor(props) {
@@ -39,5 +40,6 @@ const ClientRow = ({rowNum, client}) => (
     <td>{client.phone}</td>
     <td>{client.email}</td>
     <td>{client.coach.username}</td>
+    <td><Button bsStyle="danger" bsSize="xs" href="/test">Delete</Button> <Button bsStyle="primary" bsSize="xs" href={`/clients/${client._id}`}>View</Button></td>
   </tr>
 )
