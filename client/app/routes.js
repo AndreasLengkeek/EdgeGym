@@ -21,6 +21,7 @@ import ResetPasswordPage from './pages/ResetPasswordPage'
 import ClientList from './pages/ClientListPage';
 import ClientCreate from './pages/ClientCreatePage'
 import ClientDetail from './pages/ClientDetailPage';
+import DeleteCoachPage from './pages/DeleteCoachPage';
 import CoachList from './pages/CoachListPage';
 import CoachCreate from './pages/CoachCreatePage';
 import CoachDetail from './pages/CoachDetailPage';
@@ -38,6 +39,7 @@ const Routes = () => (
     <Route path="/clients/new" component={Coach(ClientCreate)} />
     <Route path="/clients/:id" component={Coach(ClientDetail)} />
     <Route path="/clients" component={Coach(ClientList)} />
+    <Route path="/coaches/delete/:id" component={Admin(DeleteCoachPage)} />
     <Route path="/coaches/new" component={Admin(CoachCreate)} />
     <Route path="/coaches/:id" component={Admin(CoachDetail)} />
     <Route path="/coaches" component={Admin(CoachList)} />
