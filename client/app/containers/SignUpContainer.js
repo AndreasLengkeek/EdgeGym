@@ -14,7 +14,8 @@ class SignUpContainer extends Component {
         lastname: '',
         username: '',
         email: '',
-        password: ''
+        password: '',
+        confirm: ''
       }
     };
 
@@ -29,13 +30,18 @@ class SignUpContainer extends Component {
     */
   signUp(event) {
     event.preventDefault();
-    console.log(this.props);
     let { history } = this.props;
 
     const { user } = this.state;
-    axios.post('/auth/signup', user)
+    const newUser = {
+      username: user.username,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      password: user.password
+    };
+    axios.post('/auth/signup', newUser)
       .then(response => {
-        console.log('success = ', response.data);
         if (response.data.success) {
           let { token, user } = response.data;
           auth.authenticateUser(token, user);

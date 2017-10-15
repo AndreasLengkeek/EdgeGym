@@ -9,21 +9,7 @@ import { Link } from 'react-router-dom';
 const SignUpForm = ({ onSubmit, onChange, errors, user}) => {
   return (
         <Form onSubmit={onSubmit}>
-          {errors.summary && <p>{errors.summary}</p>}
-          <FieldGroup
-            label="Email"
-            name="email"
-            type="text"
-            value={user.email}
-            help={errors.email}
-            onChange={onChange} />
-          <FieldGroup
-            label="Password"
-            type="password"
-            name="password"
-            value={user.password}
-            help={errors.password}
-            onChange={onChange} />
+          {errors.summary && <p style={{color: 'red'}}>{errors.summary}</p>}
           <FieldGroup
             label="Username"
             type="text"
@@ -44,6 +30,27 @@ const SignUpForm = ({ onSubmit, onChange, errors, user}) => {
             name="lastname"
             value={user.lastname}
             help={errors.lastname}
+            onChange={onChange} />
+          <FieldGroup
+            label="Email"
+            name="email"
+            type="text"
+            value={user.email}
+            help={errors.email}
+            onChange={onChange} />
+          <FieldGroup
+            label="Password"
+            type="password"
+            name="password"
+            value={user.password}
+            help={errors.password}
+            onChange={onChange} />
+          <FieldGroup
+            label="Confirm Password"
+            type="password"
+            name="confirm"
+            value={user.confirm}
+            help={user.password !== user.confirm && "Does not match"}
             onChange={onChange} />
           <Button type="submit">Submit</Button>
 
