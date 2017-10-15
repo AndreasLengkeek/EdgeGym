@@ -26,6 +26,7 @@ const LoginForm = ({onSubmit, onChange, errors, user}) => (
 
     <h6>Need an account? <Link to="/signup">Signup</Link></h6>
     <h6>Forgot your password? <Link to="/forgot">Reset password</Link></h6>
+    <h6>Login with facebook <a href="/auth/facebook">here</a></h6>
   </Form>
 );
 

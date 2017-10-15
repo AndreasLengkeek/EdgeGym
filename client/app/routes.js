@@ -14,6 +14,7 @@ const Admin = Authorization(['admin']);
 import NotFound from './pages/NotFound';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
+import FacebookLogin from './utils/FacebookLogin';
 import SignUp from './pages/SignUp';
 import ResetPassPage from './pages/ResetPassPage'
 import ClientList from './pages/ClientListPage';
@@ -25,13 +26,13 @@ import CoachDetail from './pages/CoachDetailPage';
 import ProgramPage from './pages/MyProgramPage';
 import ProgramCreatePage from './pages/ProgramCreatePage';
 
-
 const Routes = () => (
   <Switch>
     <Route exact path="/" component={All(Dashboard)} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
     <Route path="/forgot" component={ResetPassPage} />
+    <Route path="/auth" component={FacebookLogin} />
     <Route path="/clients/new" component={Coach(ClientCreate)} />
     <Route path="/clients/:id" component={Coach(ClientDetail)} />
     <Route path="/clients" component={Coach(ClientList)} />

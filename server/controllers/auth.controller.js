@@ -88,6 +88,10 @@ module.exports = {
             user: req.user
         });
     },
+    facebookLogin: function(req, res, next) {
+        let token = tokenForUser(req.user);
+        res.redirect('/auth?'+token);
+    },
     signup: function(req, res, next) {
         // validate form inputs
         const result = validateSignupForm(req.body);

@@ -10,8 +10,9 @@ const UserSchema = new mongoose.Schema({
     username: { type: String, required: [true, "Username is required"] },
     firstname: { type: String, required: [true, "Firstname is required"]},
     lastname: { type: String, required: [true, "Lastname is required"] },
-    email: { type: String, required: [true, "Email is required"], index: { unique: true } },
-    password: { type: String, required: [true, "Password is required"] },
+    email: { type: String, required: false },
+    password: { type: String, required: false },
+    facebookId: String,
     permissions: PermissionSchema
 });
 
