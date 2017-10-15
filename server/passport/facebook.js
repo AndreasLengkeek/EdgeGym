@@ -18,11 +18,15 @@ const facebookStrategy = new FacebookStrategy(
             if (user){
                 return done(null, user);
             } else {
-                let newUser = new User();
-                newUser.facebookId = profile.id;
-                newUser.username = profile.displayName;
-                newUser.firstname = profile.name.givenName;
-                newUser.lastname = profile.name.familyName;
+                let newUser = new User({
+                    facebookId: profile.id,
+                    username: profile.displayName,
+                    firstname: profile.name.givenName,
+                    lastname: profile.name.familyName,
+                    permissions: {
+                        roles: 'user'
+                    }
+                });
                 newUser.save((err, user) => {
                     if (err) return done(err, false);
 
