@@ -11,6 +11,7 @@
     "db": "mongo edgegym"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.1.4",
     "autoprefixer": "^7.1.2",
     "axios": "^0.16.2",
     "babel-core": "^6.26.0",

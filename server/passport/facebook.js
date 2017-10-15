@@ -24,7 +24,7 @@ const facebookStrategy = new FacebookStrategy(
                     firstname: profile.name.givenName,
                     lastname: profile.name.familyName,
                     permissions: {
-                        roles: 'user'
+                        role: 'user'
                     }
                 });
                 newUser.save((err, user) => {
