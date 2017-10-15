@@ -5,7 +5,7 @@ module.exports = {
         User.find().exec((err, users) => {
             if (err) {
                 return res.status(500).json({
-                    message: "Could not retrieve users"
+                    error: "Could not retrieve users"
                 });
             }
 
@@ -18,7 +18,7 @@ module.exports = {
         User.findById(req.params.id).exec((err, user) => {
             if (err) {
                 return res.status(500).json({
-                    message: "Failed to find user"
+                    error: "Failed to find user"
                 });
             }
 
@@ -32,7 +32,7 @@ module.exports = {
         User.findById(req.params.id).exec((err, user) => {
             if (err) {
                 return res.status(500).json({
-                    message: "Failed to find user"
+                    error: "Failed to find user"
                 });
             }
 
@@ -63,7 +63,7 @@ module.exports = {
         ).exec((err) => {
             if (err) {
                 return res.status(500).json({
-                    message: "Failed to update user"
+                    error: "Failed to update user"
                 });
             }
 
@@ -79,7 +79,7 @@ module.exports = {
         User.findByIdAndRemove(req.params.id).exec((err, user) => {
             if (err) {
                 return res.status(500).json({
-                    message: "Failed to delete user"
+                    error: "Failed to delete user"
                 });
             }
 

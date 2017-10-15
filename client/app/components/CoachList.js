@@ -20,6 +20,7 @@ export default class CoachList extends Component {
               <th>Username</th>
               <th>Name</th>
               <th>Email</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -38,6 +39,10 @@ const CoachRow = ({rowNum, coach}) => (
       <Link to={`/coaches/${coach._id}`}>{`${coach.firstname} ${coach.lastname}`}</Link>
     </td>
     <td>{coach.email}</td>
-      <td><Button bsStyle="danger" bsSize="xs" href={`/coaches/delete/${coach._id}`}>Delete</Button> <Button bsStyle="primary" bsSize="xs" href={`/coaches/${coach._id}`}>View</Button></td>
+      <td>
+          <Link to={`/coaches/delete/${coach._id}`}><Button bsStyle="danger" bsSize="xs">Delete</Button></Link>
+          {" "}
+          <Link to={`/coaches/${coach._id}`}><Button bsStyle="primary" bsSize="xs">View</Button></Link>
+      </td>
   </tr>
 )

@@ -7,19 +7,16 @@ export default class DeleteCoachContainer extends Component {
     super(props);
 
     this.state = {
+      error: '',
       coach: {
         username: '',
         firstname: '',
         lastname: '',
         email: ''
-      },
-      editing: true,
-      errors: {}
+      }
     }
 
-    this.changeCoach = this.changeCoach.bind(this);
-    this.toggleEdit = this.toggleEdit.bind(this);
-    this.save = this.save.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   componentDidMount() {
@@ -34,45 +31,29 @@ export default class DeleteCoachContainer extends Component {
       .catch(error => console.log('error', error));
   }
 
-  changeCoach(event) {
-    const field = event.target.name;
-    const coach = this.state.coach;
-    console.log(`${field}: ${event.target.value}`)
-    coach[field] = event.target.value;
-
-    this.setState({
-     coach
-    });
-  }
-
-  // toggle readonly state to false
-  toggleEdit() {
-    this.setState({
-      editing: !this.state.editing
-    })
-  }
-
-  save(event) {
+  delete(event) {
     event.preventDefault();
     let { coach } = this.state;
-    console.log('submitting', coach)
-    axios.put('/api/users/'+coach._id, {
-      coach
-    }).then(response => {
-        console.log(response)
-    }).catch(error => {
-        console.log(error);
-    });
+    let { history } = this.props;
+    axios.delete('/api/users/'+coach._id)
+      .then(response => {
+        console.log('response = ',response);
+        history.push('/coaches');
+      }).catch(error => {
+        console.log('error = ', error.response);
+        this.setState({
+          error: error.response.data.error
+        });
+      });
   }
 
   render() {
     return (
       <CoachReadOnly
         coach={this.state.coach}
-        errors={this.state.errors}
+        error={this.state.error}
         editing={this.state.editing}
-        onSubmit={this.save}
-        onChange={this.changeCoach} />
+        onSubmit={this.delete} />
     )
   }
 }
