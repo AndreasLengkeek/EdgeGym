@@ -11,13 +11,13 @@ router.route('/login')
   .post(requireSignIn, authController.login);
 
 router.route('/signup')
-  .post(authController.signup);
+  .post(authController.signup, authController.login);
 
 router.route('/forgotten')
   .post(authController.forgotPassword);
 
 router.route('/password/reset')
-  .post(authController.resetPassword);
+  .post(authController.resetPassword, authController.login);
 
 router.route('/facebook/login')
   .post(requireAuth, authController.login);

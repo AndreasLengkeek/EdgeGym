@@ -9,27 +9,29 @@ import Form from 'react-bootstrap/lib/Form';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
 // TODO errors
-const ResetPassword = ({onSubmit, onChange, loading, user}) => (
+const ResetPassword = ({onSubmit, onChange, loading, error, user}) => (
   <Form onSubmit={onSubmit}>
+    {error && <p style={{ color: 'red' }}>{error}</p>}
     <FieldGroup
-      label="Old Password"
-      type="password"
-      name="oldpassword"
-      value={user.oldpassword}
+      label="Email"
+      type="text"
+      name="email"
+      value={user.email}
       onChange={onChange} />
     <FieldGroup
       label="New Password"
       type="password"
-      name="newpassword"
-      value={user.newpassword}
+      name="password"
+      value={user.password}
       onChange={onChange} />
     <FieldGroup
       label="Confirm Password"
       type="password"
-      name="passwordconfirm"
-      value={user.passwordconfirm}
+      name="confirm"
+      value={user.confirm}
+      help={user.password !== user.confirm && "Does not match"}
       onChange={onChange} />
-    <Button type="submit" disabled={loading}>
+    <Button type="submit" disabled={loading || user.password !== user.confirm}>
       {loading ? "Loading..." : "Submit"}
     </Button>
 

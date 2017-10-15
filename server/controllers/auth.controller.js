@@ -24,6 +24,27 @@ function createLinkCode(type) {
     return linkCode;
 }
 
+// check link codes are valid
+function checkCodeTime(linkCode) {
+    if (!linkCode) {
+        return false;
+    }
+    const tokenArr = linkCode.split("-");
+    const timestamp = tokenArr[0];
+    const now = new Date().getTime();
+    const difference = timestamp - now;
+    // default to 1 hour
+    let timeLeft = Math.floor(difference / 1000 / 60) + 60;
+
+    if (timeLeft < 1) {
+        // expired
+        return false;
+    } else {
+        // valid
+        return timeLeft;
+    }
+}
+
 function validateLoginForm(payload) {
     const errors = {};
     let isValid = true;
@@ -93,11 +114,19 @@ function buildValidationMessage(dbError) {
 
 module.exports = {
     login: function(req, res, next) {
+        const user = {
+            id: req.user.id,
+            username: req.user.username,
+            firstname: req.user.firstname,
+            lastname: req.user.lastname,
+            permissions: req.user.permissions
+        }
+
         return res.json({
             success: true,
             message: 'You have successfully logged in',
             token: tokenForUser(req.user),
-            user: req.user
+            user: user
         });
     },
     facebookLogin: function(req, res, next) {
@@ -146,11 +175,8 @@ module.exports = {
                         message: "Failed to create user"
                     });
                 }
-                return res.json({
-                    success: true,
-                    token: tokenForUser(user),
-                    user
-                });
+                req.user = user;
+                next();
             })
         })
     },
@@ -190,6 +216,57 @@ module.exports = {
         });
     },
     resetPassword: function(req, res, next) {
+        const EMAIL = req.body.email;
+        const PASSWORD = req.body.password;
+        const RESET_CODE = req.body.reset;
+        // check if any data missing
+        if (!EMAIL || !PASSWORD) {
+            return res.status(422).send({ error: 'You must provide email and new password'});
+        }
+        // check if reset token time is still valid
+        if (!RESET_CODE || !checkCodeTime(RESET_CODE)) {
+            return res.status(422).send({ error: 'Your forgotten password link has expired, you must use the link within 1 hour'});
+        }
+        // check if email is a string and a valid email format
+        if (typeof EMAIL !== 'string' || !validator.isEmail(EMAIL)) {
+            return res.status(422).send({ error: 'Email is not valid'});
+        }
+        // check if password is a string
+        if (typeof PASSWORD !== 'string') {
+            return res.status(422).send({ error: 'Password is not valid'});
+        }
+        // check if password is long enough
+        if (!validator.isLength(PASSWORD, { min: 4, max: 100 })) {
+            return res.status(422).send({ error: 'Password is too short'});
+        }
+        // check if password and email match each other
+        if (EMAIL === PASSWORD) {
+            return res.status(422).send({ error: 'Password must not match email address'});
+        }
+        // See if a user with the given email exists
+        User.findOne({ email: EMAIL }, (err, existingUser) => {
+            if (err) {
+                return res.status(500).json({ error: "A server error occured"});
+            }
+            // If a user with the email does not exist, return an error
+            if (!existingUser) {
+                return res.status(422).send({ error: 'Email not found'});
+            }
+            // If the reset link doesn't match, return an error
+            if (existingUser.resetPassword !== RESET_CODE) {
+                return res.status(422).send({ error: 'Reset link not valid'});
+            }
+            existingUser.password = PASSWORD;
+            existingUser.resetPassword = undefined;
 
+            existingUser.save((err, user) => {
+                if (err) {
+                    return res.status(500).json({ error: "A server error occured"});
+                }
+                // continue to next request to login
+                req.user = user;
+                next();
+            });
+        });
     }
 }

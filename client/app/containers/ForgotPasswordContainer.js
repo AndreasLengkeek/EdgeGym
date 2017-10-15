@@ -16,6 +16,7 @@ class ForgotPasswordContainer extends Component {
 
     this.changeEmail = this.changeEmail.bind(this);
     this.submit = this.submit.bind(this);
+    this.setLoading = this.setLoading.bind(this);
   }
 
   changeEmail(event) {
@@ -26,10 +27,7 @@ class ForgotPasswordContainer extends Component {
 
   submit(event) {
     event.preventDefault();
-
-    this.setState({
-      loading: true
-    });
+    this.setLoading(true);
 
     const forgot = {
       email: this.state.email
@@ -37,7 +35,6 @@ class ForgotPasswordContainer extends Component {
 
     axios.post('/auth/forgotten', forgot)
       .then(response => {
-        console.log(response.data);
         const { message } = response.data;
         if (message) {
           this.setState({
@@ -45,9 +42,7 @@ class ForgotPasswordContainer extends Component {
             error: null
           });
         }
-        this.setState({
-          loading: false
-        });
+        this.setLoading(false);
       }).catch(err => {
         console.log('error = ',err.response);
         const { error } = err.response.data;
@@ -57,9 +52,13 @@ class ForgotPasswordContainer extends Component {
             message: null
           });
         }
-        this.setState({
-          loading: false
-        });
+        this.setLoading(false);
+      });
+  }
+
+  setLoading(l) {
+      this.setState({
+          loading: l
       });
   }
 

@@ -10,14 +10,15 @@ class ResetPasswordContainer extends Component {
     this.state = {
       loading: false,
       user: {
-        oldpassword: '',
-        newpassword: '',
-        passwordconfirm: ''
+        email: '',
+        password: '',
+        confirm: ''
       }
     };
 
     this.changeUser = this.changeUser.bind(this);
     this.resetPassword = this.resetPassword.bind(this);
+    this.setLoading = this.setLoading.bind(this);
   }
 
   changeUser(event) {
@@ -32,16 +33,40 @@ class ResetPasswordContainer extends Component {
 
   resetPassword(event) {
     event.preventDefault();
-    console.log('reset pword');
-    this.setState({
-      loading: true
-    })
+    let { code } = this.props.match.params;
+    let { history } = this.props;
+    this.setLoading(true);
 
-    setTimeout(() => {
-      this.setState({
-        loading: false
+    const resetForm = {
+      email: this.state.user.email,
+      password: this.state.user.password,
+      reset: code
+    };
+
+    axios.post('/auth/password/reset', resetForm)
+      .then(response => {
+        this.setLoading(false);
+        if (response.data.success) {
+          const { token, user } = response.data;
+          auth.authenticateUser(token, user);
+          history.push('/');
+        }
+      }).catch(err => {
+        console.log('error = ',err.response);
+        const { error } = err.response.data;
+        if (error) {
+          this.setState({
+            error: error
+          });
+        }
+        this.setLoading(false);
       });
-    }, 1000);
+  }
+
+  setLoading(l) {
+    this.setState({
+      loading: l
+    });
   }
 
   render() {
@@ -50,6 +75,7 @@ class ResetPasswordContainer extends Component {
         onSubmit={this.resetPassword}
         onChange={this.changeUser}
         loading={this.state.loading}
+        error={this.state.error}
         user={this.state.user} />
     );
   }
