@@ -12,6 +12,7 @@ const UserSchema = new mongoose.Schema({
     lastname: { type: String, required: [true, "Lastname is required"] },
     email: { type: String, required: false },
     password: { type: String, required: false },
+    resetPassword: String,
     facebookId: String,
     permissions: PermissionSchema
 });

@@ -13,6 +13,12 @@ router.route('/login')
 router.route('/signup')
   .post(authController.signup);
 
+router.route('/forgotten')
+  .post(authController.forgotPassword);
+
+router.route('/password/reset')
+  .post(authController.resetPassword);
+
 router.route('/facebook/login')
   .post(requireAuth, authController.login);
 

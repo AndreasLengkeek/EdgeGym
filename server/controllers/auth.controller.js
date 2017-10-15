@@ -4,12 +4,24 @@ const jwt = require('jsonwebtoken');
 const config = require('../../config');
 const validator = require('validator');
 
+const mail = require('../services/sendgrid');
+
 // create token
 function tokenForUser(user) {
     const timestamp = new Date().getTime();
     const expireTime = timestamp + (1000 * 60 * 60 * 24 * 7); // expires in 7 days
     // the subject (sub) of this token is the user id, iat = issued at time, exp = expiry time
     return jwt.sign({ sub: user._id, iat: timestamp, exp: expireTime }, config.jwtSecret);
+}
+
+// create link code
+// for confirming email and forgotten passwords
+function createLinkCode(type) {
+    // timestamp so can check age and random number to create linkCode
+    const timestamp = new Date().getTime();
+    const randomNum = Math.floor(Math.random() * 10000);
+    const linkCode = timestamp + '-' + randomNum + '-' + type;
+    return linkCode;
 }
 
 function validateLoginForm(payload) {
@@ -141,5 +153,43 @@ module.exports = {
                 });
             })
         })
+    },
+    forgotPassword: function(req, res, next) {
+        const EMAIL = req.body.email;
+
+        if (!EMAIL || typeof EMAIL !== 'string' || !validator.isEmail(EMAIL))
+            return res.status(422).json({ error: "You must provide a valid email address" });
+
+        User.findOne({ email: EMAIL }, (err, existing) => {
+            if (err) {
+                return res.status(500).json({ error: "A server error occured"});
+            }
+
+            if (existing) {
+                const resetToken = createLinkCode("pwr");
+
+                User.findByIdAndUpdate(existing._id, { $set: { resetPassword: resetToken } }, (err, updated) => {
+                    if (err) {
+                        return res.status(500).json({ error: "A server error occured"});
+                    }
+
+                    const resetLink = 'http://' + req.headers.host + '/reset/' + resetToken;
+
+                    mail.forgotPasswordEmail(updated.email, resetLink, (err, response) => {
+                        if (err) {
+                            return res.status(500).json({ error: "A server error occured"});
+                        }
+
+                        return res.json({ message: "Thank you, please check your email" });
+                    });
+                });
+            } else {
+                // email does not exist, return same message to not indicate whether a user has an account or not (privacy)
+                return res.json({ message: "Thank you, please check your email" });
+            }
+        });
+    },
+    resetPassword: function(req, res, next) {
+
     }
 }
