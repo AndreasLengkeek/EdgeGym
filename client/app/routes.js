@@ -22,7 +22,7 @@ import ClientDetail from './pages/ClientDetailPage';
 import CoachList from './pages/CoachListPage';
 import CoachCreate from './pages/CoachCreatePage';
 import CoachDetail from './pages/CoachDetailPage';
-import ProgramPage from './pages/ProgramPage';
+import ProgramPage from './pages/MyProgramPage';
 import ProgramCreatePage from './pages/ProgramCreatePage';
 
 
@@ -39,7 +39,7 @@ const Routes = () => (
     <Route path="/coaches/:id" component={Admin(CoachDetail)} />
     <Route path="/coaches" component={Admin(CoachList)} />
     <Route path="/programs/new/:clientid" component={Coach(ProgramCreatePage)} />
-    <Route path="/programs" component={Coach(ProgramPage)} />
+    <Route path="/programs" component={User(ProgramPage)} />
     <Route path="*" component={NotFound} />
   </Switch>
 );
