@@ -10,6 +10,10 @@ export default class TopHeader extends Component {
 	constructor(props) {
 		super(props);
 
+		this.state = {
+			user : auth.getUser()
+		}
+
 		this.logout = this.logout.bind(this);
 	}
 
@@ -24,13 +28,11 @@ export default class TopHeader extends Component {
     return (
       <div id="top-bar">
       <div id="top-bar-wrapper">
+        <span id="top-bar-user">Welcome {this.state.user.firstname}</span>
           <ul className="topbar-nav">
             <li>
               <NavLink to="/profile" activeClassName="selected">My Profile</NavLink>
             </li>
-          	<li>
-          		<NavLink to="/coaches" activeClassName="selected">Admin Page</NavLink>
-          	</li>
             <li>
               <Link to="/login" onClick={this.logout}>Logout</Link>
             </li>

@@ -9,7 +9,6 @@ import auth from '../utils/Auth';
 export default class Header extends Component {
 	constructor(props) {
 		super(props);
-
 		this.logout = this.logout.bind(this);
 	}
 
@@ -40,6 +39,9 @@ export default class Header extends Component {
             </li>
             <li>
               <NavLink to="/classes" activeClassName="selected">Classes</NavLink>
+            </li>
+            <li>
+              <NavLink to="/coaches" activeClassName="selected">Admin Page</NavLink>
             </li>
           </ul>
       </div>
