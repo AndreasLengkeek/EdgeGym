@@ -37,10 +37,8 @@ export default class DeleteCoachContainer extends Component {
     let { history } = this.props;
     axios.delete('/api/users/'+coach._id)
       .then(response => {
-        console.log('response = ',response);
         history.push('/coaches');
       }).catch(error => {
-        console.log('error = ', error.response);
         this.setState({
           error: error.response.data.error
         });

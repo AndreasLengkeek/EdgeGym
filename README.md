@@ -1,13 +1,29 @@
 # Gym Trainer App
 
-## Setup
+## Installation
 1. Clone the repository
 2. Run `npm install` or `yarn install` to install dependencies
-3. Setup db connection string in config.js
-    - eg: `mongodb://localhost:27017/edgegym`
-4. Start an instance of the mongo daemon `mongod`
-    - Run instance `localhost` on the default port (`27017`)
-6. Run the app `npm run dev`. This will start the app with hot loading and nodemon on `http://localhost:4000`
+3. Start up an instance of the mongo daemon with `mongod`
+
+## Environment Variables
+##### These variables need to be set for the application to start up
+3. Setup db connection string in the environment variable MONGODB_URI
+4. Setup jwt secrect evironment variable for secure authentication
+5. Setup facebook credentials for facebook sign in (environment variables FBCLIENT_ID, FBCLIENT_SECRET)
+6. Setup sendgrid for email services with a SENDGRID_API_KEY environment variable
+
+## Running the App
+1. Make sure an instance of the mongo daemon is running with `mongod`
+2. Run in production mode with `npm start`
+3. For development use the command `npm run bundle` for the client and `npm run dev` for the server
+4. Good to go!
+
+## Available API
+
+Integrate with our app by creating an account and accessing your data via a RESTful API
+
+[Access it On Postman](https://documenter.getpostman.com/view/81219/edge-gym-public/71B5DbJ)
+
 
 ## Coding Conventions
 ### Braces
