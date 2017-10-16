@@ -16,10 +16,8 @@ export default class ClientProgramsContainer extends Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    console.log(id);
     axios.get('/api/clients/'+id+'/programs')
       .then(response => {
-        console.log(response.data.programs);
         this.setState({
           programs: response.data.programs
         });

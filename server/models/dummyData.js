@@ -9,43 +9,44 @@ module.exports = function() {
         }
 
         let newUser = new User({
-            username: 'TrainerTom',
+            username: 'AdminTom',
             firstname: 'Tom',
-            lastname: 'Trainer',
+            lastname: 'Admin',
             email: 'test',
             password: 'test',
-            admin: true
+            permissions: {
+                role: 'admin'
+            }
         });
 
-        newUser.save((err) => {
+        newUser.save((err, admin) => {
             if (err) { return; }
             console.log('Adding dummy data');
 
-            let newClient = new Client({
+            let newUserClient = new User({
                 username: 'Jimmy2000',
                 email: 'jimmy@email.com',
                 password: 'password',
                 firstname: 'Jimmy',
                 lastname: 'Neutron',
-                phone: '0455 767 987',
-                address: '6 Testing Rd, Sydney 2000',
-                gender: 'Male',
-                coach: newUser._id
+                permissions: {
+                    role: 'user'
+                }
             });
 
-            newClient.save((err) => {
-                if (err) { return; }
-
-                let newProgram = new Program({
-                    fileid: 'testfile',
-                    createdby: newUser._id,
-                    client: newClient._id
+            newUserClient.save((err, saved) => {
+                let newClient = new Client({
+                    phone: '0455 767 987',
+                    address: '6 Testing Rd, Sydney 2000',
+                    gender: 'Male',
+                    user: saved._id,
+                    coach: admin._id
                 });
 
-                newProgram.save((err) => {
+                newClient.save((err) => {
                     if (err) { return; }
                 });
-            });
+            })
         });
     });
 }

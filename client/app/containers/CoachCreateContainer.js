@@ -16,11 +16,12 @@ export default class CoachCreateContainer extends Component {
         firstname: '',
         lastname: '',
         email: '',
-        password: '',
-        coach: auth.getUser().id
+        password: ''
       }
     }
 
+    this.changeCoach = this.changeCoach.bind(this);
+    this.createCoach = this.createCoach.bind(this);
   }
   /**
    * Update coach in state when values change.
@@ -40,24 +41,31 @@ export default class CoachCreateContainer extends Component {
    */
   createCoach(event) {
     event.preventDefault();
+    let { history } = this.props;
+    const { coach } = this.state;
+    const newUser = {
+      username: coach.username,
+      firstname: coach.firstname,
+      lastname: coach.lastname,
+      email: coach.email,
+      password: coach.password
+    };
 
-    console.log('submitting coach:', this.state.coach)
-    let page = this;
-
-    axios.post('/api/coaches', {
-      coach: this.state.coach
-    }).then((response) => {
+    axios.post('/api/users', newUser)
+      .then((response) => {
+        console.log(response.data);
         if (response.data.success) {
-          page.props.history.push('/coaches');
+          history.push('/coaches');
         } else {
-          page.setState({
+          this.setState({
             errors: response.data.errors
           })
         }
-    })
-    .catch(error => {
-        console.log(error);
-    });
+      })
+      .catch(error => {
+          console.log(error);
+          console.log('error = ',error.response);
+      });
   }
 
   render() {

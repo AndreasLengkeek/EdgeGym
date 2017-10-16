@@ -1,4 +1,51 @@
 const User = require('mongoose').model('User');
+const validator = require('validator');
+
+function validateCreateUser(payload) {
+    const EMAIL = payload.email;
+    const PASSWORD = payload.password;
+    // check if any data missing
+    if (!EMAIL || !PASSWORD) {
+      return { errors: { summary: 'You must provide email and password' }, success: false };
+    }
+    let errors = {};
+    let isSuccess = true
+    // check if email is a string and a valid email format
+    if (typeof(EMAIL) !== 'string' || !validator.isEmail(EMAIL)) {
+        errors.email = 'Not a valid email format';
+        isSuccess = false;
+    }
+    // check if password is a string
+    if (typeof(PASSWORD) !== 'string') {
+        errors.password = 'Password is not valid';
+        isSuccess = false;
+    }
+    // check if password is long enough
+    if (!validator.isLength(PASSWORD, { min: 4, max: 100})) {
+        errors.password = 'Password is too short';
+        isSuccess = false;
+    }
+    // check if password and email match each other
+    if (EMAIL === PASSWORD) {
+      errors.password = 'Password must not match email address';
+      isSuccess = false;
+    }
+
+    return {
+        success: isSuccess,
+        errors
+    };
+}
+
+function buildValidationMessage(dbError) {
+    console.log(dbError);
+    const errors = {};
+    for (field in dbError) {
+        if (field)
+            errors[field] = dbError[field].message;
+    }
+    return errors;
+}
 
 module.exports = {
     getUsers: function(req, res, next) {
@@ -73,7 +120,52 @@ module.exports = {
         })
     },
     createUser: function(req, res, next) {
-        // TODO figure out how to connect to passport
+        // validate form inputs
+        const result = validateCreateUser(req.body);
+        if (!result.success) {
+            return res.json(result);
+        }
+
+        User.findOne({ email: req.body.email }).exec((err, user) => {
+            if (err) {
+                return res.status(500).json({
+                    message: "Failed to create user"
+                });
+            }
+
+            if (user) {
+                console.log('found matching user = ', user.email)
+                return res.json({
+                    success: false,
+                    errors: { email: "Email is already taken" }
+                })
+            }
+
+            let newUser = new User({
+                username: req.body.username,
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                email: req.body.email,
+                password: req.body.password,
+                permissions: {
+                    role: 'coach'
+                }
+            });
+
+            newUser.save((err) => {
+                if (err) {
+                    if (err.name == 'ValidationError')
+                        return res.json({ success: false, errors: buildValidationMessage(err.errors) });
+                    return res.status(500).json({
+                        message: "Failed to create user"
+                    });
+                }
+
+                return res.json({
+                    success: true
+                })
+            });
+        });
     },
     removeUser: function(req, res, next) {
         User.findByIdAndRemove(req.params.id).exec((err, user) => {

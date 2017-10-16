@@ -1,6 +1,7 @@
 const FacebookStrategy = require('passport-facebook').Strategy;
 const config = require('../../config');
 const User = require('mongoose').model('User');
+const Client = require('mongoose').model('Client');
 
 const facebookOptions = {
     clientID: config.facebookAuth.clientID,
@@ -30,7 +31,28 @@ const facebookStrategy = new FacebookStrategy(
                 newUser.save((err, user) => {
                     if (err) return done(err, false);
 
-                    return done(null, user);
+                    // get the admin account
+                    User.findOne({ 'permissions.role': 'admin' }).exec((err, admin) => {
+                        if(err) {
+                            return res.status(500).json({
+                                message: "Failed to create client"
+                            });
+                        }
+
+                        // associated client needs to be created for non coaches
+                        const client = new Client({
+                            user: user._id,
+                            coach: admin._id
+                        });
+                        client.save((err, saved) => {
+                            if(err) {
+                                return res.status(500).json({
+                                    message: "Failed to create user"
+                                });
+                            }
+                            return done(null, user);
+                        });
+                    });
                 });
             }
         });
