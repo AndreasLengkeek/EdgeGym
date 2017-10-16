@@ -27,6 +27,7 @@ import CoachCreate from './pages/CoachCreatePage';
 import CoachDetail from './pages/CoachDetailPage';
 import ProgramPage from './pages/MyProgramPage';
 import ProgramCreatePage from './pages/ProgramCreatePage';
+import MyProfilePage from './pages/MyProfilePage';
 
 const Routes = () => (
   <Switch>
@@ -45,6 +46,7 @@ const Routes = () => (
     <Route path="/coaches" component={Admin(CoachList)} />
     <Route path="/programs/new/:clientid" component={Coach(ProgramCreatePage)} />
     <Route path="/programs" component={User(ProgramPage)} />
+    <Route path="/profile/:id" component={All(MyProfilePage)} />
     <Route path="*" component={NotFound} />
   </Switch>
 );

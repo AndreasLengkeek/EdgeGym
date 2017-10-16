@@ -1,0 +1,81 @@
+import React, { Component } from 'react';
+import axios from 'axios';
+import UserDetail from '../components/UserDetail';
+
+export default class MyProfileContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      user: {
+        username: '',
+        firstname: '',
+        lastname: '',
+        email: ''
+      },
+      editing: true,
+      errors: {}
+    }
+
+    this.changeuser = this.changeuser.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.save = this.save.bind(this);
+  }
+
+  componentDidMount() {
+    // get user from api
+    let id = this.props.match.params.id;
+    console.log(id);
+    axios.get('/api/users/'+id)
+      .then((response) => {
+        this.setState({
+          user: response.data.user
+
+        })
+      })
+      .catch(error => console.log('error', error.response));
+
+  }
+
+  changeuser(event) {
+    const field = event.target.name;
+    const user = this.state.user;
+    console.log(`${field}: ${event.target.value}`)
+    user[field] = event.target.value;
+
+    this.setState({
+     user
+    });
+  }
+
+  // toggle readonly state to false
+  toggleEdit() {
+    this.setState({
+      editing: !this.state.editing
+    })
+  }
+
+  save(event) {
+    event.preventDefault();
+    let { user } = this.state;
+    console.log('submitting', user)
+    axios.put('/api/users/'+user._id, {
+      user
+    }).then(response => {
+        console.log(response)
+    }).catch(error => {
+        console.log(error);
+    });
+  }
+
+  render() {
+    return (
+      <UserDetail
+        user={this.state.user}
+        errors={this.state.errors}
+        editing={this.state.editing}
+        onSubmit={this.save}
+        onChange={this.changeuser} />
+    )
+  }
+}

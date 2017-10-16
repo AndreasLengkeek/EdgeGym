@@ -31,7 +31,7 @@ export default class TopHeader extends Component {
         <span id="top-bar-user">Welcome {this.state.user.firstname}</span>
           <ul className="topbar-nav">
             <li>
-              <NavLink to="/profile" activeClassName="selected">My Profile</NavLink>
+              <NavLink to={`/profile/${this.state.user.id}`} activeClassName="selected">My Profile</NavLink>
             </li>
             <li>
               <Link to="/login" onClick={this.logout}>Logout</Link>
