@@ -16,7 +16,6 @@ const All = ['user', 'coach', 'admin'];
 export default class Header extends Component {
 	constructor(props) {
 		super(props);
-    console.log(this.props);
 		this.state = {
 			role: this.props.user.permissions.role
 		};

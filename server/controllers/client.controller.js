@@ -12,6 +12,7 @@ function buildValidationMessage(dbError) {
 module.exports = {
     getClients: function(req, res) {
         Client.find()
+            .populate({ path: 'user', select: 'username firstname lastname email' })
             .populate({ path: 'coach', select: 'username' })
             .exec((err, clients) => {
 
@@ -27,6 +28,7 @@ module.exports = {
     },
     findClientById: function(req, res) {
         Client.findById(req.params.id)
+            .populate({ path: 'user', select: 'username firstname lastname email' })
             .populate({ path: 'coach', select: 'username' })
             .exec((err, client) => {
 

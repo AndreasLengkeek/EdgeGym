@@ -1,4 +1,5 @@
-const User = require('../models/User');
+const User = require('mongoose').model('User');;
+const Client = require('mongoose').model('Client');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../../config');
@@ -175,10 +176,30 @@ module.exports = {
                         message: "Failed to create user"
                     });
                 }
-                req.user = user;
-                next();
-            })
-        })
+                User.findOne({ 'permissions.role': 'admin' }).exec((err, admin) => {
+                    if(err) {
+                        return res.status(500).json({
+                            message: "Failed to create user"
+                        });
+                    }
+
+                    // associated client needs to be created for non coaches
+                    const client = new Client({
+                        user: user._id,
+                        coach: admin._id
+                    });
+                    client.save((err, saved) => {
+                        if(err) {
+                            return res.status(500).json({
+                                message: "Failed to create user"
+                            });
+                        }
+                        req.user = user;
+                        next();
+                    });
+                });
+            });
+        });
     },
     forgotPassword: function(req, res, next) {
         const EMAIL = req.body.email;
