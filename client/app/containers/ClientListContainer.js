@@ -4,6 +4,9 @@ import ClientList from '../components/ClientList';
 import axios from 'axios';
 import auth from '../utils/Auth';
 
+/**
+ * Calls component and populates with data received from API
+ */
 class ClientListContainer extends Component {
   constructor(props) {
     super(props);

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import ProgramList from '../components/ProgramList';
 import axios from 'axios';
 
+/**
+ * Obtain program data and pass to component
+ */
 class ProgramPage extends Component {
   constructor(props) {
     super(props);

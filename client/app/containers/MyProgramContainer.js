@@ -3,6 +3,9 @@ import ProgramList from '../components/ProgramList';
 import auth from '../utils/Auth';
 import axios from 'axios';
 
+/**
+ * Populates program component with program data from API.
+ */
 class ProgramPage extends Component {
   constructor(props) {
     super(props);

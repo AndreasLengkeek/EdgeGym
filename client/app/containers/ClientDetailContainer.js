@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ClientDetail from '../components/ClientDetail';
 
+/**
+ * Container for client detail components.
+ * Has functions to grab data from api and pass to component.
+ */
 export default class ClientDetailContainer extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +36,9 @@ export default class ClientDetailContainer extends Component {
       .catch(error => console.log('error', error.response));
   }
 
+  /**
+   * Update client state with new values onChange.
+   */
   changeClient(event) {
     const field = event.target.name;
     const client = this.state.client;
@@ -43,13 +50,18 @@ export default class ClientDetailContainer extends Component {
     });
   }
 
-  // toggle readonly state to false
+  /**
+   * Toggle readonly state
+   */
   toggleEdit() {
     this.setState({
       editing: !this.state.editing
     })
   }
 
+  /**
+   * Save client in state to database useing api call.
+   */
   save(event) {
     event.preventDefault();
     let { client } = this.state;

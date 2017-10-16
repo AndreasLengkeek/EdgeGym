@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import CoachReadOnly from '../components/CoachReadOnly';
 
+/**
+ * Removes coach from database.
+ */
 export default class DeleteCoachContainer extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +34,9 @@ export default class DeleteCoachContainer extends Component {
       .catch(error => console.log('error', error));
   }
 
+  /**
+   * Delete API called to remove coach from database
+   */
   delete(event) {
     event.preventDefault();
     let { coach } = this.state;

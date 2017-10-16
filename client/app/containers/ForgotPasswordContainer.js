@@ -3,6 +3,9 @@ import ForgotPassword from '../components/ForgotPassword';
 import auth from '../utils/Auth';
 import axios from 'axios';
 
+/**
+ * Passes functions to use API to components for forgot password
+ */
 class ForgotPasswordContainer extends Component {
   constructor(props) {
     super(props);
@@ -19,12 +22,18 @@ class ForgotPasswordContainer extends Component {
     this.setLoading = this.setLoading.bind(this);
   }
 
+  /**
+   * Update state when value in component is changed.
+   */
   changeEmail(event) {
     this.setState({
       email: event.target.value
     });
   }
 
+  /**
+   * Post forgotten email with message.
+   */
   submit(event) {
     event.preventDefault();
     this.setLoading(true);
@@ -56,6 +65,9 @@ class ForgotPasswordContainer extends Component {
       });
   }
 
+  /**
+   * While post is occuring update components to state loading.
+   */
   setLoading(l) {
       this.setState({
           loading: l

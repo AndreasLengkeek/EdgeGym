@@ -4,6 +4,9 @@ import CoachList from '../components/CoachList';
 import axios from 'axios';
 import auth from '../utils/Auth';
 
+/**
+ * Passes data from api users to component
+ */
 class CoachListContainer extends Component {
   constructor(props) {
     super(props);

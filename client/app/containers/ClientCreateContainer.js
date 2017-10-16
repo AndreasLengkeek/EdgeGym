@@ -3,6 +3,9 @@ import axios from 'axios';
 import auth from '../utils/Auth';
 import ClientCreate from '../components/ClientCreate';
 
+/**
+ * Container for ClientCreate component.
+ */
 export default class ClientCreateContainer extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +24,9 @@ export default class ClientCreateContainer extends Component {
     this.createClient = this.createClient.bind(this);
   }
 
+  /**
+   * Function changeClient updates state onChange from client component
+   */
   changeClient(event) {
     var field = event.target.name;
     var client = this.state.client;
@@ -31,6 +37,9 @@ export default class ClientCreateContainer extends Component {
     })
   }
 
+  /**
+   * Function createClient creates a client using api/clients
+   */
   createClient(event) {
     event.preventDefault();
 

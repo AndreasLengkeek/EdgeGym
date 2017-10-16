@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import CoachDetail from '../components/CoachDetail';
 
+/**
+ * Container to control functions saving and passing data to component
+ */
 export default class CoachDetailContainer extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +36,9 @@ export default class CoachDetailContainer extends Component {
       })
       .catch(error => console.log('error', error));
   }
-
+  /**
+   * Update coach in state to values in component onChange.
+   */
   changeCoach(event) {
     const field = event.target.name;
     const coach = this.state.coach;
@@ -45,13 +50,17 @@ export default class CoachDetailContainer extends Component {
     });
   }
 
-  // toggle readonly state to false
+  /**
+   * Toggle read only state
+   */
   toggleEdit() {
     this.setState({
       editing: !this.state.editing
     })
   }
-
+  /**
+   * Save coach to db using API.
+   */
   save(event) {
     event.preventDefault();
     let { coach } = this.state;

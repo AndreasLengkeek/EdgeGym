@@ -3,6 +3,9 @@ import LoginForm from '../components/LoginForm';
 import auth from '../utils/Auth';
 import axios from 'axios';
 
+/**
+ * Pass data between API and Componenet for login
+ */
 class LoginContainer extends Component {
   constructor(props) {
     super(props);
@@ -19,6 +22,9 @@ class LoginContainer extends Component {
     this.login = this.login.bind(this);
   }
 
+  /**
+   * update user state onChange with values from component
+   */
   changeUser(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -29,6 +35,10 @@ class LoginContainer extends Component {
     });
   }
 
+  /**
+   * update state with user details.
+   * call api and check authentication.
+   */
   login(event) {
     event.preventDefault();
 

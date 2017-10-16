@@ -3,6 +3,10 @@ import axios from 'axios';
 import auth from '../utils/Auth';
 import ProgramCreate from '../components/ProgramCreate';
 
+/**
+ * Populate data in components with data from API.
+ * Update data in DB using API functions.
+ */
 export default class ProgramCreateContainer extends Component {
   constructor(props) {
     super(props);
@@ -36,6 +40,9 @@ export default class ProgramCreateContainer extends Component {
       .catch(error => console.log('error', error.response));
   }
 
+  /**
+   * Updates the programs collection in database.
+   */
   submit(event) {
     event.preventDefault();
     this.setState({
@@ -60,6 +67,9 @@ export default class ProgramCreateContainer extends Component {
       });
   }
 
+  /**
+   * Uploads file to the state
+   */
   fileUpload(e) {
     const f = e.target.files[0];
     this.setState({
@@ -67,6 +77,9 @@ export default class ProgramCreateContainer extends Component {
     });
   }
 
+  /**
+   * Obtains data from state and updates using API POST method.
+   */
   createProgram(upload) {
     let history = this.props.history;
     axios.post('/api/programs', {
@@ -83,6 +96,9 @@ export default class ProgramCreateContainer extends Component {
       });
   }
 
+  /**
+   * When a program value is change update state.
+   */
   changeProgram(event) {
     var field = event.target.name;
     var program = this.state.program;

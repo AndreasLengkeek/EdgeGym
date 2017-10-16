@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import UserDetail from '../components/UserDetail';
 
+/**
+ * Passes data from API to components
+ */
 export default class MyProfileContainer extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +40,9 @@ export default class MyProfileContainer extends Component {
 
   }
 
+  /**
+   * Update state with new value from component
+   */
   changeuser(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -48,13 +54,18 @@ export default class MyProfileContainer extends Component {
     });
   }
 
-  // toggle readonly state to false
+  /**
+   * Toggle readonly in state
+   */
   toggleEdit() {
     this.setState({
       editing: !this.state.editing
     })
   }
 
+  /**
+   * Save details to user api.
+   */
   save(event) {
     event.preventDefault();
     let { user } = this.state;

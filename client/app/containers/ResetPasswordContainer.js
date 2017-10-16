@@ -3,6 +3,9 @@ import ResetPassword from '../components/ResetPassword';
 import auth from '../utils/Auth';
 import axios from 'axios';
 
+/**
+ * Pass data between user API and compoents for Reset password
+ */
 class ResetPasswordContainer extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +24,9 @@ class ResetPasswordContainer extends Component {
     this.setLoading = this.setLoading.bind(this);
   }
 
+  /**
+   * Update state with values onChange in components
+   */
   changeUser(event) {
     const field = event.target.name;
     const user = this.state.user;
@@ -31,12 +37,17 @@ class ResetPasswordContainer extends Component {
     });
   }
 
+  /**
+   *  Reset password for user in state.
+   *  calling API password/reset.
+   */
   resetPassword(event) {
     event.preventDefault();
     let { code } = this.props.match.params;
     let { history } = this.props;
     this.setLoading(true);
 
+    // obtain email, password and code.
     const resetForm = {
       email: this.state.user.email,
       password: this.state.user.password,
@@ -62,7 +73,9 @@ class ResetPasswordContainer extends Component {
         this.setLoading(false);
       });
   }
-
+  /**
+   * Set loading status while updating password.
+   */
   setLoading(l) {
     this.setState({
       loading: l

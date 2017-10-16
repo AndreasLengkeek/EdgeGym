@@ -3,6 +3,9 @@ import SignUpForm from '../components/SignUpForm';
 import auth from '../utils/Auth';
 import axios from 'axios';
 
+/**
+ * Updates db with new user details for singup.
+ */
 class SignUpContainer extends Component {
   constructor(props, context) {
     super(props, context);
@@ -23,11 +26,9 @@ class SignUpContainer extends Component {
     this.changeUser = this.changeUser.bind(this);
   }
 
-   /**
-    * Try create a new user
-    *
-    * @param {object} event - the JavaScript event object
-    */
+  /**
+   * Creates new user from state.
+   */
   signUp(event) {
     event.preventDefault();
     let { history } = this.props;
@@ -58,11 +59,9 @@ class SignUpContainer extends Component {
       })
   }
 
-   /**
-    * Change the user object.
-    *
-    * @param {object} event - the JavaScript event object
-    */
+  /**
+   * Update user object in sate on values onChange.
+   */
   changeUser(event) {
     const field = event.target.name;
     const user = this.state.user;

@@ -3,6 +3,9 @@ import axios from 'axios';
 import auth from '../utils/Auth';
 import CoachCreate from '../components/CoachCreate';
 
+/**
+ * Communicates between component and API to create Coach.
+ */
 export default class CoachCreateContainer extends Component {
   constructor(props) {
     super(props);
@@ -19,7 +22,9 @@ export default class CoachCreateContainer extends Component {
     }
 
   }
-
+  /**
+   * Update coach in state when values change.
+   */
   changeCoach(event) {
     var field = event.target.name;
     var coach = this.state.coach;
@@ -30,6 +35,9 @@ export default class CoachCreateContainer extends Component {
     })
   }
 
+  /**
+   * Inserts new coach in db using API.
+   */
   createCoach(event) {
     event.preventDefault();
 
