@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import auth from '../utils/Auth';
 
+/**
+ * Component to Authorise user.
+ * If they are logged in check role and permit page or send to 404/Login.
+ */
 const Authorization = (allowedRoles) => (WrappedComponent) => {
   return class WithAuth extends Component {
     constructor(props) {

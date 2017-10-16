@@ -4,6 +4,10 @@ import FieldGroupStatic from './FieldGroupStatic';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 
+/**
+ * Component to show client details in a form format.
+ * User can edit and save.
+ */
 const ClientDetail = ({ client, errors, editing, onSubmit, onChange }) => {
   return (
     <Form onSubmit={onSubmit}>

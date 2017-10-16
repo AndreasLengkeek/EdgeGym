@@ -4,6 +4,9 @@ import FieldGroupStatic from './FieldGroupStatic';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 
+/**
+ * Component to display form for creating a program.
+ */
 const ProgramCreate = ({program, errors, onChange, onSubmit, fileUpload}) => {
   return (
     <Form onSubmit={onSubmit}>

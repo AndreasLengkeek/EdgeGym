@@ -7,7 +7,9 @@ import FieldGroup from './FieldGroup';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 
-// TODO errors
+/**
+ * Component for login form.
+ */
 const LoginForm = ({onSubmit, onChange, error, user}) => (
   <Form onSubmit={onSubmit}>
     {error && <p style={{color:'red'}}>{error}</p>}

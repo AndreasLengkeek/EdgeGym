@@ -1,6 +1,3 @@
-/**
- * Component to reset password
- */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FieldGroup from './FieldGroup';
@@ -8,7 +5,10 @@ import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
-// TODO errors
+/**
+ * Reset password form.
+ * Primarily used for users to reset after clicking email link.
+ */
 const ResetPassword = ({onSubmit, onChange, loading, error, user}) => (
   <Form onSubmit={onSubmit}>
     {error && <p style={{ color: 'red' }}>{error}</p>}

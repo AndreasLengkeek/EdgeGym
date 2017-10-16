@@ -9,6 +9,10 @@ const Coach = ['coach', 'admin'];
 const User = ['user'];
 const All = ['user', 'coach', 'admin'];
 
+/**
+ * Component to display navigation for users.
+ * It will show items for specified roles.
+ */
 export default class Header extends Component {
 	constructor(props) {
 		super(props);

@@ -8,6 +8,10 @@ import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
+/**
+ * Component for forogot password form.
+ * Primarily used to send email with link for forgotten passwords.
+ */
 const ForgotPassword = ({onSubmit, onChange, loading, error, message, email}) => (
   <Form onSubmit={onSubmit}>
     <FieldGroup

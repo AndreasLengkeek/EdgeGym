@@ -5,6 +5,10 @@ import FieldGroupStatic from './FieldGroupStatic';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 
+/**
+ * Display list of coach details in form/READ Only format.
+ * Use is primarily for confirmation of coaoch details.
+ */
 const CoachReadOnly = ({ coach, error, editing, onSubmit, onChange }) => {
   return (
     <Form onSubmit={onSubmit}>

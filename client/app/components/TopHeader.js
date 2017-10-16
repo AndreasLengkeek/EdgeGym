@@ -1,11 +1,11 @@
-/**
- * Defines the app navigation bar and routes
- */
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Image from 'react-bootstrap/lib/Image';
 import auth from '../utils/Auth';
 
+/**
+ * Component to show links and navbar along top of page.
+ */
 export default class TopHeader extends Component {
 	constructor(props) {
 		super(props);
@@ -17,14 +17,14 @@ export default class TopHeader extends Component {
 		this.logout = this.logout.bind(this);
 	}
 
+  /**
+   * Function to log users out when they click Logout Link.
+   */
 	logout(e) {
 		auth.deauthenticateUser();
 	}
 
 	render() {
-    /*
-     * Render a navigation with the following.
-     */
     return (
       <div id="top-bar">
       <div id="top-bar-wrapper">

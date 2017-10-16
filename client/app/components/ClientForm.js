@@ -1,8 +1,8 @@
-/**
- * Component to setup the components
- */
 import React, { Component } from 'react';
 
+/**
+ * Create/Register
+ */
 export default class ClientForm extends Component {
   constructor(props) {
     super(props);

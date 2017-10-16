@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/lib/Table';
 import Button from 'react-bootstrap/lib/Button';
 
+/**
+ * Lists all clients in a table format.
+ * Obtain list of clients from API/Client/
+ */
 export default class ClientList extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +35,9 @@ export default class ClientList extends Component {
   }
 }
 
+/**
+ * Create a row for each client to be listed in table in ClientList class.
+ */
 const ClientRow = ({rowNum, client}) => (
   <tr>
     <td>{rowNum}</td>

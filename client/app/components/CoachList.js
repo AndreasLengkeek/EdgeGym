@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/lib/Table';
 import Button from 'react-bootstrap/lib/Button';
 
+/**
+ * Class to display coaches in a list within table format.
+ * Obtain from API/USERS
+ */
 export default class CoachList extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +35,9 @@ export default class CoachList extends Component {
   }
 }
 
+/**
+ * Compoent to display each coach within a row.
+ */
 const CoachRow = ({rowNum, coach}) => (
   <tr>
     <td>{rowNum}</td>

@@ -6,6 +6,9 @@ import Form from 'react-bootstrap/lib/Form';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+/**
+ * Compoentent for signup form.
+ */
 const SignUpForm = ({ onSubmit, onChange, errors, user}) => {
   return (
         <Form onSubmit={onSubmit}>

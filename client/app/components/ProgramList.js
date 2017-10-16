@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Table from 'react-bootstrap/lib/Table';
 
+/**
+ * Display a list of programs in table format.
+ * Pull program information from component below.
+ */
 export default class ProgramList extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +37,11 @@ export default class ProgramList extends Component {
   }
 }
 
+/**
+ * Component to show each program in it's own row.
+ * @param {int} rowNum  Number of the row
+ * @param {Program} program Object of program
+ */
 const ProgramRow = ({rowNum, program}) => (
     <tr>
       <td>{rowNum}</td>

@@ -6,15 +6,15 @@ import { Link, NavLink } from 'react-router-dom';
 import Image from 'react-bootstrap/lib/Image';
 import auth from '../utils/Auth';
 
+/**
+ * Component to show navigation with login or register items.
+ */
 export default class Header extends Component {
 	constructor(props) {
 		super(props);
 	}
 
 	render() {
-    /*
-     * Render a navigation with the following.
-     */
     return (
       <div id="sidebar-wrapper">
         <ul className="sidebar-nav">

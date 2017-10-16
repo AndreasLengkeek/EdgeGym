@@ -4,6 +4,10 @@ import FieldGroupStatic from './FieldGroupStatic';
 import Button from 'react-bootstrap/lib/Button';
 import Form from 'react-bootstrap/lib/Form';
 
+/**
+ * Component to display details of selected coach.
+ * In form format for editing and saving.
+ */
 const CoachDetail = ({ coach, errors, editing, onSubmit, onChange }) => {
   return (
     <Form onSubmit={onSubmit}>

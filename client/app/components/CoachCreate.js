@@ -3,6 +3,9 @@ import FieldGroup from './FieldGroup';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 
+/**
+ * Form compoent to create a coach.
+ */
 const CoachCreate = ({coach, errors, onChange, onSubmit}) => {
   return (
     <Form onSubmit={onSubmit}>

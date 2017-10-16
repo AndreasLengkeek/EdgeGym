@@ -3,6 +3,11 @@ import FieldGroup from './FieldGroup';
 import Form from 'react-bootstrap/lib/Form';
 import Button from 'react-bootstrap/lib/Button';
 
+/**
+ * Component form to create a client.
+ *
+ */
+// TODO possibly remove client model so this is obsolete.
 const ClientCreate = ({client, errors, onChange, onSubmit}) => {
   return (
     <Form onSubmit={onSubmit}>
