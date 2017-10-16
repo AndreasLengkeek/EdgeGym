@@ -5,7 +5,6 @@ module.exports = {
   facebookAuth: {
       clientID: process.env.FBCLIENT_ID,
       clientSecret: process.env.FBCLIENT_SECRET,
-      callbackUrl: process.env.production ? 'https://edge-gym.herokuapp.com/auth/facebook/callback' 
-                : 'http://localhost:4000/auth/facebook/callback'
+      callbackUrl: process.env.FBCALLBACK_URL
   }
 };
