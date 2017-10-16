@@ -13,7 +13,7 @@ const App = ({ children }) => (
   <div id="wrapper">
     <div>
       {auth.isUserAuthenticated() ? (
-        <Header />
+        <Header user={auth.getUser()} />
       ) : (
         <HeaderLoggedOut />
       )}

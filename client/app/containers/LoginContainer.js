@@ -8,7 +8,7 @@ class LoginContainer extends Component {
     super(props);
 
     this.state = {
-      errors: {},
+      error: undefined,
       user: {
         email: '',
         password: ''
@@ -31,18 +31,23 @@ class LoginContainer extends Component {
 
   login(event) {
     event.preventDefault();
-    console.log('Logging in');
+
+    const loginSubmit = {
+      email: this.state.user.email,
+      password: this.state.user.password
+    }
 
     const { history } = this.props;
-    axios.post('/auth/login', {
-        email: this.state.user.email,
-        password: this.state.user.password
-      }).then((response) => {
+    axios.post('/auth/login', loginSubmit)
+      .then((response) => {
         let { token, user } = response.data;
         auth.authenticateUser(token, user);
         history.push('/');
       }).catch((error) => {
-        console.log("error = ",error.response);
+          console.log(error);
+        this.setState({
+          error: 'The email address or password does not match an account. Please try again'
+        })
       });
   }
 
@@ -51,7 +56,7 @@ class LoginContainer extends Component {
       <LoginForm
         onSubmit={this.login}
         onChange={this.changeUser}
-        errors={this.state.errors}
+        error={this.state.error}
         user={this.state.user} />
     );
   }
