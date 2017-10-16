@@ -44,6 +44,7 @@ class LoginContainer extends Component {
         auth.authenticateUser(token, user);
         history.push('/');
       }).catch((error) => {
+          console.log(error);
         this.setState({
           error: 'The email address or password does not match an account. Please try again'
         })
