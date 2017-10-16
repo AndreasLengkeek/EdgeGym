@@ -28,15 +28,24 @@ export default class MyProfileContainer extends Component {
   componentDidMount() {
     // get user from api
     let id = this.props.match.params.id;
-    console.log(id);
     axios.get('/api/users/'+id)
       .then((response) => {
+        const u = response.data.user;
         this.setState({
-          user: response.data.user
-
-        })
+          user: {
+            _id: u._id,
+            username: u.username,
+            firstname: u.firstname,
+            lastname: u.lastname,
+            email: u.email,
+            __v: u.__v
+          }
+        });
       })
-      .catch(error => console.log('error', error.response));
+      .catch(error => {
+        console.log(error);
+        console.log('error', error.response);
+      });
 
   }
 
@@ -46,7 +55,6 @@ export default class MyProfileContainer extends Component {
   changeuser(event) {
     const field = event.target.name;
     const user = this.state.user;
-    console.log(`${field}: ${event.target.value}`)
     user[field] = event.target.value;
 
     this.setState({
@@ -69,14 +77,17 @@ export default class MyProfileContainer extends Component {
   save(event) {
     event.preventDefault();
     let { user } = this.state;
-    console.log('submitting', user)
+    let { history } = this.props;
     axios.put('/api/users/'+user._id, {
-      user
-    }).then(response => {
-        console.log(response)
-    }).catch(error => {
+        user
+      }).then(response => {
+        if (response.data.success) {
+          history.push('/');
+        }
+      }).catch(error => {
         console.log(error);
-    });
+        console.log('error = ', error.response);
+      });
   }
 
   render() {

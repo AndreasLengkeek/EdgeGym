@@ -30,9 +30,17 @@ export default class CoachDetailContainer extends Component {
     let id = this.props.match.params.id;
     axios.get('/api/users/'+id)
       .then((response) => {
+        const u = response.data.user;
         this.setState({
-          coach: response.data.user
-        })
+          coach: {
+            _id: u._id,
+            username: u.username,
+            firstname: u.firstname,
+            lastname: u.lastname,
+            email: u.email,
+            __v: u.__v
+          }
+        });
       })
       .catch(error => console.log('error', error));
   }
@@ -42,11 +50,10 @@ export default class CoachDetailContainer extends Component {
   changeCoach(event) {
     const field = event.target.name;
     const coach = this.state.coach;
-    console.log(`${field}: ${event.target.value}`)
     coach[field] = event.target.value;
 
     this.setState({
-     coach
+      coach
     });
   }
 
@@ -64,14 +71,17 @@ export default class CoachDetailContainer extends Component {
   save(event) {
     event.preventDefault();
     let { coach } = this.state;
-    console.log('submitting', coach)
+    let { history } = this.props;
     axios.put('/api/users/'+coach._id, {
-      coach
-    }).then(response => {
+        user: coach
+      }).then(response => {
         console.log(response)
-    }).catch(error => {
+        if (response.data.success) {
+          history.push('/');
+        }
+      }).catch(error => {
         console.log(error);
-    });
+      });
   }
 
   render() {
