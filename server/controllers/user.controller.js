@@ -178,16 +178,30 @@ module.exports = {
     },
     // remove user by id from db
     removeUser: function(req, res, next) {
-        User.findByIdAndRemove(req.params.id).exec((err, user) => {
-            if (err) {
+        User.findById(req.params.id).exec((err, user) => {
+            if (err || !user) {
                 return res.status(500).json({
-                    error: "Failed to delete user"
+                    error: "Could not find user"
                 });
             }
 
-            return res.json({
-                success: true
-            })
+            if (user.permissions && user.permissions.role == 'admin') {
+                return res.status(500).json({
+                    error: "Can not delete admin users"
+                })
+            }
+
+            User.findByIdAndRemove(user._id, (err) => {
+                if (err) {
+                    return res.status(500).json({
+                        error: "Server error while deleting user"
+                    });
+                }
+
+                return res.json({
+                    success: true
+                })
+            });
         });
     }
 }

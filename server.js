@@ -48,7 +48,6 @@ app.use(function(err, req, res, next) {
   }
 });
 
-
 const port  = process.env.PORT || 4000;
 // start server on localhost
 app.listen(port, (err) => {

@@ -17,7 +17,6 @@ module.exports = {
             .populate({ path: 'user', select: 'username firstname lastname email' })
             .populate({ path: 'coach', select: 'username' })
             .exec((err, clients) => {
-
             if (err) {
                 return res.status(500).json({
                   message: 'Could not retrieve clients'
@@ -34,8 +33,7 @@ module.exports = {
             .populate({ path: 'user', select: 'username firstname lastname email' })
             .populate({ path: 'coach', select: 'username' })
             .exec((err, client) => {
-
-            if (err) {
+            if (err || !client) {
                 return res.status(500).json({
                     message: "Failed to find client"
                 });
@@ -49,7 +47,7 @@ module.exports = {
     checkVersion: function(req, res, next) {
         let c = req.body.client;
         Client.findById(req.params.id).exec((err, client) => {
-            if (err) {
+            if (err || !client) {
                 return res.status(500).json({
                     message: "Failed to find client"
                 })
@@ -69,10 +67,8 @@ module.exports = {
         let c = req.body.client;
         // only get fields that have been provided. Stops the db from updating fields to null values
         let update = {};
-        if (c.firstname) update.firstname = c.firstname;
-        if (c.lastname) update.lastname = c.lastname;
-        if (c.email) update.email = c.email;
         if (c.phone) update.phone = c.phone;
+        if (c.coach) update.coach = c.coach;
 
         // make sure to update the version after changes
         Client.findByIdAndUpdate(
