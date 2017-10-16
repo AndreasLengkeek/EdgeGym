@@ -10,7 +10,9 @@ export default class ProgramCreateContainer extends Component {
     this.state = {
       errors: {},
       program: {
-        client: {},
+        client: {
+          user: {}
+        },
         file: '',
         createdby: auth.getUser().username
       }
@@ -71,7 +73,7 @@ export default class ProgramCreateContainer extends Component {
         createdby: auth.getUser().id,
         fileid: upload.fileid
       }).then(response => {
-        history.push('/programs');
+        history.push('/clients/'+this.state.program.client._id);
       })
       .catch(error => {
         this.setState({

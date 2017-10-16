@@ -45,7 +45,7 @@ export default class ProgramList extends Component {
 const ProgramRow = ({rowNum, program}) => (
     <tr>
       <td>{rowNum}</td>
-      <td>{`${program.client.firstname} ${program.client.lastname}`}</td>
+      <td>{`${program.client.user.firstname} ${program.client.user.lastname}`}</td>
       <td>today</td>
       <td>tomorrow</td>
       <td>{program.createdby.username}</td>

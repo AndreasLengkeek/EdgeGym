@@ -4,7 +4,9 @@ module.exports = {
     getPrograms: function(req, res) {
         Program
             .find()
-            .populate({ path: 'client', select: 'firstname lastname' })
+            .populate({ path: 'client',
+                populate: { path: 'user', select: 'firstname lastname' }
+            })
             .populate({ path: 'createdby', select: 'username firstname lastname' })
             .exec((err, programs) => {
             if (err) {
@@ -18,7 +20,9 @@ module.exports = {
     getProgramsByClient: function(req, res) {
         console.log('getting programs for:', req.params.id);
         Program.find({ client: req.params.id })
-            .populate({ path: 'client', select: 'firstname lastname' })
+            .populate({ path: 'client',
+                populate: { path: 'user', select: 'firstname lastname' }
+            })
             .populate({ path: 'createdby', select: 'username firstname lastname' })
             .exec((err, programs) => {
                 if (err) {

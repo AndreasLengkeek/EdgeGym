@@ -19,7 +19,10 @@ export default class ClientProgramsContainer extends Component {
           programs: response.data.programs
         });
       })
-      .catch(error => console.log(error.response));
+      .catch(error => {
+          console.log(error);
+          console.log('error = ',error.response);
+      });
   }
 
   render() {

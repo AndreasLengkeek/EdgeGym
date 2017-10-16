@@ -12,7 +12,7 @@ const ProgramCreate = ({program, errors, onChange, onSubmit, fileUpload}) => {
     <Form onSubmit={onSubmit}>
       <FieldGroupStatic
         label="Client"
-        value={`${program.client.firstname} ${program.client.lastname}`} />
+        value={`${program.client.user.firstname} ${program.client.user.lastname}`} />
       <FieldGroup
         label="Start"
         type="text"
