@@ -13,7 +13,6 @@ const localOptions = {
 };
 
 const localLogin = new localStrategy(localOptions, (req, email, password, done) => {
-    // TODO sanitize input
     User.findOne({ email: email }).exec((err, user) => {
         if (err) return done(err, false);
         // user not found - no record for email address

@@ -46,6 +46,7 @@ function checkCodeTime(linkCode) {
     }
 }
 
+// make sure login inputs are valid
 function validateLoginForm(payload) {
     const errors = {};
     let isValid = true;
@@ -103,6 +104,7 @@ function validateSignupForm(payload) {
     };
 }
 
+// converts mongo validation error to user friendly error
 function buildValidationMessage(dbError) {
     console.log(dbError);
     const errors = {};
@@ -115,6 +117,7 @@ function buildValidationMessage(dbError) {
 
 module.exports = {
     login: function(req, res, next) {
+        // user fields to return
         const user = {
             id: req.user.id,
             username: req.user.username,
@@ -123,6 +126,7 @@ module.exports = {
             permissions: req.user.permissions
         }
 
+        // return user with jwt token
         return res.json({
             success: true,
             message: 'You have successfully logged in',
@@ -130,6 +134,7 @@ module.exports = {
             user: user
         });
     },
+    // return token for login redirect
     facebookLogin: function(req, res, next) {
         let token = tokenForUser(req.user);
         res.redirect('/auth?'+token);
@@ -147,7 +152,7 @@ module.exports = {
                     message: "Failed to create user"
                 });
             }
-
+            // user already exists
             if (user) {
                 console.log('found matching user = ', user.email)
                 return res.json({
@@ -155,7 +160,7 @@ module.exports = {
                     errors: { email: "Email is already taken" }
                 })
             }
-
+            // create new user as a client user
             const u = req.body;
             const newUser = new User({
                 email: u.email,
@@ -176,6 +181,7 @@ module.exports = {
                         message: "Failed to create user"
                     });
                 }
+                // find the admin to assign client
                 User.findOne({ 'permissions.role': 'admin' }).exec((err, admin) => {
                     if(err) {
                         return res.status(500).json({
@@ -203,30 +209,31 @@ module.exports = {
     },
     forgotPassword: function(req, res, next) {
         const EMAIL = req.body.email;
-
+        // check if any data missing
         if (!EMAIL || typeof EMAIL !== 'string' || !validator.isEmail(EMAIL))
             return res.status(422).json({ error: "You must provide a valid email address" });
-
+        // See if a user with the given email exists
         User.findOne({ email: EMAIL }, (err, existing) => {
             if (err) {
                 return res.status(500).json({ error: "A server error occured"});
             }
-
+            // If a user with the email exists send an email with a reset password link
+            // link expires after an hour, add a token to the user in the DB and this needs to match the token and email and not be expired
             if (existing) {
                 const resetToken = createLinkCode("pwr");
-
+                // add to db
                 User.findByIdAndUpdate(existing._id, { $set: { resetPassword: resetToken } }, (err, updated) => {
                     if (err) {
                         return res.status(500).json({ error: "A server error occured"});
                     }
 
                     const resetLink = 'http://' + req.headers.host + '/reset/' + resetToken;
-
+                    // Send forgotten password email
                     mail.forgotPasswordEmail(updated.email, resetLink, (err, response) => {
                         if (err) {
                             return res.status(500).json({ error: "A server error occured"});
                         }
-
+                        // email sent return success message
                         return res.json({ message: "Thank you, please check your email" });
                     });
                 });

@@ -53,7 +53,6 @@ export default class CoachCreateContainer extends Component {
 
     axios.post('/api/users', newUser)
       .then((response) => {
-        console.log(response.data);
         if (response.data.success) {
           history.push('/coaches');
         } else {

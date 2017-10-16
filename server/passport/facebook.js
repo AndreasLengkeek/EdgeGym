@@ -3,6 +3,7 @@ const config = require('../../config');
 const User = require('mongoose').model('User');
 const Client = require('mongoose').model('Client');
 
+// setup facebook options from environment variables
 const facebookOptions = {
     clientID: config.facebookAuth.clientID,
     clientSecret: config.facebookAuth.clientSecret,
@@ -10,15 +11,17 @@ const facebookOptions = {
     profileFields : ['id', 'displayName', 'name']
 }
 
+
 const facebookStrategy = new FacebookStrategy(
     facebookOptions,
     function(accessToken, refreshToken, profile, done) {
         User.findOne({ facebookId: profile.id }).exec((err, user) => {
             if (err) return done(err, false);
-
             if (user){
+                // user found - continue to authentication
                 return done(null, user);
             } else {
+                // user not found - setup new user
                 let newUser = new User({
                     facebookId: profile.id,
                     username: profile.displayName,

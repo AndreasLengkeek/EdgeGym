@@ -1,5 +1,6 @@
 const Client = require('../models/Client');
 
+// converts mongo validation error to user friendly error
 function buildValidationMessage(dbError) {
     const errors = {};
     for (field in dbError) {
@@ -11,6 +12,7 @@ function buildValidationMessage(dbError) {
 
 module.exports = {
     getClients: function(req, res) {
+        // return client list - make sure to populate related documents
         Client.find()
             .populate({ path: 'user', select: 'username firstname lastname email' })
             .populate({ path: 'coach', select: 'username' })
@@ -27,6 +29,7 @@ module.exports = {
         });
     },
     findClientById: function(req, res) {
+        // return single client
         Client.findById(req.params.id)
             .populate({ path: 'user', select: 'username firstname lastname email' })
             .populate({ path: 'coach', select: 'username' })
@@ -42,6 +45,7 @@ module.exports = {
             });
         });
     },
+    // check version to handle multiple concurrent updates
     checkVersion: function(req, res, next) {
         let c = req.body.client;
         Client.findById(req.params.id).exec((err, client) => {
@@ -50,25 +54,27 @@ module.exports = {
                     message: "Failed to find client"
                 })
             }
-
+            // if the version is incorrect then they are looking at an old record
             if (client.__v != c.__v) {
                 return res.json({
                     success: false,
                     message: "Unable to update. Please refresh and try again"
                 });
             }
+            // continue to update client
             next();
         });
     },
     updateClient: function(req, res, next) {
         let c = req.body.client;
+        // only get fields that have been provided. Stops the db from updating fields to null values
         let update = {};
         if (c.firstname) update.firstname = c.firstname;
         if (c.lastname) update.lastname = c.lastname;
         if (c.email) update.email = c.email;
         if (c.phone) update.phone = c.phone;
 
-        console.log('Update client:',req.params.id);
+        // make sure to update the version after changes
         Client.findByIdAndUpdate(
             req.params.id,
             { $set: update, $inc: {__v: 1} }
@@ -89,6 +95,7 @@ module.exports = {
 
         newClient.save((err, saved) => {
             if (err) {
+                // build error from validation messages
                 if (err.name == 'ValidationError') {
                     var validation = buildValidationMessage(err.errors);
                     return res.json({

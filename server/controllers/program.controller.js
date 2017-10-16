@@ -2,8 +2,8 @@ const Program = require('../models/Program');
 const Client = require('mongoose').model('Client');
 module.exports = {
     getPrograms: function(req, res) {
-        Program
-            .find()
+        // return programs in db - also populate referenced models
+        Program.find()
             .populate({ path: 'client',
                 populate: { path: 'user', select: 'firstname lastname' }
             })
@@ -18,13 +18,13 @@ module.exports = {
         })
     },
     getProgramsByClient: function(req, res) {
-        console.log('getting programs for client:', req.params.id);
-
+        // find user id from client provided
         Client.findById(req.params.id).exec((err, client) => {
             if (err) {
                 return res.status(500).json(err);
             }
             const userId = client.user;
+            // return programs in db - also populate referenced models
             Program.find({ user: userId })
                 .populate({ path: 'user', select: 'firstname lastname' })
                 .populate({ path: 'createdby', select: 'username firstname lastname' })
@@ -39,8 +39,7 @@ module.exports = {
         });
     },
     getProgramsByUser: function(req, res) {
-        console.log('getting programs for user:', req.params.id);
-
+        // return programs in db - also populate referenced models
         Program.find({ user: req.params.id })
             .populate({ path: 'user', select: 'firstname lastname' })
             .populate({ path: 'createdby', select: 'username firstname lastname' })
@@ -54,7 +53,7 @@ module.exports = {
             })
     },
     findProgramById: function(req, res) {
-        console.log('looking for program', req.params.id);
+        // find single program
         Program.find({ _id: req.params.id }).exec((err, program) => {
             if (err) {
                 return res.status(500).json(err);
@@ -65,15 +64,15 @@ module.exports = {
         });
     },
     newProgram: function(req, res) {
+        // creating a new program record
         if (req.file) {
-            console.log('Creating file:', req.file.originalname);
+            // if file has been added to database then return the id reference
             return res.json({
                 success: true,
                 fileid: req.file.filename
             })
         } else {
-            console.log('Connecting program to:', req.body.client);
-            console.log('With file:', req.body.fileid);
+            // after file has been added to database connect it to a program record
             const newProgram = new Program(req.body);
             newProgram.save((err, saved) => {
                 if (err) {
@@ -82,8 +81,5 @@ module.exports = {
                 return res.json({ saved });
             });
         }
-    },
-    deleteProgramById: function(req, res) {
-
     }
 }

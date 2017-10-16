@@ -3,9 +3,11 @@ const API_KEY = require('../../config').sendgridKey;
 var sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(API_KEY);
 
+// from address
 const APP_NAME = 'Edge Gym';
 const APP_EMAIL = 'admin@edgegym.com.au';
 
+// generate forgot password email
 exports.forgotPasswordEmail = function(email, resetLink, callback) {
   const msg = {
     to: email,
@@ -19,6 +21,7 @@ exports.forgotPasswordEmail = function(email, resetLink, callback) {
          <p>Support at ' + APP_NAME + '</p>\
          </body></html>',
   };
+  // send and callback the response
   sgMail.send(msg, function(err, res) {
     if (err) {
       console.log('Email error = ',err);

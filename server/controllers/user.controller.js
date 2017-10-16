@@ -37,6 +37,7 @@ function validateCreateUser(payload) {
     };
 }
 
+// convert mongo validation error to user friendly error
 function buildValidationMessage(dbError) {
     console.log(dbError);
     const errors = {};
@@ -49,6 +50,7 @@ function buildValidationMessage(dbError) {
 
 module.exports = {
     getUsers: function(req, res, next) {
+        // returns coaches and admins
         User.find({ 'permissions.role': { $in: ['coach', 'admin'] } }).exec((err, users) => {
             if (err) {
                 return res.status(500).json({
@@ -61,6 +63,7 @@ module.exports = {
             });
         });
     },
+    // return details for one user
     getUserById: function(req, res, next) {
         User.findById(req.params.id).exec((err, user) => {
             if (err) {
@@ -74,6 +77,7 @@ module.exports = {
             });
         });
     },
+    // check version to handle multiple concurrent updates
     checkVersion: function(req, res, next) {
         let u = req.body.user;
         User.findById(req.params.id).exec((err, user) => {
@@ -83,17 +87,20 @@ module.exports = {
                 });
             }
 
+            // if the version is incorrect then they are looking at an old record
             if (user.__v != u.__v) {
                 return res.json({
                     success: false,
                     message: "Unable to update. Please refresh and try again"
                 })
             }
+            // continue to update user
             next();
         })
     },
     updateUser: function(req, res, next) {
         let u = req.body.user;
+        // only get fields that have been provided. Stops the db from updating fields to null values
         let update = {};
         if (u.username) update.username = u.username;
         if (u.firstname) update.firstname = u.firstname;
@@ -104,6 +111,7 @@ module.exports = {
             update.permissions.updatedAt = Date.now()
         }
 
+        // make sure to update the version after changes
         User.findByIdAndUpdate(
             req.params.id,
             { $set: update, $inc: {__v:1} }
@@ -132,7 +140,7 @@ module.exports = {
                     message: "Failed to create user"
                 });
             }
-
+            // user already exists
             if (user) {
                 console.log('found matching user = ', user.email)
                 return res.json({
@@ -141,6 +149,7 @@ module.exports = {
                 })
             }
 
+            // setup user as coach
             let newUser = new User({
                 username: req.body.username,
                 firstname: req.body.firstname,
@@ -167,6 +176,7 @@ module.exports = {
             });
         });
     },
+    // remove user by id from db
     removeUser: function(req, res, next) {
         User.findByIdAndRemove(req.params.id).exec((err, user) => {
             if (err) {

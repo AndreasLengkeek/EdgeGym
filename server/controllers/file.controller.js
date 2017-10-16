@@ -1,5 +1,6 @@
 const { gfs } = require('../middleware/file-storage');
 
+// returns chunked data for files from db
 module.exports = {
     findFile: function(req, res) {
         gfs.files.find({ filename: req.params.filename }).toArray((err, files) => {
