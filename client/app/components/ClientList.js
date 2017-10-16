@@ -35,10 +35,10 @@ const ClientRow = ({rowNum, client}) => (
   <tr>
     <td>{rowNum}</td>
     <td>
-      <Link to={`/clients/${client._id}`}>{`${client.firstname} ${client.lastname}`}</Link>
+      <Link to={`/clients/${client._id}`}>{`${client.user.firstname} ${client.user.lastname}`}</Link>
     </td>
     <td>{client.phone}</td>
-    <td>{client.email}</td>
+    <td>{client.user.email}</td>
     <td>{client.coach.username}</td>
   </tr>
 )

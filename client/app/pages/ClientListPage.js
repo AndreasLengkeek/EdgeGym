@@ -9,7 +9,7 @@ const ClientListPage = (props) => {
   return (
     <div>
       <h1>
-        Clients <Link to="/clients/new"><Button>Create New Client</Button></Link>
+        Clients
       </h1>
       <ClientListContainer {...props} />
     </div>

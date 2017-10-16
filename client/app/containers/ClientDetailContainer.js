@@ -8,10 +8,8 @@ export default class ClientDetailContainer extends Component {
 
     this.state = {
       client: {
-        firstname: '',
-        lastname: '',
-        phone: '',
-        email: ''
+        user: {},
+        coach: {}
       },
       editing: true,
       errors: {}
@@ -27,6 +25,7 @@ export default class ClientDetailContainer extends Component {
     let id = this.props.match.params.id;
     axios.get('/api/clients/'+id)
       .then((response) => {
+      console.log(response.data.client);
         this.setState({
           client: response.data.client
         })
