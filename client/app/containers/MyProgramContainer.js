@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProgramList from '../components/ProgramList';
+import auth from '../utils/Auth';
 import axios from 'axios';
 
 class ProgramPage extends Component {
@@ -12,8 +13,8 @@ class ProgramPage extends Component {
   }
 
   componentDidMount() {
-    let id = this.props.match.params.id;
-    axios.get('/api/clients/'+id+'/programs')
+    let id = auth.getUser().id;
+    axios.get('/api/users/'+id+'/programs')
       .then((response) => {
         this.setState({
           programs: response.data.programs

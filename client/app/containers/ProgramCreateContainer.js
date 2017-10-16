@@ -53,6 +53,7 @@ export default class ProgramCreateContainer extends Component {
         this.createProgram(response.data);
       })
       .catch(error => {
+        console.log(error.response);
         this.setState({
           uploading: false
         });
@@ -69,7 +70,7 @@ export default class ProgramCreateContainer extends Component {
   createProgram(upload) {
     let history = this.props.history;
     axios.post('/api/programs', {
-        client: this.state.program.client._id,
+        user: this.state.program.client.user._id,
         createdby: auth.getUser().id,
         fileid: upload.fileid
       }).then(response => {

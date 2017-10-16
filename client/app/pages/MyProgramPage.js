@@ -6,7 +6,7 @@ class ProgramPage extends Component {
     return (
       <div>
         <h1>Programs</h1>
-        <MyProgramContainer />
+        <MyProgramContainer {...this.props} />
       </div>
     );
   }
