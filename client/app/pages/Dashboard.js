@@ -2,6 +2,7 @@
  * Landing page for the app
  */
 import React, { Component } from 'react';
+import DashboardContainer from '../containers/DashboardContainer';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h1>Welcome to Edge Gym</h1>
+        <DashboardContainer />
       </div>
     );
   }
