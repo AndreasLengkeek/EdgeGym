@@ -2,7 +2,7 @@ const User = require('mongoose').model('User');
 
 module.exports = {
     getUsers: function(req, res, next) {
-        User.find().exec((err, users) => {
+        User.find({ 'permissions.role': { $in: ['coach', 'admin'] } }).exec((err, users) => {
             if (err) {
                 return res.status(500).json({
                     error: "Could not retrieve users"
