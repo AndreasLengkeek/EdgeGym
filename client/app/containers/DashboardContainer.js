@@ -35,6 +35,9 @@ class DashboardContainer extends Component {
     }
   }
 
+  /**
+   * Returns clients using API/Clients
+   */
   getClients() {
     let page = this;
     axios.get('/api/clients')
@@ -51,6 +54,9 @@ class DashboardContainer extends Component {
       });
   }
 
+  /**
+   * Returns programs using API/Users
+   */
   getPrograms() {
     let id = auth.getUser().id;
     axios.get('/api/users/'+id+'/programs')
