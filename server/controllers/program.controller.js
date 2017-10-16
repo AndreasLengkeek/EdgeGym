@@ -73,6 +73,7 @@ module.exports = {
             })
         } else {
             // after file has been added to database connect it to a program record
+            console.log(req.body);
             const newProgram = new Program(req.body);
             newProgram.save((err, saved) => {
                 if (err) {

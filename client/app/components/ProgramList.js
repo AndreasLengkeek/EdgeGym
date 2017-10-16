@@ -46,8 +46,8 @@ const ProgramRow = ({rowNum, program}) => (
     <tr>
       <td>{rowNum}</td>
       <td>{`${program.user.firstname} ${program.user.lastname}`}</td>
-      <td>today</td>
-      <td>tomorrow</td>
+      <td>{new Date(program.start).toDateString()}</td>
+      <td>{new Date(program.end).toDateString()}</td>
       <td>{program.createdby.username}</td>
       <td>{new Date(program.createddate).toDateString()}</td>
       <td>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import auth from '../utils/Auth';
 import ProgramCreate from '../components/ProgramCreate';
+import moment from 'moment';
 
 /**
  * Populate data in components with data from API.
@@ -17,12 +18,16 @@ export default class ProgramCreateContainer extends Component {
         client: {
           user: {}
         },
+        start: moment(),
+        end: moment(),
         file: '',
         createdby: auth.getUser().username
       }
     }
     this.submit = this.submit.bind(this);
     this.changeProgram = this.changeProgram.bind(this);
+    this.startDateChange = this.startDateChange.bind(this);
+    this.endDateChange = this.endDateChange.bind(this);
     this.fileUpload = this.fileUpload.bind(this);
     this.createProgram = this.createProgram.bind(this);
   }
@@ -38,6 +43,22 @@ export default class ProgramCreateContainer extends Component {
         })
       })
       .catch(error => console.log('error', error.response));
+  }
+
+  startDateChange(date) {
+    const program = this.state.program;
+    program.start = date;
+    this.setState({
+      program
+    })
+  }
+
+  endDateChange(date) {
+    const program = this.state.program;
+    program.end = date;
+    this.setState({
+      program
+    })
   }
 
   /**
@@ -81,12 +102,16 @@ export default class ProgramCreateContainer extends Component {
    * Obtains data from state and updates using API POST method.
    */
   createProgram(upload) {
-    let history = this.props.history;
-    axios.post('/api/programs', {
-        user: this.state.program.client.user._id,
-        createdby: auth.getUser().id,
-        fileid: upload.fileid
-      }).then(response => {
+    let {history} = this.props;
+    const programSubmit = {
+      user: this.state.program.client.user._id,
+      createdby: auth.getUser().id,
+      start: this.state.program.start.format(),
+      end: this.state.program.end.format(),
+      fileid: upload.fileid
+    };
+    console.log(programSubmit);
+    axios.post('/api/programs', programSubmit).then(response => {
         history.push('/clients/'+this.state.program.client._id);
       })
       .catch(error => {
@@ -115,7 +140,9 @@ export default class ProgramCreateContainer extends Component {
         program={this.state.program}
         errors={this.state.errors}
         onSubmit={this.submit}
-        onChange={this.changeProgram}
+        startDate={this.startDateChange}
+        endDate={this.endDateChange}
+        dateChange={this.dateChange}
         fileUpload={this.fileUpload} />
     )
   }
