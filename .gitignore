@@ -1,5 +1,8 @@
 # Compiled files
 
+# Environment
+.env
+
 # Node stuff
 node_modules
 .npm
